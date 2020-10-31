@@ -1,4 +1,4 @@
-# drivably
+# Drivably - Car Safety Assistant with IoT
 Software Development Project - TY BCA - GLS 
 
 Every **Feature** has its own branch. Push nothing to **Main** Branch. 
