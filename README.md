@@ -12,27 +12,27 @@ Getting up and running is simple.
 
 1. Make sure you have [Python3](https://www.python.org/), [pip](https://pip.pypa.io/en/stable/) and [MongoDB](https://www.mongodb.com/) installed.
 
-2.1 Install your dependencies.
+2. Install your dependencies.
 
-```bash
-cd path/to/server
-pip install -r requirements.txt
-```
+    ```bash
+    cd path/to/server
+    pip install -r requirements.txt
+    ```
 
-2.2 If you wish to create a vitual environment for the server. Do this and then Step 2.1
+3. If you wish to create a vitual environment for the server. Do this and then Step 2.
 
-```bash
-python -m venv drivablyEnv
-source ./drivablyEnv/bin/activate
-```
+    ```bash
+    python -m venv drivablyEnv
+    source ./drivablyEnv/bin/activate
+    ```
 
-1. Start your server.
+4. Start your server.
 
-```bash
-python main.py
-```
+    ```bash
+    python main.py
+    ```
 
-4. Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
+5. Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
 
 Notes :
 
