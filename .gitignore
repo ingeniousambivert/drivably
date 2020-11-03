@@ -1,2 +1,19 @@
+# PYTHON 
 drivably/
 __pycache__
+
+
+### VSCODE FILES
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.vscode
+
+
+### OSX ###
+*.DS_Store
+.AppleDouble
+.LSOverride
