@@ -11,6 +11,7 @@ Software Development Project - TY BCA - GLS
 Getting up and running is simple.
 
 1. Make sure you have [Python3](https://www.python.org/), [pip](https://pip.pypa.io/en/stable/) and [MongoDB](https://www.mongodb.com/) installed.
+
 2.1 Install your dependencies.
 
 ```bash
@@ -25,7 +26,7 @@ python -m venv drivablyEnv
 source ./drivablyEnv/bin/activate
 ```
 
-3. Start your server.
+1. Start your server.
 
 ```bash
 python main.py
