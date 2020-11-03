@@ -1,5 +1,4 @@
 from typing import Optional
-
 from pydantic import BaseModel, EmailStr, Field
 
 
@@ -7,6 +6,7 @@ class UserSchema(BaseModel):
     fullname: str = Field(...)
     email: EmailStr = Field(...)
     phone: float = Field(...)
+    created_at: str = Field(None)
 
     class Config:
         schema_extra = {

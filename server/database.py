@@ -1,9 +1,10 @@
 from bson.objectid import ObjectId
 import motor.motor_asyncio
+from datetime import datetime
 
-MONGO_DETAILS = "mongodb://localhost:27017"
+MONGO_URI = "mongodb://localhost:27017"
 
-client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
+client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
 
 database = client.drivably
 
@@ -18,6 +19,7 @@ def user_helper(user) -> dict:
         "fullname": user["fullname"],
         "email": user["email"],
         "phone": user["phone"],
+        "created_at": user["created_at"],
     }
 
 
@@ -31,6 +33,7 @@ async def retrieve_users():
 
 # Add a new user into to the database
 async def add_user(user_data: dict) -> dict:
+    user_data.update({"created_at": datetime.now()})
     user = await users_collection.insert_one(user_data)
     new_user = await users_collection.find_one({"_id": user.inserted_id})
     return user_helper(new_user)
@@ -44,14 +47,17 @@ async def retrieve_user(id: str) -> dict:
 
 
 # Update a user with a matching ID
-async def update_user(id: str, data: dict):
+async def update_user(id: str, user_data: dict):
     # Return false if an empty request body is sent.
-    if len(data) < 1:
+    if len(user_data) < 1:
         return False
+
     user = await users_collection.find_one({"_id": ObjectId(id)})
+
     if user:
+        user_data.update({"updated_at": datetime.now()})
         updated_user = await users_collection.update_one(
-            {"_id": ObjectId(id)}, {"$set": data}
+            {"_id": ObjectId(id)}, {"$set": user_data}
         )
         if updated_user:
             return True
