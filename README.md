@@ -1,9 +1,31 @@
 # Drivably - Car Safety Assistant with IoT
-Software Development Project - TY BCA - GLS 
 
-Every **Feature** has its own branch. Push nothing to **Main** Branch. 
- **Main** Branch is only for docs and README.
+Software Development Project - TY BCA - GLS
 
-[SDP Documentation](https://docs.google.com/document/d/1x1UO4qixu3agEuyd0DjvhxfHhT1m4Ka7UGL-Xs9vXtQ/edit?ts=5f9a4460#)
+## Server
 
-[SDP Proposal](https://docs.google.com/document/d/1K69xAMH8sVpEmwizBmdC80Qoa7_X9qYjWIPpXe45cSw/edit?ts=5ea6a769)
+>Fast API Server for Drivably
+
+## Getting Started
+
+Getting up and running is simple.
+
+1. Make sure you have [Python3](https://www.python.org/), [pip](https://pip.pypa.io/en/stable/) and [MongoDB](https://www.mongodb.com/) installed.
+2. Install your dependencies.
+
+```bash
+cd path/to/server
+pip install -r requirements.txt
+```
+
+3. Start your server.
+
+```bash
+python main.py
+```
+
+4. Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
+
+Notes :
+
+Checkout the Swagger UI for docs - [http://localhost:8000/docs](http://localhost:8000/docs)
