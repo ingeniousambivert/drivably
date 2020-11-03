@@ -3,6 +3,13 @@ Software Development Project - TY BCA - GLS
 
 Every **Feature** has its own branch. Push nothing to **Main** Branch. 
  **Main** Branch is only for docs and README.
+ 
+ **Server**
+ ```bash
+    git clone https://github.com/ingeniousambivert/drivably.git
+    git checkout server 
+```
+ 
 
 [SDP Documentation](https://docs.google.com/document/d/1x1UO4qixu3agEuyd0DjvhxfHhT1m4Ka7UGL-Xs9vXtQ/edit?ts=5f9a4460#)
 
