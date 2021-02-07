@@ -1,13 +1,19 @@
 # Drivably - Car Safety Assistant with IoT
 Software Development Project - TY BCA - GLS 
 
-Every **Feature** has its own branch. Push nothing to **Main** Branch. 
+Every **module** of the project has its own branch. Push nothing to **Main** Branch. 
  **Main** Branch is only for docs and README.
  
  **Server**
  ```bash
     git clone https://github.com/ingeniousambivert/drivably.git
     git checkout server 
+```
+
+ **Drowsiness Detection**
+ ```bash
+    git clone https://github.com/ingeniousambivert/drivably.git
+    git checkout drowsiness-detection 
 ```
  
 
