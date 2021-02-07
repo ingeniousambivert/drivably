@@ -1,8 +1,9 @@
 # Drivably - Car Safety Assistant with IoT
 Software Development Project - TY BCA - GLS 
 
-Every **module** of the project has its own branch. Push nothing to **Main** Branch. 
- **Main** Branch is only for docs and README.
+Every **module** of the project has its own branch. 
+
+ **Main** branch is only for documentation.
  
  **Server**
  ```bash
