@@ -4,7 +4,7 @@ Software Development Project - TY BCA - GLS
 
 ## Facial Recognition
 
->Facial Recognition system with OpenCV
+>Facial Recognition system with OpenCV and dlib
 
 ## Getting Started
 
@@ -28,9 +28,9 @@ Getting up and running is simple.
 4. Start the script.
 
     ```bash
-    python detect.py
+    python recognize.py
     ```
 
 #### Notes
 
-For more information, read [this](https://www.pyimagesearch.com/2017/05/08/drowsiness-detection-opencv/).
+For more information, read [this](https://github.com/ageitgey/face_recognition).
