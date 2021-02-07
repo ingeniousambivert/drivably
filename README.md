@@ -6,14 +6,12 @@ Every **module** of the project has its own branch. Push nothing to **Main** Bra
  
  **Server**
  ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git
-    git checkout server 
+    git clone https://github.com/ingeniousambivert/drivably.git && git checkout server 
 ```
 
  **Drowsiness Detection**
  ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git
-    git checkout drowsiness-detection 
+    git clone https://github.com/ingeniousambivert/drivably.git && git checkout drowsiness-detection 
 ```
  
 
