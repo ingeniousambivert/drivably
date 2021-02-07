@@ -22,9 +22,9 @@ It checks 20 consecutive frames and if the Eye Aspect ratio is less than 0.25, A
 
 Getting up and running is simple.
 
-1. Make sure you have [Python3](https://www.python.org/), [pip](https://pip.pypa.io/en/stable/) installed.
+1. Make sure you have [Python3](https://www.python.org/) and [pip](https://pip.pypa.io/en/stable/) installed.
 
-2. Create a vitual environment for the server.
+2. Create a vitual environment for the script.
 
     ```bash
     python -m venv drivablyEnv
