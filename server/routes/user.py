@@ -2,7 +2,7 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 
-from server.database import (
+from server.database.helper import (
     add_user,
     delete_user,
     retrieve_user,
@@ -54,7 +54,7 @@ async def update_user_data(id: str, req: UpdateUserModel = Body(...)):
     if updated_user:
         return ResponseModel(
             "User with ID: {} updated successfully".format(id),
-              "User updated successfully",
+            "User updated successfully",
         )
     return ErrorResponseModel(
         "An error occurred",
