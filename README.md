@@ -3,7 +3,7 @@ Software Development Project - TY BCA - GLS
 
 Every **module** of the project has its own branch. 
 
- **Main** branch is only for documentation.
+ **Main** branch is for documentation only.
  
  **Server**
  ```bash
