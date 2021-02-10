@@ -10,9 +10,9 @@ app = FastAPI()
 
 app.include_router(UserRouter, tags=["User"], prefix="/user")
 app.include_router(CarRouter, tags=["Car"], prefix="/car")
-app.include_router(BacRouter, tags=["Car"], prefix="/bac")
-app.include_router(ActivityRouter, tags=["Car"], prefix="/activity")
-app.include_router(CasualtyRouter, tags=["Car"], prefix="/casualty")
+app.include_router(BacRouter, tags=["Blood Alcohol Content"], prefix="/bac")
+app.include_router(ActivityRouter, tags=["Activity"], prefix="/activity")
+app.include_router(CasualtyRouter, tags=["Casualty"], prefix="/casualty")
 
 
 @ app.get("/", tags=["Root"])
