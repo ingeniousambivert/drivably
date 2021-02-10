@@ -2,7 +2,7 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 
-from server.database.helper import (
+from server.database.helpers.user import (
     add_user,
     delete_user,
     retrieve_user,
@@ -18,7 +18,8 @@ from server.models.user import (
 
 router = APIRouter()
 
-# user routes
+# USER routes
+
 
 # GET all users
 @router.get("/", response_description="Users retrieved")
