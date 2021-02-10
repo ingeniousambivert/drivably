@@ -18,21 +18,6 @@ class CasualtySchema(BaseModel):
         }
 
 
-class UpdateCasualtyModel(BaseModel):
-    car:  Optional[str]
-    location:  Optional[List[str]]
-    driver:  Optional[str]
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "car": "988bu87g76gby76f8h897g",
-                "location": ["122.9689778987", "86.987987687"],
-                "driver": "Jason Todd",
-            }
-        }
-
-
 def ResponseModel(data, message):
     return {
         "data": [data],
