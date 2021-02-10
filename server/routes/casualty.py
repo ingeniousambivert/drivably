@@ -7,13 +7,12 @@ from server.database.helpers.casualty import (
     delete_casualty,
     retrieve_casualty,
     retrieve_casualties,
-    update_casualty,
 )
+
 from server.models.casualty import (
     ErrorResponseModel,
     ResponseModel,
-    casualtieschema,
-    UpdateCasualtyModel,
+    CasualtySchema,
 )
 
 router = APIRouter()
@@ -41,27 +40,10 @@ async def get_casualty_data(id):
 
 # CREATE a casualty
 @router.post("/", response_description="casualty data added into the database")
-async def add_casualty_data(casualty: casualtieschema = Body(...)):
+async def add_casualty_data(casualty: CasualtySchema = Body(...)):
     casualty = jsonable_encoder(casualty)
     new_casualty = await add_casualty(casualty)
     return ResponseModel(new_casualty, "casualty added successfully.")
-
-
-# UPDATE a casualty
-@router.put("/{id}")
-async def update_casualty_data(id: str, req: UpdateCasualtyModel = Body(...)):
-    req = {key: value for key, value in req.dict().items() if value is not None}
-    updated_casualty = await update_casualty(id, req)
-    if updated_casualty:
-        return ResponseModel(
-            "casualty with ID: {} updated successfully".format(id),
-            "casualty updated successfully",
-        )
-    return ErrorResponseModel(
-        "An error occurred",
-        404,
-        "There was an error updating the casualty data.",
-    )
 
 
 # DELETE a casualty

@@ -11,7 +11,7 @@ from server.database.helpers.activity import (
 from server.models.activity import (
     ErrorResponseModel,
     ResponseModel,
-    ActivitieSchema,
+    ActivitySchema,
 )
 
 router = APIRouter()
@@ -39,7 +39,7 @@ async def get_activity_data(id):
 
 # CREATE a activity
 @router.post("/", response_description="activity data added into the database")
-async def add_activity_data(activity: ActivitieSchema = Body(...)):
+async def add_activity_data(activity: ActivitySchema = Body(...)):
     activity = jsonable_encoder(activity)
     new_activity = await add_activity(activity)
     return ResponseModel(new_activity, "activity added successfully.")
