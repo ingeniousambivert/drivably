@@ -2,14 +2,14 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 
-from server.database.controllers.bac import (
+from server.database.controllers.bac_controller import (
     add_bac,
     delete_bac,
     retrieve_bac,
     retrieve_all_bac,
     update_bac,
 )
-from server.database.models.bac import (
+from server.database.models.bac_model import (
     ErrorResponseModel,
     ResponseModel,
     BacSchema,

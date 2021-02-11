@@ -2,14 +2,14 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 
-from server.database.controllers.casualty import (
+from server.database.controllers.casualty_controller import (
     add_casualty,
     delete_casualty,
     retrieve_casualty,
     retrieve_casualties,
 )
 
-from server.database.models.casualty import (
+from server.database.models.casualty_model import (
     ErrorResponseModel,
     ResponseModel,
     CasualtySchema,

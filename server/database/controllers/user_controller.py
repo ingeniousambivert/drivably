@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from datetime import datetime
 
-from server.database.helpers.user import users_collection, user_helper
+from server.database.helpers.user_helper import users_collection, user_helper
 
 
 # Retrieve all users present in the database

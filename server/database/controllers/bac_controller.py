@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from datetime import datetime
 
-from server.database.helpers.bac import bac_collection, bac_helper
+from server.database.helpers.bac_helper import bac_collection, bac_helper
 
 
 # Retrieve all bac present in the database

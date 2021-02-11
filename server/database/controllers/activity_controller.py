@@ -1,7 +1,7 @@
 from datetime import datetime
 from bson.objectid import ObjectId
 
-from server.database.helpers.activity import activities_collection, activity_helper
+from server.database.helpers.activity_helper import activities_collection, activity_helper
 
 
 # Retrieve all activities present in the database

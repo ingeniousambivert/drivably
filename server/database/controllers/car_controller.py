@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from datetime import datetime
 
-from server.database.helpers.car import cars_collection, car_helper
+from server.database.helpers.car_helper import cars_collection, car_helper
 
 
 # Retrieve all cars present in the database

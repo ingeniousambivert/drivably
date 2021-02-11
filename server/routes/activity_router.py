@@ -2,13 +2,13 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 
-from server.database.controllers.activity import (
+from server.database.controllers.activity_controller import (
     add_activity,
     delete_activity,
     retrieve_activity,
     retrieve_activities,
 )
-from server.database.models.activity import (
+from server.database.models.activity_model import (
     ErrorResponseModel,
     ResponseModel,
     ActivitySchema,

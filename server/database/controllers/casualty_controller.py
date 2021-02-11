@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from datetime import datetime
 
-from server.database.helpers.casualty import casualties_collection, casualty_helper
+from server.database.helpers.casualty_helper import casualties_collection, casualty_helper
 
 
 # Retrieve all casualties present in the database

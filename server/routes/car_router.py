@@ -2,14 +2,14 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 
-from server.database.controllers.car import (
+from server.database.controllers.car_controller import (
     add_car,
     delete_car,
     retrieve_car,
     retrieve_cars,
     update_car,
 )
-from server.database.models.car import (
+from server.database.models.car_model import (
     ErrorResponseModel,
     ResponseModel,
     CarSchema,
