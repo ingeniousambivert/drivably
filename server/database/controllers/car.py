@@ -11,9 +11,9 @@ database = client.drivably
 cars_collection = database.get_collection("cars")
 
 
-# helper methods
+# controller methods
 
-def car_helper(car) -> dict:
+def car_controller(car) -> dict:
     return {
         "id": str(car["_id"]),
         "car_license": car["car_license"],
@@ -28,7 +28,7 @@ def car_helper(car) -> dict:
 async def retrieve_cars():
     cars = []
     async for car in cars_collection.find():
-        cars.append(car_helper(car))
+        cars.append(car_controller(car))
     return cars
 
 
@@ -37,14 +37,14 @@ async def add_car(car_data: dict) -> dict:
     car_data.update({"created_at": datetime.now()})
     car = await cars_collection.insert_one(car_data)
     new_car = await cars_collection.find_one({"_id": car.inserted_id})
-    return car_helper(new_car)
+    return car_controller(new_car)
 
 
 # Retrieve a car with a matching ID
 async def retrieve_car(id: str) -> dict:
     car = await cars_collection.find_one({"_id": ObjectId(id)})
     if car:
-        return car_helper(car)
+        return car_controller(car)
 
 
 # Update a car with a matching ID

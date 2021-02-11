@@ -11,9 +11,9 @@ database = client.drivably
 bac_collection = database.get_collection("bac")
 
 
-# helper methods
+# controller methods
 
-def bac_helper(bac) -> dict:
+def bac_controller(bac) -> dict:
     return {
         "id": str(bac["_id"]),
         "car": bac["car"],
@@ -27,7 +27,7 @@ def bac_helper(bac) -> dict:
 async def retrieve_all_bac():
     all_bac = []
     async for bac in bac_collection.find():
-        all_bac.append(bac_helper(bac))
+        all_bac.append(bac_controller(bac))
     return all_bac
 
 
@@ -36,14 +36,14 @@ async def add_bac(bac_data: dict) -> dict:
     bac_data.update({"created_at": datetime.now()})
     bac = await bac_collection.insert_one(bac_data)
     new_bac = await bac_collection.find_one({"_id": bac.inserted_id})
-    return bac_helper(new_bac)
+    return bac_controller(new_bac)
 
 
 # Retrieve a bac with a matching ID
 async def retrieve_bac(id: str) -> dict:
     bac = await bac_collection.find_one({"_id": ObjectId(id)})
     if bac:
-        return bac_helper(bac)
+        return bac_controller(bac)
 
 
 # Update a bac with a matching ID

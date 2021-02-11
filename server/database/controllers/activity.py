@@ -11,9 +11,9 @@ database = client.drivably
 activities_collection = database.get_collection("activities")
 
 
-# helper methods
+# controller methods
 
-def activity_helper(activity) -> dict:
+def activity_controller(activity) -> dict:
     return {
         "id": str(activity["_id"]),
         "car": activity["car"],
@@ -27,7 +27,7 @@ def activity_helper(activity) -> dict:
 async def retrieve_activities():
     activities = []
     async for activity in activities_collection.find():
-        activities.append(activity_helper(activity))
+        activities.append(activity_controller(activity))
     return activities
 
 
@@ -36,14 +36,14 @@ async def add_activity(activity_data: dict) -> dict:
     activity_data.update({"created_at": datetime.now()})
     activity = await activities_collection.insert_one(activity_data)
     new_activity = await activities_collection.find_one({"_id": activity.inserted_id})
-    return activity_helper(new_activity)
+    return activity_controller(new_activity)
 
 
 # Retrieve a activity with a matching ID
 async def retrieve_activity(id: str) -> dict:
     activity = await activities_collection.find_one({"_id": ObjectId(id)})
     if activity:
-        return activity_helper(activity)
+        return activity_controller(activity)
 
 
 # Delete a activity from the database

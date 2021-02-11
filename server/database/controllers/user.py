@@ -11,9 +11,9 @@ database = client.drivably
 users_collection = database.get_collection("users")
 
 
-# helper methods
+# controller methods
 
-def user_helper(user) -> dict:
+def user_controller(user) -> dict:
     return {
         "id": str(user["_id"]),
         "fullname": user["fullname"],
@@ -30,7 +30,7 @@ def user_helper(user) -> dict:
 async def retrieve_users():
     users = []
     async for user in users_collection.find():
-        users.append(user_helper(user))
+        users.append(user_controller(user))
     return users
 
 
@@ -39,14 +39,14 @@ async def add_user(user_data: dict) -> dict:
     user_data.update({"created_at": datetime.now()})
     user = await users_collection.insert_one(user_data)
     new_user = await users_collection.find_one({"_id": user.inserted_id})
-    return user_helper(new_user)
+    return user_controller(new_user)
 
 
 # Retrieve a user with a matching ID
 async def retrieve_user(id: str) -> dict:
     user = await users_collection.find_one({"_id": ObjectId(id)})
     if user:
-        return user_helper(user)
+        return user_controller(user)
 
 
 # Update a user with a matching ID

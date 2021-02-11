@@ -2,7 +2,7 @@ from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 
-from server.database.helpers.casualty import (
+from server.database.controllers.casualty import (
     add_casualty,
     delete_casualty,
     retrieve_casualty,
