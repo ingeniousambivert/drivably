@@ -9,7 +9,7 @@ from server.database.helpers.user import (
     retrieve_users,
     update_user,
 )
-from server.models.user import (
+from server.database.models.user import (
     ErrorResponseModel,
     ResponseModel,
     UserSchema,

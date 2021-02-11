@@ -9,7 +9,7 @@ from server.database.helpers.car import (
     retrieve_cars,
     update_car,
 )
-from server.models.car import (
+from server.database.models.car import (
     ErrorResponseModel,
     ResponseModel,
     CarSchema,

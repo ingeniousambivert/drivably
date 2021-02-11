@@ -8,7 +8,7 @@ from server.database.helpers.activity import (
     retrieve_activity,
     retrieve_activities,
 )
-from server.models.activity import (
+from server.database.models.activity import (
     ErrorResponseModel,
     ResponseModel,
     ActivitySchema,

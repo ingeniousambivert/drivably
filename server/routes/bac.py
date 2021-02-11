@@ -9,7 +9,7 @@ from server.database.helpers.bac import (
     retrieve_all_bac,
     update_bac,
 )
-from server.models.bac import (
+from server.database.models.bac import (
     ErrorResponseModel,
     ResponseModel,
     BacSchema,

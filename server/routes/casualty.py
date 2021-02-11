@@ -9,7 +9,7 @@ from server.database.helpers.casualty import (
     retrieve_casualties,
 )
 
-from server.models.casualty import (
+from server.database.models.casualty import (
     ErrorResponseModel,
     ResponseModel,
     CasualtySchema,
