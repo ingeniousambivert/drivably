@@ -1,36 +1,15 @@
 from bson.objectid import ObjectId
-import motor.motor_asyncio
 from datetime import datetime
 
-MONGO_URI: str = "mongodb://localhost:27017"
-
-client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
-
-database = client.drivably
-
-users_collection = database.get_collection("users")
-
-
-# controller methods
-
-def user_controller(user) -> dict:
-    return {
-        "id": str(user["_id"]),
-        "fullname": user["fullname"],
-        "facial_data": user["facial_data"],
-        "email": user["email"],
-        "password": user["password"],
-        "cars": user["cars"],
-        "phone": user["phone"],
-        "created_at": user["created_at"],
-    }
-
+from server.database.helpers.user import users_collection, user_helper
 
 # Retrieve all users present in the database
+
+
 async def retrieve_users():
     users = []
     async for user in users_collection.find():
-        users.append(user_controller(user))
+        users.append(user_helper(user))
     return users
 
 
@@ -39,14 +18,14 @@ async def add_user(user_data: dict) -> dict:
     user_data.update({"created_at": datetime.now()})
     user = await users_collection.insert_one(user_data)
     new_user = await users_collection.find_one({"_id": user.inserted_id})
-    return user_controller(new_user)
+    return user_helper(new_user)
 
 
 # Retrieve a user with a matching ID
 async def retrieve_user(id: str) -> dict:
     user = await users_collection.find_one({"_id": ObjectId(id)})
     if user:
-        return user_controller(user)
+        return user_helper(user)
 
 
 # Update a user with a matching ID

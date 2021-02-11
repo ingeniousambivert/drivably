@@ -1,34 +1,14 @@
 from bson.objectid import ObjectId
-import motor.motor_asyncio
 from datetime import datetime
 
-MONGO_URI: str = "mongodb://localhost:27017"
-
-client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
-
-database = client.drivably
-
-cars_collection = database.get_collection("cars")
-
-
-# controller methods
-
-def car_controller(car) -> dict:
-    return {
-        "id": str(car["_id"]),
-        "car_license": car["car_license"],
-        "car_name": car["car_name"],
-        "owner": car["owner"],
-        "drivers": car["drivers"],
-        "created_at": car["created_at"],
-    }
+from server.database.helpers.car import cars_collection, car_helper
 
 
 # Retrieve all cars present in the database
 async def retrieve_cars():
     cars = []
     async for car in cars_collection.find():
-        cars.append(car_controller(car))
+        cars.append(car_helper(car))
     return cars
 
 
@@ -37,14 +17,14 @@ async def add_car(car_data: dict) -> dict:
     car_data.update({"created_at": datetime.now()})
     car = await cars_collection.insert_one(car_data)
     new_car = await cars_collection.find_one({"_id": car.inserted_id})
-    return car_controller(new_car)
+    return car_helper(new_car)
 
 
 # Retrieve a car with a matching ID
 async def retrieve_car(id: str) -> dict:
     car = await cars_collection.find_one({"_id": ObjectId(id)})
     if car:
-        return car_controller(car)
+        return car_helper(car)
 
 
 # Update a car with a matching ID

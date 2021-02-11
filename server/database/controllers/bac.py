@@ -1,33 +1,14 @@
 from bson.objectid import ObjectId
-import motor.motor_asyncio
 from datetime import datetime
 
-MONGO_URI: str = "mongodb://localhost:27017"
-
-client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
-
-database = client.drivably
-
-bac_collection = database.get_collection("bac")
-
-
-# controller methods
-
-def bac_controller(bac) -> dict:
-    return {
-        "id": str(bac["_id"]),
-        "car": bac["car"],
-        "value": bac["value"],
-        "driver": bac["driver"],
-        "created_at": bac["created_at"],
-    }
+from server.database.helpers.bac import bac_collection, bac_helper
 
 
 # Retrieve all bac present in the database
 async def retrieve_all_bac():
     all_bac = []
     async for bac in bac_collection.find():
-        all_bac.append(bac_controller(bac))
+        all_bac.append(bac_helper(bac))
     return all_bac
 
 
@@ -36,14 +17,14 @@ async def add_bac(bac_data: dict) -> dict:
     bac_data.update({"created_at": datetime.now()})
     bac = await bac_collection.insert_one(bac_data)
     new_bac = await bac_collection.find_one({"_id": bac.inserted_id})
-    return bac_controller(new_bac)
+    return bac_helper(new_bac)
 
 
 # Retrieve a bac with a matching ID
 async def retrieve_bac(id: str) -> dict:
     bac = await bac_collection.find_one({"_id": ObjectId(id)})
     if bac:
-        return bac_controller(bac)
+        return bac_helper(bac)
 
 
 # Update a bac with a matching ID
