@@ -3,9 +3,8 @@ from datetime import datetime
 
 from server.database.helpers.user import users_collection, user_helper
 
+
 # Retrieve all users present in the database
-
-
 async def retrieve_users():
     users = []
     async for user in users_collection.find():
