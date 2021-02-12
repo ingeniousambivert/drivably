@@ -1,29 +1,30 @@
 import time
 import jwt
 from typing import Dict
-from core.config import JWT_SECRET
+from core.config import JWT_SECRET, JWT_ALGORITHM
 
 
 def token_response(token: str):
     return {
+        "type": "bearer",
         "access_token": token
     }
 
 
 def signJWT(user_id: str) -> Dict[str, str]:
-    # Set the expiry time.
     payload = {
-        'user_id': user_id,
-        'expires': time.time() + 2400
+        "user_id": user_id,
+        "expires": time.time() + 600
     }
-    return token_response(jwt.encode(payload, JWT_SECRET, algorithm="HS256"))
-    # return token_response(jwt.encode(payload, JWT_SECRET, algorithm="HS256").decode())
+    token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+    return token_response(token)
 
 
 def decodeJWT(token: str) -> dict:
     try:
         decoded_token = jwt.decode(
-            token.encode(), JWT_SECRET, algorithms=["HS256"])
-        return decoded_token if decoded_token['expires'] >= time.time() else None
+            token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        return decoded_token if decoded_token["expires"] >= time.time() else None
     except:
-        return None
+        return {}
