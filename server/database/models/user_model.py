@@ -1,11 +1,11 @@
 from typing import List, Optional
-from pydantic import BaseModel, EmailStr, SecretStr, Field
+from pydantic import BaseModel, EmailStr, Field
 
 
 class UserSchema(BaseModel):
-    fullname: str = Field(...)
+    name: str = Field(...)
     email: EmailStr = Field(...)
-    password: SecretStr = Field(...)
+    password: str = Field(...)
     facial_data: str = Field(...)
     cars: List[str] = Field(...)
     phone: float = Field(...)
@@ -14,7 +14,7 @@ class UserSchema(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "fullname": "John Doe",
+                "name": "John Doe",
                 "email": "john@doe.com",
                 "password": "johndoe123",
                 "facial_data": "./faces/JohnDoe_Face.jpg",
@@ -25,9 +25,9 @@ class UserSchema(BaseModel):
 
 
 class UpdateUserModel(BaseModel):
-    fullname: Optional[str]
+    name: Optional[str]
     email: Optional[EmailStr]
-    password: Optional[SecretStr]
+    password: Optional[str]
     facial_data: str = Field(...)
     cars: Optional[List[str]]
     phone: Optional[float]
@@ -35,7 +35,7 @@ class UpdateUserModel(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "fullname": "John Does",
+                "name": "John Does",
                 "email": "john@does.com",
                 "password": "johndoes123",
                 "facial_data": "./faces/JohnDoe_Face.jpg",
