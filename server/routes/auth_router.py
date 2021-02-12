@@ -2,7 +2,7 @@ from fastapi import Body, APIRouter
 from fastapi.encoders import jsonable_encoder
 from fastapi.security import HTTPBasicCredentials
 from passlib.context import CryptContext
-#from server.auth.validate import validate_login
+# from server.auth.validate import validate_login
 from server.auth.jwt_handler import signJWT
 
 
@@ -48,3 +48,5 @@ async def signin_user(user_credentials: HTTPBasicCredentials = Body(...)):
             return signJWT(user_credentials.username)
 
         return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
+
+    return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
