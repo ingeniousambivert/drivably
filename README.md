@@ -34,6 +34,4 @@ Getting up and running is simple.
 
 5. Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
 
-#### Notes
-
-Checkout the Swagger UI for docs - [http://localhost:8000/docs](http://localhost:8000/docs)
+Checkout the Swagger UI for API docs - [http://localhost:8000/docs](http://localhost:8000/docs)
