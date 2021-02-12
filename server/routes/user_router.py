@@ -1,5 +1,9 @@
-from fastapi import APIRouter, Body
+from fastapi import Body, APIRouter
 from fastapi.encoders import jsonable_encoder
+from fastapi.security import HTTPBasicCredentials
+from passlib.context import CryptContext
+from server.auth.validate import validate_login
+from server.auth.jwt_handler import signJWT
 
 
 from server.database.controllers.user_controller import (
@@ -40,7 +44,7 @@ async def get_user_data(id):
 
 
 # CREATE a user
-@router.post("/", response_description="user data added into the database")
+@router.post("/signup", response_description="user data added into the database")
 async def add_user_data(user: UserSchema = Body(...)):
     user = jsonable_encoder(user)
     new_user = await add_user(user)

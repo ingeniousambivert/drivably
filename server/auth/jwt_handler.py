@@ -1,17 +1,13 @@
 import time
-from typing import Dict
-
 import jwt
-from decouple import config
+from typing import Dict
+from core.config import JWT_SECRET
 
 
 def token_response(token: str):
     return {
         "access_token": token
     }
-
-
-JWT_SECRET = config('secret')
 
 
 def signJWT(user_id: str) -> Dict[str, str]:
