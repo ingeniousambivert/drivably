@@ -2,10 +2,8 @@ import motor.motor_asyncio
 from core.config import MONGO_URI
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
-
 database = client.drivably
-
-users_collection = database.get_collection("users")
+users_collection = database.users
 
 
 def user_helper(user) -> dict:

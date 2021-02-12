@@ -3,10 +3,8 @@ import motor.motor_asyncio
 from core.config import MONGO_URI
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
-
 database = client.drivably
-
-bac_collection = database.get_collection("bac")
+bac_collection = database.bac
 
 
 def bac_helper(bac) -> dict:
