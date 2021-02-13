@@ -16,9 +16,9 @@ class UserSchema(BaseModel):
             "example": {
                 "name": "John Doe",
                 "email": "john@doe.com",
-                "password": "johndoe123",
+                "password": "doe",
                 "facial_data": "./faces/JohnDoe_Face.jpg",
-                "cars": ["sasjniluh8989p8uunih8", "baskjb878huo8as7iho87"],
+                "cars": ["car-id-1", "car-id-2"],
                 "phone": "0123456789",
             }
         }
@@ -37,9 +37,9 @@ class UpdateUserModel(BaseModel):
             "example": {
                 "name": "John Does",
                 "email": "john@does.com",
-                "password": "johndoes123",
-                "facial_data": "./faces/JohnDoe_Face.jpg",
-                "cars": ["baskjb878huo8as7iho87", "sasjniluh8989p8uunih8"],
+                "password": "does",
+                "facial_data": "./faces/JohnDoes_Face.jpg",
+                "cars": ["car-id-1", "car-id-2"],
                 "phone": "1234567890",
             }
         }

@@ -12,10 +12,10 @@ class CarSchema(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "car_license": "1M BT4M4N",
-                "car_name": "Bat Mobile",
-                "owner": "Bruce Wayne",
-                "drivers": ["Jason Todd", "Barbara Gordon"],
+                "car_license": "car-license-1",
+                "car_name": "car-1",
+                "owner": "user-id-1",
+                "drivers": ["user-id-2", "user-id-3", "user-id-4"],
             }
         }
 
@@ -29,10 +29,10 @@ class UpdateCarModel(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "car_license": "911",
-                "car_name": "Allah Hu Akbar",
-                "owner": "Osama Bin Laden",
-                "drivers": ["Saddam Hussein"],
+                "car_license": "car-license-1",
+                "car_name": "car-1",
+                "owner": "user-id-1",
+                "drivers": ["user-id-2", "user-id-3"],
             }
         }
 
