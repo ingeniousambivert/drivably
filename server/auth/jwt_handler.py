@@ -1,27 +1,31 @@
 import time
 import jwt
+from fastapi import Depends
 from typing import Dict
+from fastapi.security import OAuth2PasswordBearer
 from core.config import JWT_SECRET, JWT_ALGORITHM
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='signin')
 
 
 def token_response(token: str):
     return {
-        "type": "bearer",
+        "token_type": "bearer",
         "access_token": token
     }
 
 
-def signJWT(user_id: str) -> Dict[str, str]:
+def signJWT(username: str) -> Dict[str, str]:
     payload = {
-        "user_id": user_id,
-        "expires": time.time() + 600
+        "username": username,
+        "expires": time.time() + 2400
     }
     token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
     return token_response(token)
 
 
-def decodeJWT(token: str) -> dict:
+def decodeJWT(token: str = Depends(oauth2_scheme)) -> dict:
     try:
         decoded_token = jwt.decode(
             token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
