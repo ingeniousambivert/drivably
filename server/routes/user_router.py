@@ -36,11 +36,10 @@ async def get_user(id):
 # UPDATE a user
 @router.put("/{id}")
 async def update_user(id: str, data: UpdateUserModel = Body(...)):
-    dict_data = dict(data)
-    for key, value in dict_data.items():
+    for key, value in data.items():
         if value is not None:
-            updated = {key: value}
-            updated_user = await update_user(id, updated)
+            updated_data = {key: value}
+            updated_user = await update_user(id, updated_data)
             if updated_user:
                 return ResponseModel(
                     "User with ID: {} updated successfully".format(id),
