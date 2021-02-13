@@ -29,12 +29,7 @@ async def retrieve_user(id: str) -> dict:
 
 # Update a user with a matching ID
 async def update_user(id: str, user_data: dict):
-    # Return false if an empty request body is sent.
-    if len(user_data) < 1:
-        return False
-
     user = await users_collection.find_one({"_id": ObjectId(id)})
-
     if user:
         user_data.update({"updated_at": datetime.now()})
         updated_user = await users_collection.update_one(

@@ -17,7 +17,7 @@ router = APIRouter()
 
 # GET all users
 @router.get("/", response_description="Users retrieved")
-async def get_all_users():
+async def get_all_users_data():
     users = await retrieve_users()
     if users:
         return ResponseModel(users, "Users data retrieved successfully")
@@ -26,7 +26,7 @@ async def get_all_users():
 
 # GET a user
 @router.get("/{id}", response_description="User data retrieved")
-async def get_user(id):
+async def get_user_data(id):
     user = await retrieve_user(id)
     if user:
         return ResponseModel(user, "User data retrieved successfully")
@@ -35,11 +35,11 @@ async def get_user(id):
 
 # UPDATE a user
 @router.put("/{id}")
-async def update_user(id: str, data: UpdateUserModel = Body(...)):
-    for key, value in data.items():
+async def update_user_data(id: str, data: UpdateUserModel = Body(...)):
+    for key, value in dict(data).items():
         if value is not None:
             updated_data = {key: value}
-            updated_user = await update_user(id, updated_data)
+            updated_user = await update_user(id, dict(updated_data))
             if updated_user:
                 return ResponseModel(
                     "User with ID: {} updated successfully".format(id),
@@ -54,7 +54,7 @@ async def update_user(id: str, data: UpdateUserModel = Body(...)):
 
 # DELETE a user
 @ router.delete("/{id}", response_description="User data deleted from the database")
-async def delete_user(id: str):
+async def delete_user_data(id: str):
     deleted_user = await delete_user(id)
     if deleted_user:
         return ResponseModel(
