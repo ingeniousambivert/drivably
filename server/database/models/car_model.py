@@ -6,11 +6,11 @@ class CarSchema(BaseModel):
     car_license: str = Field(...)
     car_name: str = Field(...)
     owner: str = Field(...)
-    drivers: List[str] = Field(...)
-    current_location: List[str] = Field(None)
-    alcohol_concentrations: List[Dict] = Field(None)
-    casualties: List[Dict] = Field(None)
-    activities: List[Dict] = Field(None)
+    drivers: Optional[List[str]] = Field(...)
+    current_location: Optional[List[str]] = Field(...)
+    alcohol_concentrations: Optional[List[Dict]] = Field(...)
+    casualties: Optional[List[Dict]] = Field(...)
+    activities: Optional[List[Dict]] = Field(...)
     created_at: str = Field(None)
     updated_at: str = Field(None)
 
@@ -50,6 +50,10 @@ class UpdateCarModel(BaseModel):
     car_name:  Optional[str]
     owner:  Optional[str]
     drivers: Optional[List[str]]
+    current_location: Optional[List[str]]
+    alcohol_concentrations: Optional[List[Dict]]
+    casualties: Optional[List[Dict]]
+    activities: Optional[List[Dict]]
 
     class Config:
         schema_extra = {

@@ -6,9 +6,9 @@ class UserSchema(BaseModel):
     name: str = Field(...)
     email: EmailStr = Field(...)
     password: str = Field(...)
-    facial_data: str = Field(...)
-    cars: List[str] = Field(...)
-    phone: float = Field(...)
+    facial_data: Optional[str] = Field(...)
+    cars: Optional[List[str]] = Field(...)
+    phone: Optional[float] = Field(...)
     created_at: str = Field(None)
 
     class Config:
@@ -28,7 +28,7 @@ class UpdateUserModel(BaseModel):
     name: Optional[str]
     email: Optional[EmailStr]
     password: Optional[str]
-    facial_data: str = Field(...)
+    facial_data: Optional[str]
     cars: Optional[List[str]]
     phone: Optional[float]
 
