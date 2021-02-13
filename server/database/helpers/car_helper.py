@@ -13,5 +13,10 @@ def car_helper(car) -> dict:
         "car_name": car["car_name"],
         "owner": car["owner"],
         "drivers": car["drivers"],
+        "current_location": car["current_location"],
+        "alcohol_concentrations": car["alcohol_concentrations"],
+        "casualties": car["casualties"],
+        "activities": car["activities"],
         "created_at": car["created_at"],
+        "updated_at": car["updated_at"],
     }
