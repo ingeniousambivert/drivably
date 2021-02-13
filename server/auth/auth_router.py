@@ -21,8 +21,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='signin')
 @router.post("/signup", response_description="user signed up")
 async def signup_user(user: UserSchema = Body(...)):
 
-    user_email = users_collection.find_one({"email":  user.email})
-    if(user_email):
+    user_email = await users_collection.find_one({"email": user.email}, {"_id": 0})
+    if user_email:
         return ErrorResponseModel("Conflict", 409, "Email already exists")
 
     user.password = bcrypt.hash(user.password)
