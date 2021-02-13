@@ -32,6 +32,6 @@ Getting up and running is simple.
     python main.py
     ```
 
-5. Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
+5. Open [http://localhost:8008](http://localhost:8008) to view it in the browser.
 
-Checkout the Swagger UI for API docs - [http://localhost:8000/docs](http://localhost:8000/docs)
+Checkout the Swagger UI for API docs - [http://localhost:8008/docs](http://localhost:8008/docs)
