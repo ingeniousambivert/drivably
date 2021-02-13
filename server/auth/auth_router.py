@@ -1,5 +1,4 @@
 from fastapi import Body, APIRouter, Depends
-from server.database.helpers.user_helper import users_collection
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from .utils import validate_user, create_encoded_user, check_user_exists
 from .jwt_handler import signJWT
