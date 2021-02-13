@@ -37,10 +37,6 @@ class UpdateUserModel(BaseModel):
             "example": {
                 "name": "John Does",
                 "email": "john@does.com",
-                "password": "does",
-                "facial_data": "./faces/JohnDoes_Face.jpg",
-                "cars": ["car-id-1", "car-id-2"],
-                "phone": "1234567890",
             }
         }
 

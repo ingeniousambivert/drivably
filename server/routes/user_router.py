@@ -34,22 +34,21 @@ async def get_user_data(id):
 
 
 # UPDATE a user
-@router.put("/{id}")
+@router.put("/{id}", response_description="User data updated")
 async def update_user_data(id: str, data: UpdateUserModel = Body(...)):
-    for key, value in dict(data).items():
-        if value is not None:
-            updated_data = {key: value}
-            updated_user = await update_user(id, dict(updated_data))
-            if updated_user:
-                return ResponseModel(
-                    "User with ID: {} updated successfully".format(id),
-                    "User updated successfully",
-                )
-            return ErrorResponseModel(
-                "An error occurred",
-                404,
-                "There was an error updating the user data.",
-            )
+    data = {key: value for key, value in data.dict().items()
+            if value is not None}
+    updated_user = await update_user(id, data)
+    if updated_user:
+        return ResponseModel(
+            "User with ID: {} updated successfully".format(id),
+            "User updated successfully",
+        )
+    return ErrorResponseModel(
+        "An error occurred",
+        404,
+        "There was an error updating the user data.",
+    )
 
 
 # DELETE a user
