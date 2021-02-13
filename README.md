@@ -22,7 +22,7 @@ Getting up and running is simple.
 3. Install your dependencies.
 
     ```bash
-    cd path/to/server
+    cd path/to/drivably
     pip install -r requirements.txt
     ```
 
