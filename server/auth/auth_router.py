@@ -1,11 +1,8 @@
 from fastapi import Body, APIRouter, Depends
-from fastapi.encoders import jsonable_encoder
-from passlib.hash import bcrypt
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from .validate import validate_user
-from .jwt_handler import signJWT
 from server.database.helpers.user_helper import users_collection
-from server.database.controllers.user_controller import add_user
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from .utils import validate_user, create_encoded_user, check_user_exists
+from .jwt_handler import signJWT
 
 from server.database.models.user_model import (
     ErrorResponseModel,
@@ -20,15 +17,13 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='signin')
 # SIGNUP user
 @router.post("/signup", response_description="user signed up")
 async def signup_user(user: UserSchema = Body(...)):
+    email_exists = await check_user_exists(user.email)
 
-    user_email = await users_collection.find_one({"email": user.email}, {"_id": 0})
-    if user_email:
-        return ErrorResponseModel("Conflict", 409, "Email already exists")
+    if not email_exists:
+        encoded_user = await create_encoded_user(user)
+        return ResponseModel(encoded_user, "user added successfully.")
 
-    user.password = bcrypt.hash(user.password)
-    user = jsonable_encoder(user)
-    new_user = await add_user(user)
-    return ResponseModel(new_user, "user added successfully.")
+    return ErrorResponseModel("Conflict", 409, "Email already exists")
 
 
 # SIGNIN user
@@ -36,7 +31,7 @@ async def signup_user(user: UserSchema = Body(...)):
 async def signin_user(credentials: OAuth2PasswordRequestForm = Depends()):
     validated = await validate_user(credentials.username, credentials.password)
 
-    if not validated:
-        return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
+    if validated:
+        return signJWT(credentials.username)
 
-    return signJWT(credentials.username)
+    return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
