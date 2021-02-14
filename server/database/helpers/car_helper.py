@@ -1,5 +1,5 @@
 import motor.motor_asyncio
-from core.config import MONGO_URI
+from server.utils.config import MONGO_URI
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
 database = client["drivably"]
