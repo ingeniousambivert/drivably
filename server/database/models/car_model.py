@@ -22,7 +22,6 @@ class CarSchema(BaseModel):
                 "owner": {
                     "name": "John Doe",
                     "email": "john@doe.com",
-                    "password": "doe",
                     "facial_data": "./faces/JohnDoe_Face.jpg",
                     "cars": ["car-id-1", "car-id-2"],
                     "phone": "0123456789",
@@ -70,7 +69,6 @@ class UpdateCarModel(BaseModel):
                 "owner": {
                     "name": "John Doe",
                     "email": "john@doe.com",
-                    "password": "doe",
                     "facial_data": "./faces/JohnDoe_Face.jpg",
                     "cars": ["car-id-1", "car-id-2"],
                     "phone": "0123456789",
