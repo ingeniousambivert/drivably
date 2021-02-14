@@ -1,7 +1,7 @@
 import time
 import jwt
 from typing import Dict
-from core.config import JWT_SECRET, JWT_ALGORITHM
+from server.utils.config import JWT_SECRET, JWT_ALGORITHM
 
 
 def token_response(token: str):
