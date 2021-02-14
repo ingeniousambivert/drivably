@@ -12,7 +12,6 @@ class CarSchema(BaseModel):
     casualties: Optional[List[Dict]] = Field(...)
     activities: Optional[List[Dict]] = Field(...)
     created_at: str = Field(None)
-    updated_at: str = Field(None)
 
     class Config:
         schema_extra = {
