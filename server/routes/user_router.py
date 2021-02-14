@@ -1,3 +1,5 @@
+from fastapi import Depends
+from fastapi.security import OAuth2PasswordBearer
 from server.database.models.user_model import (
     ErrorResponseModel,
     ResponseModel,
@@ -14,9 +16,11 @@ from fastapi import Body, APIRouter
 
 router = APIRouter()
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='signin')
+
 
 # GET all users
-@router.get("/", response_description="Users retrieved")
+@router.get("/", response_description="Users retrieved",)
 async def get_all_users_data():
     users = await retrieve_users()
     if users:
@@ -41,7 +45,7 @@ async def update_user_data(id: str, data: UpdateUserModel = Body(...)):
     updated_user = await update_user(id, data)
     if updated_user:
         return ResponseModel(
-            "User with ID: {} updated successfully".format(id),
+            "User with ID: {} updated".format(id),
             "User updated successfully",
         )
     return ErrorResponseModel(
