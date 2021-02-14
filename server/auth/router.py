@@ -1,6 +1,6 @@
 from fastapi import Body, APIRouter
 from fastapi.security import HTTPBasicCredentials
-from .utils import validate_user, create_encoded_user, check_user_exists
+from .helpers import validate_user, create_encoded_user, check_user_exists
 from .jwt.handler import signJWT
 
 from server.database.models.user_model import (
