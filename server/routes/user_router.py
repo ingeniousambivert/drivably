@@ -1,5 +1,3 @@
-from fastapi import Depends
-from fastapi.security import OAuth2PasswordBearer
 from server.database.models.user_model import (
     ErrorResponseModel,
     ResponseModel,
@@ -15,8 +13,6 @@ from fastapi import Body, APIRouter
 
 
 router = APIRouter()
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='signin')
 
 
 # GET all users
