@@ -14,11 +14,17 @@ async def create_encoded_user(user):
     return await add_user(user)
 
 
+async def verify_password(password: str, password_hash: str):
+    if bcrypt.verify(password, password_hash):
+        return True
+    return False
+
+
 async def validate_user(credentials: HTTPBasicCredentials = Depends(security)):
     user = await users_collection.find_one({"email": credentials.username}, {"_id": 0})
     if not user:
         return False
-    if not bcrypt.verify(credentials.password, user["password"]):
+    if not verify_password(credentials.password, user["password"]):
         return False
     return True
 
