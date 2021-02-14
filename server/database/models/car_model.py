@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 class CarSchema(BaseModel):
     car_license: str = Field(...)
     car_name: str = Field(...)
-    owner: str = Field(...)
+    owner: Dict = Field(...)
     drivers: Optional[List[str]] = Field(...)
     current_location: Optional[List[str]] = Field(...)
     alcohol_concentrations: Optional[List[Dict]] = Field(...)
@@ -19,8 +19,15 @@ class CarSchema(BaseModel):
             "example": {
                 "car_license": "car-license-1",
                 "car_name": "car-1",
-                "owner": "user-id-1",
-                "drivers": ["user-id-2", "user-id-3", "user-id-4"],
+                "owner": {
+                    "name": "John Doe",
+                    "email": "john@doe.com",
+                    "password": "doe",
+                    "facial_data": "./faces/JohnDoe_Face.jpg",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                },
+                "drivers": ["user-email-2", "user-email-3", "user-email-4"],
                 "current_location": ["40.758896", " - 73.985130"],
                 "alcohol_concentrations": [
                     {
@@ -48,7 +55,7 @@ class CarSchema(BaseModel):
 class UpdateCarModel(BaseModel):
     car_license:  Optional[str]
     car_name:  Optional[str]
-    owner:  Optional[str]
+    owner:  Optional[Dict]
     drivers: Optional[List[str]]
     current_location: Optional[List[str]]
     alcohol_concentrations: Optional[List[Dict]]
@@ -60,8 +67,15 @@ class UpdateCarModel(BaseModel):
             "example": {
                 "car_license": "car-license-1",
                 "car_name": "car-1",
-                "owner": "user-id-1",
-                "drivers": ["user-id-2", "user-id-3"],
+                "owner": {
+                    "name": "John Doe",
+                    "email": "john@doe.com",
+                    "password": "doe",
+                    "facial_data": "./faces/JohnDoe_Face.jpg",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                },
+                "drivers": ["user-email-2", "user-email-3"],
                 "current_location": ["40.758896", " - 73.985130"],
                 "alcohol_concentrations": [
                     {
