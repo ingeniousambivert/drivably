@@ -18,8 +18,6 @@ from server.database.models.car_model import (
 
 router = APIRouter()
 
-# car routes
-
 
 # GET all cars
 @router.get("/", response_description="cars retrieved")
@@ -48,10 +46,11 @@ async def add_car_data(car: CarSchema = Body(...)):
 
 
 # UPDATE a car
-@router.put("/{id}")
-async def update_car_data(id: str, req: UpdateCarModel = Body(...)):
-    req = {key: value for key, value in req.dict().items() if value is not None}
-    updated_car = await update_car(id, req)
+@router.put("/{id}", response_description="car data added updated")
+async def update_car_data(id: str, data: UpdateCarModel = Body(...)):
+    data = {key: value for key, value in data.dict().items()
+            if value is not None}
+    updated_car = await update_car(id, data)
     if updated_car:
         return ResponseModel(
             "car with ID: {} updated successfully".format(id),
