@@ -7,7 +7,7 @@ class CarSchema(BaseModel):
     car_name: str = Field(...)
     owner: Dict = Field(...)
     drivers: Optional[List[str]] = Field(...)
-    current_location: Optional[List[str]] = Field(...)
+    current_location: Optional[Dict] = Field(...)
     alcohol_concentrations: Optional[List[Dict]] = Field(...)
     casualties: Optional[List[Dict]] = Field(...)
     activities: Optional[List[Dict]] = Field(...)
@@ -26,7 +26,10 @@ class CarSchema(BaseModel):
                     "phone": "0123456789",
                 },
                 "drivers": ["user-email-2", "user-email-3", "user-email-4"],
-                "current_location": ["40.758896", " - 73.985130"],
+                "current_location": {
+                    "latitude": "40.758896",
+                    "longitude": "-73.985130",
+                },
                 "alcohol_concentrations": [
                     {
                         "value": "21.09",
@@ -35,7 +38,10 @@ class CarSchema(BaseModel):
                 ],
                 "casualties": [
                     {
-                        "location": ["40.758896", " - 73.985130"],
+                        "location": {
+                            "latitude": "40.758896",
+                            "longitude": "-73.985130",
+                        },
                         "driver": "driver-id-1",
                     }
                 ],
@@ -55,7 +61,7 @@ class UpdateCarModel(BaseModel):
     car_name:  Optional[str]
     owner:  Optional[Dict]
     drivers: Optional[List[str]]
-    current_location: Optional[List[str]]
+    current_location: Optional[Dict]
     alcohol_concentrations: Optional[List[Dict]]
     casualties: Optional[List[Dict]]
     activities: Optional[List[Dict]]
@@ -73,7 +79,10 @@ class UpdateCarModel(BaseModel):
                     "phone": "0123456789",
                 },
                 "drivers": ["user-email-2", "user-email-3"],
-                "current_location": ["40.758896", " - 73.985130"],
+                "current_location": {
+                    "latitude": "40.758896",
+                    "longitude": "-73.985130",
+                },
                 "alcohol_concentrations": [
                     {
                         "value": "21.09",
@@ -82,7 +91,10 @@ class UpdateCarModel(BaseModel):
                 ],
                 "casualties": [
                     {
-                        "location": ["40.758896", " - 73.985130"],
+                        "location": {
+                            "latitude": "40.758896",
+                            "longitude": "-73.985130",
+                        },
                         "driver": "driver-id-1",
                     }
                 ],
