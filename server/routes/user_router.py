@@ -41,8 +41,8 @@ async def update_user_data(id: str, data: UpdateUserModel = Body(...)):
     updated_user = await update_user(id, data)
     if updated_user:
         return ResponseModel(
-            "User with ID: {} updated".format(id),
             "User updated successfully",
+            "User with ID: {} updated".format(id)
         )
     return ErrorResponseModel(
         "An error occurred",
