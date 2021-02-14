@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
+from server.utils.helpers import check_car_exists
 
 
 from server.database.controllers.car_controller import (
@@ -40,9 +41,14 @@ async def get_car_data(id):
 # CREATE a car
 @router.post("/", response_description="car data added into the database")
 async def add_car_data(car: CarSchema = Body(...)):
-    car = jsonable_encoder(car)
-    new_car = await add_car(car)
-    return ResponseModel(new_car, "car added successfully.")
+    car_license = await check_car_exists(car.car_license)
+
+    if not car_license:
+        car = jsonable_encoder(car)
+        new_car = await add_car(car)
+        return ResponseModel(new_car, "car added successfully.")
+
+    return ErrorResponseModel("Conflict", 409, "Car already exists")
 
 
 # UPDATE a car
