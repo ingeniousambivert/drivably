@@ -23,10 +23,10 @@ app.add_middleware(
 )
 
 app.include_router(AuthRouter, tags=["Auth"])
-app.include_router(UserRouter, tags=[
-                   "User"], prefix="/user", dependencies=[Depends(token_listener)])
-app.include_router(
-    CarRouter, tags=["Car"], prefix="/car", dependencies=[Depends(token_listener)])
+app.include_router(UserRouter, tags=["User"],
+                   prefix="/user", dependencies=[Depends(token_listener)])
+app.include_router(CarRouter, tags=["Car"],
+                   prefix="/car", dependencies=[Depends(token_listener)])
 
 
 @ app.get("/", tags=["Root"])
