@@ -18,5 +18,4 @@ def car_helper(car) -> dict:
         "casualties": car["casualties"],
         "activities": car["activities"],
         "created_at": car["created_at"],
-        "updated_at": car["updated_at"],
     }
