@@ -41,9 +41,9 @@ async def get_car_data(id):
 # CREATE a car
 @router.post("/", response_description="car data added into the database")
 async def add_car_data(car: CarSchema = Body(...)):
-    car_license = await check_car_exists(car.car_license)
+    car_exists = await check_car_exists(car.car_license)
 
-    if not car_license:
+    if not car_exists:
         car = jsonable_encoder(car)
         new_car = await add_car(car)
         return ResponseModel(new_car, "car added successfully.")
