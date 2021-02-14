@@ -1,7 +1,11 @@
-from fastapi.encoders import jsonable_encoder
+from fastapi import Depends
 from passlib.hash import bcrypt
+from fastapi.security import HTTPBasicCredentials, HTTPBasic
+from fastapi.encoders import jsonable_encoder
 from server.database.helpers.user_helper import users_collection
 from server.database.controllers.user_controller import add_user
+
+security = HTTPBasic()
 
 
 async def create_encoded_user(user):
@@ -10,11 +14,11 @@ async def create_encoded_user(user):
     return await add_user(user)
 
 
-async def validate_user(username: str, password: str):
-    user = await users_collection.find_one({"email": username}, {"_id": 0})
+async def validate_user(credentials: HTTPBasicCredentials = Depends(security)):
+    user = await users_collection.find_one({"email": credentials.username}, {"_id": 0})
     if not user:
         return False
-    if not bcrypt.verify(password, user["password"]):
+    if not bcrypt.verify(credentials.password, user["password"]):
         return False
     return True
 

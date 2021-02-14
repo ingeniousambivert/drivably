@@ -10,8 +10,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='signin')
 
 def token_response(token: str):
     return {
-        "token_type": "bearer",
-        "access_token": token
+        "access_token": token,
+        "token_type": "bearer"
     }
 
 

@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Depends
-from fastapi.security import OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
 from server.routes.user_router import router as UserRouter
 from server.auth.auth_router import router as AuthRouter
 from server.routes.car_router import router as CarRouter
+from server.auth.jwt_bearer import JWTBearer
 
+token_listener = JWTBearer()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='signin')
 app = FastAPI()
 
 origins = [
@@ -23,12 +23,10 @@ app.add_middleware(
 )
 
 app.include_router(AuthRouter, tags=["Auth"])
-app.include_router(UserRouter, tags=["User"],
-                   prefix="/user",
-                   dependencies=[Depends(oauth2_scheme)])
-app.include_router(CarRouter, tags=["Car"],
-                   prefix="/car",
-                   dependencies=[Depends(oauth2_scheme)])
+app.include_router(UserRouter, tags=[
+                   "User"], prefix="/user", dependencies=[Depends(token_listener)])
+app.include_router(
+    CarRouter, tags=["Car"], prefix="/car", dependencies=[Depends(token_listener)])
 
 
 @ app.get("/", tags=["Root"])

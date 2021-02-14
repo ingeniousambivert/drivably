@@ -1,5 +1,5 @@
-from fastapi import Body, APIRouter, Depends
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import Body, APIRouter
+from fastapi.security import HTTPBasicCredentials
 from .utils import validate_user, create_encoded_user, check_user_exists
 from .jwt_handler import signJWT
 
@@ -10,7 +10,6 @@ from server.database.models.user_model import (
 )
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='signin')
 
 
 # SIGNUP user
@@ -27,8 +26,8 @@ async def signup_user(user: UserSchema = Body(...)):
 
 # SIGNIN user
 @router.post("/signin", response_description="user signed in")
-async def signin_user(credentials: OAuth2PasswordRequestForm = Depends()):
-    validated = await validate_user(credentials.username, credentials.password)
+async def signin_user(credentials:  HTTPBasicCredentials = Body(...)):
+    validated = await validate_user(credentials)
 
     if validated:
         return signJWT(credentials.username)
