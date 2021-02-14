@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from server.routes.user_router import router as UserRouter
-from server.auth.auth_router import router as AuthRouter
+from server.auth.router import router as AuthRouter
 from server.routes.car_router import router as CarRouter
-from server.auth.jwt_bearer import JWTBearer
+from server.auth.jwt.bearer import JWTBearer
 
 token_listener = JWTBearer()
 
