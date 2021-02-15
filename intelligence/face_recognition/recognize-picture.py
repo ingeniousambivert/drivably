@@ -1,6 +1,6 @@
 import face_recognition
-known_image = face_recognition.load_image_file("./known/elon.jpg")
-unknown_image = face_recognition.load_image_file("./unknown/jeff.jpg")
+known_image = face_recognition.load_image_file("./face/known/elon.jpg")
+unknown_image = face_recognition.load_image_file("./face/unknown/jeff.jpg")
 
 known_face_names = [
     "Elon Musk",
