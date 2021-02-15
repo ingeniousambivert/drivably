@@ -25,8 +25,8 @@ router = APIRouter()
 async def get_cars():
     cars = await retrieve_cars()
     if cars:
-        return ResponseModel(cars, "cars data retrieved successfully")
-    return ResponseModel(cars, "Empty list returned")
+        return ResponseModel(cars)
+    return ResponseModel("Empty list returned")
 
 
 # GET a car
@@ -34,7 +34,7 @@ async def get_cars():
 async def get_car_data(id):
     car = await retrieve_car(id)
     if car:
-        return ResponseModel(car, "car data retrieved successfully")
+        return ResponseModel(car)
     return ErrorResponseModel("An error occurred.", 404, "car doesn't exist.")
 
 
@@ -46,7 +46,7 @@ async def add_car_data(car: CarSchema = Body(...)):
     if not car_exists:
         car = jsonable_encoder(car)
         new_car = await add_car(car)
-        return ResponseModel(new_car, "car added successfully.")
+        return ResponseModel(new_car)
 
     return ErrorResponseModel("Conflict", 409, "Car already exists")
 
@@ -60,7 +60,6 @@ async def update_car_data(id: str, data: UpdateCarModel = Body(...)):
     if updated_car:
         return ResponseModel(
             "car with ID: {} updated successfully".format(id),
-            "car updated successfully",
         )
     return ErrorResponseModel(
         "An error occurred",
@@ -75,7 +74,7 @@ async def delete_car_data(id: str):
     deleted_car = await delete_car(id)
     if deleted_car:
         return ResponseModel(
-            "car with ID: {} removed".format(id), "car deleted successfully"
+            "car with ID: {} deleted successfully".format(id),
         )
     return ErrorResponseModel(
         "An error occurred", 404, "car with id {0} doesn't exist".format(id)

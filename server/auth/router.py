@@ -21,7 +21,7 @@ async def signup_user(user: UserSchema = Body(...)):
         encoded_user = await create_encoded_user(user)
         user_token = signJWT(user.email)
         encoded_user["access_token"] = user_token["access_token"]
-        return ResponseModel(encoded_user, "user added successfully.")
+        return ResponseModel(encoded_user)
 
     return ErrorResponseModel("Conflict", 409, "Email already exists")
 
