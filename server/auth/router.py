@@ -19,13 +19,16 @@ router = APIRouter()
 @router.post("/signup", response_description="user signed up")
 async def signup_user(user: UserSchema = Body(...)):
     email_exists = await check_user_exists(user.email)
+    encoded_user = dict()
 
     if not email_exists:
         encoded_user = await create_encoded_user(user)
         encoded_user_with_token = add_token(encoded_user)
         return ResponseModel(encoded_user_with_token)
+    elif email_exists:
+        return ErrorResponseModel("Conflict", 409, "Email already exists")
 
-    return ErrorResponseModel("Conflict", 409, "Email already exists")
+    return ErrorResponseModel("Server Error", 500, "Could not signup user")
 
 
 # SIGNIN user
@@ -38,4 +41,7 @@ async def signin_user(credentials:  HTTPBasicCredentials = Body(...)):
         user_with_token = add_token(user_data)
         return ResponseModel(user_with_token)
 
-    return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
+    elif not validated:
+        return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
+
+    return ErrorResponseModel("Server Error", 500, "Could not signup user")
