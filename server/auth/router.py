@@ -36,6 +36,6 @@ async def signin_user(credentials:  HTTPBasicCredentials = Body(...)):
     if validated:
         user_data = await retrieve_user_by_email(credentials.username)
         user_with_token = add_token(user_data)
-        return user_with_token
+        return ResponseModel(user_with_token)
 
     return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
