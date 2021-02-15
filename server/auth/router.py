@@ -2,6 +2,8 @@ from fastapi import Body, APIRouter
 from fastapi.security import HTTPBasicCredentials
 from .helpers import validate_user, create_encoded_user, check_user_exists
 from .jwt.handler import signJWT
+from server.database.controllers.user_controller import retrieve_user_by_email
+from server.database.helpers.user_helper import safe_user
 
 from server.database.models.user_model import (
     ErrorResponseModel,
@@ -32,6 +34,9 @@ async def signin_user(credentials:  HTTPBasicCredentials = Body(...)):
     validated = await validate_user(credentials)
 
     if validated:
-        return signJWT(credentials.username)
+        user_data = await retrieve_user_by_email(credentials.username)
+        user_token = signJWT(credentials.username)
+        user_data["access_token"] = user_token["access_token"]
+        return safe_user(user_data)
 
     return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
