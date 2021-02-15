@@ -1,13 +1,15 @@
 from fastapi import Body, APIRouter
 from fastapi.security import HTTPBasicCredentials
 from server.database.controllers.user_controller import retrieve_user_by_email
-from .helpers import (validate_user, create_encoded_user,
-                      check_user_exists, add_token)
+from .helpers import (
+    validate_user, create_encoded_user,
+    check_user_exists, add_token
+)
 
 from server.database.models.user_model import (
     ErrorResponseModel,
     ResponseModel,
-    UserSchema,
+    UserSchema
 )
 
 router = APIRouter()
@@ -20,8 +22,8 @@ async def signup_user(user: UserSchema = Body(...)):
 
     if not email_exists:
         encoded_user = await create_encoded_user(user)
-        encoded_user = add_token(encoded_user)
-        return ResponseModel(encoded_user)
+        encoded_user_with_token = add_token(encoded_user)
+        return ResponseModel(encoded_user_with_token)
 
     return ErrorResponseModel("Conflict", 409, "Email already exists")
 
