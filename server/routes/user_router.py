@@ -20,7 +20,7 @@ router = APIRouter()
 async def get_all_users_data():
     users = await retrieve_users()
     if users:
-        return ResponseModel(users, "Users data retrieved successfully")
+        return ResponseModel(users)
     return ResponseModel("Empty list returned")
 
 

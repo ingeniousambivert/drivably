@@ -110,7 +110,7 @@ class UpdateCarModel(BaseModel):
 
 
 def ResponseModel(data):
-    return [data]
+    return data
 
 
 # def ResponseModel(data, message):
