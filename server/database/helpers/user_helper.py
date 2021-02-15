@@ -17,3 +17,15 @@ def user_helper(user) -> dict:
         "phone": user["phone"],
         "created_at": user["created_at"],
     }
+
+
+def safe_user(user) -> dict:
+    return {
+        "id": str(user["id"]),
+        "name": user["name"],
+        "facial_data": user["facial_data"],
+        "email": user["email"],
+        "cars": user["cars"],
+        "phone": user["phone"],
+        "created_at": user["created_at"],
+    }

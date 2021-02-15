@@ -27,6 +27,13 @@ async def retrieve_user(id: str) -> dict:
         return user_helper(user)
 
 
+# Retrieve a user with a matching EMAIL
+async def retrieve_user_by_email(email: str) -> dict:
+    user = await users_collection.find_one({"email": email})  # , {"_id": 0}
+    if user:
+        return user_helper(user)
+
+
 # Update a user with a matching ID
 async def update_user(id: str, user_data: dict):
     user = await users_collection.find_one({"_id": ObjectId(id)})
