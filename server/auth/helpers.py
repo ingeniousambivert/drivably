@@ -1,5 +1,6 @@
 from fastapi import Depends
 from passlib.hash import bcrypt
+from .jwt.handler import signJWT
 from fastapi.security import HTTPBasicCredentials, HTTPBasic
 from fastapi.encoders import jsonable_encoder
 from server.database.helpers.user_helper import users_collection
@@ -12,6 +13,12 @@ async def create_encoded_user(user):
     user.password = bcrypt.hash(user.password)
     user = jsonable_encoder(user)
     return await add_user(user)
+
+
+def add_token(user):
+    user_token = signJWT(user["email"])
+    user["access_token"] = user_token["access_token"]
+    return user
 
 
 async def verify_password(password: str, password_hash: str):

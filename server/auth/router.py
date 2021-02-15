@@ -1,9 +1,9 @@
 from fastapi import Body, APIRouter
 from fastapi.security import HTTPBasicCredentials
-from .helpers import validate_user, create_encoded_user, check_user_exists
-from .jwt.handler import signJWT
 from server.database.controllers.user_controller import retrieve_user_by_email
 from server.database.helpers.user_helper import safe_user
+from .helpers import (validate_user, create_encoded_user,
+                      check_user_exists, add_token)
 
 from server.database.models.user_model import (
     ErrorResponseModel,
@@ -21,9 +21,8 @@ async def signup_user(user: UserSchema = Body(...)):
 
     if not email_exists:
         encoded_user = await create_encoded_user(user)
-        user_token = signJWT(user.email)
-        encoded_user["access_token"] = user_token["access_token"]
-        return ResponseModel(encoded_user)
+        encoded_user = add_token(encoded_user)
+        return ResponseModel(safe_user(encoded_user))
 
     return ErrorResponseModel("Conflict", 409, "Email already exists")
 
@@ -35,8 +34,7 @@ async def signin_user(credentials:  HTTPBasicCredentials = Body(...)):
 
     if validated:
         user_data = await retrieve_user_by_email(credentials.username)
-        user_token = signJWT(credentials.username)
-        user_data["access_token"] = user_token["access_token"]
+        user_data = add_token(user_data)
         return safe_user(user_data)
 
     return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
