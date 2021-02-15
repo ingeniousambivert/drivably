@@ -6,7 +6,7 @@ import numpy as np
 video_capture = cv2.VideoCapture(0)
 
 # Load a sample picture and learn how to recognize it.
-elon_image = face_recognition.load_image_file("./faces/known/elon.jpg")
+elon_image = face_recognition.load_image_file("./dataset/known/elon.jpg")
 elon_face_encoding = face_recognition.face_encodings(elon_image)[0]
 
 # Create arrays of known face encodings and their names
