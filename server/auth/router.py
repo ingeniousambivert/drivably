@@ -44,4 +44,4 @@ async def signin_user(credentials:  HTTPBasicCredentials = Body(...)):
     elif not validated:
         return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
 
-    return ErrorResponseModel("Server Error", 500, "Could not signup user")
+    return ErrorResponseModel("Server Error", 500, "Could not sign in user")
