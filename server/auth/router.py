@@ -25,6 +25,7 @@ async def signup_user(user: UserSchema = Body(...)):
         encoded_user = await create_encoded_user(user)
         encoded_user_with_token = add_token(encoded_user)
         return ResponseModel(encoded_user_with_token)
+
     elif email_exists:
         return ErrorResponseModel("Conflict", 409, "Email already exists")
 
