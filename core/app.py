@@ -4,10 +4,21 @@ from server.routes.user_router import router as UserRouter
 from server.auth.router import router as AuthRouter
 from server.routes.car_router import router as CarRouter
 from server.auth.jwt.bearer import JWTBearer
+from pydantic import BaseSettings
+
+
+class Settings(BaseSettings):
+    openapi_url: str = "/openapi.json"
+
+
+settings = Settings()
 
 token_listener = JWTBearer()
 
-app = FastAPI()
+app = FastAPI(openapi_url=settings.openapi_url)
+
+''' To disable the docs set the OpenAPI Url env as an empty string : 
+OPENAPI_URL= python main.py '''
 
 origins = [
     "http://localhost",
