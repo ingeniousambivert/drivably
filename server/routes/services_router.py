@@ -1,11 +1,9 @@
 from server.database.models.user_model import (
     ResponseModel, ErrorResponseModel)
 from fastapi import APIRouter
-from fastapi_mail import FastMail, MessageSchema
+from fastapi_mail import (FastMail, MessageSchema, ConnectionConfig)
 from pydantic import EmailStr
 from typing import List
-
-from fastapi_mail import ConnectionConfig
 from server.utils.config import configured
 
 
