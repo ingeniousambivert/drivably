@@ -1,7 +1,7 @@
 import motor.motor_asyncio
-from server.utils.config import MONGO_URI
+from server.utils.config import configured
 
-client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
+client = motor.motor_asyncio.AsyncIOMotorClient(configured.MONGO_URI)
 database = client["drivably"]
 cars_collection = database["cars"]
 
