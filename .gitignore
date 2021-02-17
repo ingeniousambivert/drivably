@@ -2,6 +2,8 @@
 drivablyEnv/
 __pycache__
 
+# MISC
+.env
 
 ### VSCODE FILES
 .vscode/*
@@ -65,3 +67,4 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
