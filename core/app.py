@@ -1,11 +1,10 @@
-from fastapi import FastAPI, Depends, File, UploadFile
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from server.routes.user_router import router as UserRouter
 from server.auth.router import router as AuthRouter
 from server.routes.car_router import router as CarRouter
 from server.auth.jwt.bearer import JWTBearer
 from pydantic import BaseSettings
-from server.utils.helpers import save_upload_file
 
 
 class Settings(BaseSettings):
