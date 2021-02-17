@@ -15,15 +15,15 @@ async def check_car_exists(car_license: str):
     return False
 
 
-def save_upload_file(upload_file: UploadFile) -> None:
+def save_upload_file(upload_file: UploadFile, file_name: str) -> None:
     try:
-        if not os.path.exists("data/"):
-            os.makedirs("data/")
+        if not os.path.exists("data/faces/"):
+            os.makedirs("data/faces/")
 
-        file_location = f"data/{upload_file.filename}"
+        file_location = f"data/faces/{file_name}_Face.png"
         with open(file_location, "wb+") as file_object:
             shutil.copyfileobj(upload_file.file, file_object)
-        return f"file {upload_file.filename} uploaded at {file_location}"
+        return {"filename": file_name+"_Face", "location": file_location}
     finally:
         upload_file.file.close()
 
