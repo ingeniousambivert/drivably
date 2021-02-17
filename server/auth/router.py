@@ -6,6 +6,7 @@ from .helpers import (
     check_user_exists, add_token
 )
 
+
 from server.database.models.user_model import (
     ErrorResponseModel,
     ResponseModel,
