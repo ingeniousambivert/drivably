@@ -1,21 +1,15 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from server.routes.user_router import router as UserRouter
-from server.auth.router import router as AuthRouter
 from server.routes.car_router import router as CarRouter
+from server.routes.services_router import router as ServicesRouter
+from server.auth.router import router as AuthRouter
 from server.auth.jwt.bearer import JWTBearer
-from pydantic import BaseSettings
-
-
-class Settings(BaseSettings):
-    openapi_url: str = "/openapi.json"
-
-
-settings = Settings()
+from server.utils.config import configured
 
 token_listener = JWTBearer()
 
-app = FastAPI(openapi_url=settings.openapi_url)
+app = FastAPI(openapi_url=configured.openapi_url)
 
 ''' To disable the docs in the server set the OpenAPI Url env as an empty string : 
 OPENAPI_URL= python main.py '''
@@ -38,6 +32,8 @@ app.include_router(UserRouter, tags=["User"],
                    prefix="/user", dependencies=[Depends(token_listener)])
 app.include_router(CarRouter, tags=["Car"],
                    prefix="/car", dependencies=[Depends(token_listener)])
+app.include_router(ServicesRouter, tags=["Services"],
+                   prefix="/services", dependencies=[Depends(token_listener)])
 
 
 @ app.get("/", tags=["Root"])
