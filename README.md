@@ -1,8 +1,30 @@
-# drivably_app
+# Drivably - Car Safety Assistant with IoT
 
-A new Flutter project.
+Software Development Project - TY BCA - GLS
+
+## Admin
+
+>Admin App for Drivably
 
 ## Getting Started
+
+Getting up and running is simple.
+
+1. Make sure you have [Flutter](https://flutter.dev/docs/get-started/install) and [Dart SDK](https://dart.dev/get-dart) installed.
+
+2. Install your dependencies.
+
+    ```bash
+    flutter pub get
+    ```
+
+3. Start your app.
+
+    ```bash
+    flutter run -d {your device ID}
+    ```
+
+### Notes
 
 This project is a starting point for a Flutter application.
 
