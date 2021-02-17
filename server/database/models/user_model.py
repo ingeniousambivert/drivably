@@ -6,7 +6,6 @@ class UserSchema(BaseModel):
     name: str = Field(...)
     email: EmailStr = Field(...)
     password: str = Field(...)
-    facial_data: Optional[str] = Field(...)
     cars: Optional[List[str]] = Field(...)
     phone: Optional[float] = Field(...)
     created_at: str = Field(None)
