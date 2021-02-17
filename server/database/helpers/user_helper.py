@@ -10,7 +10,6 @@ def user_helper(user) -> dict:
     return {
         "id": str(user["_id"]),
         "name": user["name"],
-        "facial_data": user["facial_data"],
         "email": user["email"],
         "cars": user["cars"],
         "phone": user["phone"],
