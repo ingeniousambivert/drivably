@@ -11,7 +11,8 @@ def user_helper(user) -> dict:
         "id": str(user["_id"]),
         "name": user["name"],
         "email": user["email"],
-        "cars": user["cars"],
         "phone": user["phone"],
+        "facial_data": user["facial_data"],
+        "cars": user["cars"],
         "created_at": user["created_at"],
     }
