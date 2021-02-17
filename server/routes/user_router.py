@@ -9,7 +9,8 @@ from server.database.controllers.user_controller import (
     retrieve_users,
     update_user,
 )
-from fastapi import Body, APIRouter
+from fastapi import Body, APIRouter, File, UploadFile
+from server.utils.helpers import save_upload_file
 
 
 router = APIRouter()
@@ -42,6 +43,26 @@ async def update_user_data(id: str, data: UpdateUserModel = Body(...)):
     if updated_user:
         return ResponseModel(
             "User with ID: {} updated successfully".format(id)
+        )
+    return ErrorResponseModel(
+        "An error occurred",
+        404,
+        "There was an error updating the user data.",
+    )
+
+
+# UPDATE a user's files and object
+@router.put("/face/{id}", response_description="User data updated")
+async def update_user_facial_data(id: str, image: UploadFile = File(...)):
+    user_data = await retrieve_user(id)
+    safe_file_name = user_data["name"].replace(" ", "") + "_" + user_data["id"]
+    facial_data = save_upload_file(image, safe_file_name)
+    user_data["facial_data"] = facial_data["location"]
+    user_data.pop("id")  # prevent data duplication
+    updated_user = await update_user(id, user_data)
+    if updated_user:
+        return ResponseModel(
+            "Facial Data for User with ID: {} updated successfully".format(id)
         )
     return ErrorResponseModel(
         "An error occurred",
