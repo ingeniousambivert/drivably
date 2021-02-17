@@ -20,7 +20,7 @@ email_config = ConnectionConfig(
 
 router = APIRouter()
 
-template: str = "<p>This is a test from Drivably's API</p>"
+template: str = "<p>This is a test email from Drivably's API</p>"
 
 
 # Send Email
