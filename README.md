@@ -1,26 +1,38 @@
 # Drivably - Car Safety Assistant with IoT
-Software Development Project - TY BCA - GLS 
 
-Every **module** of the project has its own branch. 
+Software Development Project - TY BCA - GLS
 
- **Main** branch is for documentation only.
- 
- **Server**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git && git checkout server 
-```
+## Key
 
- **Drowsiness Detection**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git && git checkout drowsiness-detection 
-```
+>Key App for Drivably
 
- **Facial Recognition**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git && git checkout facial-recognition 
-```
- 
+## Getting Started
 
-[SDP Documentation](https://docs.google.com/document/d/1x1UO4qixu3agEuyd0DjvhxfHhT1m4Ka7UGL-Xs9vXtQ/edit?ts=5f9a4460#)
+Getting up and running is simple.
 
-[SDP Proposal](https://docs.google.com/document/d/1K69xAMH8sVpEmwizBmdC80Qoa7_X9qYjWIPpXe45cSw/edit?ts=5ea6a769)
+1. Make sure you have [Flutter](https://flutter.dev/docs/get-started/install) and [Dart SDK](https://dart.dev/get-dart) installed.
+
+2. Install your dependencies.
+
+    ```bash
+    flutter pub get
+    ```
+
+3. Start your app.
+
+    ```bash
+    flutter run -d {your device ID}
+    ```
+
+### Notes
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
