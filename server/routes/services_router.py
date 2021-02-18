@@ -1,4 +1,5 @@
-from server.database.models.user_model import ResponseModel
+from server.database.models.user_model import (
+    ResponseModel, ErrorResponseModel)
 from fastapi import APIRouter
 from fastapi_mail import (FastMail, MessageSchema, ConnectionConfig)
 from pydantic import EmailStr
@@ -24,7 +25,7 @@ template: str = "<p>This is a test email from Drivably's API</p>"
 
 
 # Send Email
-@router.post("/email", response_description="Email Sent",)
+@router.post("/email", response_description="Email Sent")
 async def send_email(email_address: List[EmailStr]):
 
     message = MessageSchema(
@@ -36,6 +37,9 @@ async def send_email(email_address: List[EmailStr]):
     )
 
     send_mail = FastMail(email_config)
-    await send_mail.send_message(message)
 
-    return ResponseModel("Email sent successfully")
+    if send_mail:
+        await send_mail.send_message(message)
+        return ResponseModel("Email sent successfully")
+
+    return ErrorResponseModel("Server Error", 500, "Could not send email")
