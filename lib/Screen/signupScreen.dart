@@ -1,6 +1,6 @@
 import 'package:drivably_app/Module/const.dart';
 import 'package:drivably_app/Module/routing.dart';
-import 'package:drivably_app/Screen/deshboardScreen.dart';
+import 'package:drivably_app/Screen/CameraScreens/camera.dart';
 import 'package:drivably_app/Services/apiServices.dart';
 import 'package:flutter/material.dart';
 
@@ -176,9 +176,9 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                     if (cnfPassword == password) {
                       print("Pass");
                       _services.postSignUpUser();
-                      removeUntil(
+                      pushToNext(
                         context,
-                        DeshboardScreen(),
+                        CameraScreen(),
                       );
                     }
                   },
@@ -187,7 +187,7 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                       vertical: 21.0,
                     ),
                     child: Text(
-                      "Sign In",
+                      "Next to add Driver's Details",
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,

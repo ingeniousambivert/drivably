@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.drivably_app">
     <uses-permission android:name="android.permission.CAMERA" />
+
    <application
         android:label="drivably_app"
         android:icon="@mipmap/ic_launcher"
