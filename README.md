@@ -30,6 +30,7 @@ Getting up and running is simple.
     - Add the following lines to it (modify according to your environment/needs)
 
     ```env
+     # configure your email host details here
     MAIL_USERNAME=username
     MAIL_PASSWORD=password
     MAIL_FROM=your@email.com
