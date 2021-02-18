@@ -19,7 +19,7 @@ class _DeshboardScreenState extends State<DeshboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("GJ 32 xx 2343"),
+        title: Text("GJ 00 xx 0000"),
         centerTitle: true,
         backgroundColor: Colors.black,
         actions: [],

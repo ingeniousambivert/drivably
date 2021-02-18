@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:drivably_app/Module/const.dart';
+import 'package:drivably_app/Module/routing.dart';
+import 'package:drivably_app/Screen/deshboardScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,55 +27,68 @@ class _PreviewScreenState extends State<PreviewScreen> {
         centerTitle: true,
         title: Text("Confirm Details"),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Image.file(
-                File(widget.imgPath),
-                fit: BoxFit.fitHeight,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: Image.file(
+                  File(widget.imgPath),
+                  fit: BoxFit.fitHeight,
+                ),
               ),
-            ),
-            SizedBox(height: 40),
-            Expanded(
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: textFieldStyle("Driver's Name"),
-                    onChanged: (value) {
-                      setState(() {
-                        name = value;
-                      });
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  TextField(
-                    decoration: textFieldStyle("Driver's Age"),
-                    onChanged: (value) {
-                      setState(() {
-                        age = value;
-                      });
-                    },
-                  ),
-                ],
+              SizedBox(height: 40),
+              Expanded(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: textFormFieldStyle("Driver's Name"),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          name = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      decoration: textFormFieldStyle("Driver's Age"),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          age = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('here now');
           print(widget.imgPath);
+          print(name + " " + age);
+          pushToNext(context, DeshboardScreen());
+
           // getBytes().then((bytes) {
 
           //   print(bytes.buffer.asUint8List());
           //   Share.file('Share via', widget.fileName,
           //       bytes.buffer.asUint8List(), 'image/path');
-          // });
+          // },
+          //);
         },
         child: Icon(
           Icons.arrow_right,

@@ -14,7 +14,7 @@ class IndexScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset("images/background.png"),
+              Image.asset("assets/background.png"),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 80),
                 child: Column(

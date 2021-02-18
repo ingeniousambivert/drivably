@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Color grey = Color(0xff868691);
 Color darkGrey = Color(0xff3A3B40);
 
-InputDecoration textFieldStyle(String text) {
+InputDecoration textFormFieldStyle(String text) {
   return InputDecoration(
     filled: true,
     fillColor: Color(0xFF212121),

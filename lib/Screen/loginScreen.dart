@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: 60),
-            TextField(
+            TextFormField(
               onChanged: (value) {
                 setState(() {
                   setUserName = value;
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: 20),
-            TextField(
+            TextFormField(
               onChanged: (value) {
                 setState(() {
                   setSignInPassword = value;
