@@ -9,27 +9,32 @@ Every **module** of the project has its own branch.
  
  **Server**
  ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git && git checkout server 
+    git clone https://github.com/ingeniousambivert/drivably.git 
+    git checkout server 
 ```
 
  **Drowsiness Detection**
  ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git && git checkout drowsiness-detection 
+    git clone https://github.com/ingeniousambivert/drivably.git 
+    git checkout drowsiness-detection 
 ```
 
  **Facial Recognition**
  ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git && git checkout facial-recognition 
+    git clone https://github.com/ingeniousambivert/drivably.git
+    git checkout facial-recognition 
 ```
 
  **Admin App**
  ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git && git checkout admin-app 
+    git clone https://github.com/ingeniousambivert/drivably.git 
+    git checkout admin-app 
 ```
 
  **Key App**
  ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git && git checkout key-app 
+    git clone https://github.com/ingeniousambivert/drivably.git
+    git checkout key-app 
 ```
 
 
