@@ -45,6 +45,22 @@ async def update_car(id: str, car_data: dict):
         return False
 
 
+# Update ARRAY ATTRIBUTES of a car with a matching ID
+async def update_car_array_attributes(id: str, car_attribute: str, car_attribute_data: dict):
+
+    car = await cars_collection.find_one({"_id": ObjectId(id)})
+
+    if car:
+        car_attribute_data["created_at"] = datetime.now()
+        updated_car_attribute = await cars_collection.update_one(
+            {"_id": ObjectId(id)}, {
+                "$push": {car_attribute: car_attribute_data}, }
+        )
+        if updated_car_attribute:
+            return True
+        return False
+
+
 # Delete a car from the database
 async def delete_car(id: str):
     car = await cars_collection.find_one({"_id": ObjectId(id)})
