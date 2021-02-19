@@ -6,11 +6,13 @@ class CarSchema(BaseModel):
     car_license: str = Field(...)
     car_name: str = Field(...)
     owner: Dict = Field(...)
-    drivers: Optional[List[str]] = Field(...)
-    current_location: Optional[Dict] = Field(...)
-    alcohol_concentrations: Optional[List[Dict]] = Field(...)
-    casualties: Optional[List[Dict]] = Field(...)
-    activities: Optional[List[Dict]] = Field(...)
+    drivers: List[str]
+    current_location: Dict
+    alcohol_concentrations: List[Dict]
+    casualties: List[Dict]
+    activities: List[Dict]
+    current_profile: Dict
+    previous_profiles: List[Dict]
     created_at: str = Field(None)
 
     class Config:
@@ -21,7 +23,6 @@ class CarSchema(BaseModel):
                 "owner": {
                     "name": "John Doe",
                     "email": "john@doe.com",
-                    "facial_data": "./faces/JohnDoe_Face.jpg",
                     "cars": ["car-id-1", "car-id-2"],
                     "phone": "0123456789",
                 },
@@ -50,7 +51,24 @@ class CarSchema(BaseModel):
                         "driver": "driver-id-1",
                         "data": "drowsiness_alert"
                     }
-                ]
+                ],
+                "current_driver": {
+                    "name": "John Doe",
+                    "email": "john@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                },
+                "previous_drivers": [{
+                    "name": "Jane Doe",
+                    "email": "jane@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                }, {
+                    "name": "Jake Doe",
+                    "email": "jake@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                }]
 
             }
         }
@@ -74,7 +92,6 @@ class UpdateCarModel(BaseModel):
                 "owner": {
                     "name": "John Doe",
                     "email": "john@doe.com",
-                    "facial_data": "./faces/JohnDoe_Face.jpg",
                     "cars": ["car-id-1", "car-id-2"],
                     "phone": "0123456789",
                 },
@@ -103,7 +120,24 @@ class UpdateCarModel(BaseModel):
                         "driver": "driver-id-1",
                         "data": "drowsiness_alert"
                     }
-                ]
+                ],
+                "current_driver": {
+                    "name": "John Doe",
+                    "email": "john@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                },
+                "previous_drivers": [{
+                    "name": "Jane Doe",
+                    "email": "jane@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                }, {
+                    "name": "Jake Doe",
+                    "email": "jake@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                }]
 
             }
         }
