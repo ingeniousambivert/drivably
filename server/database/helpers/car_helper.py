@@ -17,5 +17,7 @@ def car_helper(car) -> dict:
         "alcohol_concentrations": car["alcohol_concentrations"],
         "casualties": car["casualties"],
         "activities": car["activities"],
+        "current_profile": car["current_profile"],
+        "previous_profiles": car["previous_profiles"],
         "created_at": car["created_at"],
     }
