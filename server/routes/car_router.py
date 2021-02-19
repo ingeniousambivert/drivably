@@ -73,12 +73,13 @@ async def update_car_data(id: str, data: UpdateCarModel = Body(...)):
 # UPDATE a car's attributes
 @router.put("/extras/{id}", response_description="car data updated")
 async def update_car_attributes(id: str, car_attribute: str, car_attribute_data: Dict = Body(...)):
-    # car_attribute_data = {key: value for key, value in car_attribute_data.dict().items()
-    #         if value is not None}
+    car_attribute_data = {key: value for key, value in car_attribute_data.items()
+                          if value is not None}
     updated_car_attribute = await update_car_array_attributes(id, car_attribute, car_attribute_data)
     if updated_car_attribute:
         return ResponseModel(
-            "car attribute with ID: {} updated successfully".format(id),
+            "car ID: {}, attribute : ".format(id) + car_attribute +
+            " updated successfully",
         )
     return ErrorResponseModel(
         "An error occurred",
