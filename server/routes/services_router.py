@@ -5,6 +5,7 @@ from fastapi_mail import (FastMail, MessageSchema, ConnectionConfig)
 from pydantic import EmailStr
 from typing import List
 from server.utils.config import configured
+from server.utils.template import email_template
 
 
 email_config = ConnectionConfig(
@@ -21,7 +22,7 @@ email_config = ConnectionConfig(
 
 router = APIRouter()
 
-template: str = "<p>This is a test email from Drivably's API</p>"
+message_text: str = "This is a test of the template"
 
 
 # Send Email
@@ -32,7 +33,7 @@ async def send_email(email_address: List[EmailStr]):
         subject="Drivably Notifier",
         # List of recipients
         recipients=email_address,
-        body=template,
+        body=email_template(message_text),
         subtype="html"
     )
 
