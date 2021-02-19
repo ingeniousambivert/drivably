@@ -71,7 +71,7 @@ async def update_car_data(id: str, data: UpdateCarModel = Body(...)):
 
 
 # UPDATE a car's attributes
-@router.put("/extras/{id}", response_description="car data updated")
+@router.put("/attribute/{id}", response_description="car attribute updated")
 async def update_car_attributes(id: str, car_attribute: str, car_attribute_data: Dict = Body(...)):
     car_attribute_data = {key: value for key, value in car_attribute_data.items()
                           if value is not None}
