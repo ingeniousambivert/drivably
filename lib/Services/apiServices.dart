@@ -4,38 +4,55 @@ import 'package:drivably_app/Services/localStorage.dart';
 
 class ApiServices {
   Dio dio = new Dio();
-
+  final baseUrl = 'http://192.168.43.180';
   Future postSignIdUser() async {
     print(setUserName + setSignInPassword);
     try {
       Response response = await dio.post(
-        "http://192.168.16.138:8008/signin",
+        "$baseUrl/signin",
         data: {
           "username": "$setUserName",
           "password": "$setSignInPassword",
         },
       );
-      setToken(response.data['access_token']);
+      setTokenAndId(response.data['access_token'], response.data['id']);
     } catch (e) {
       print(e);
     }
   }
 
-  postSignUpUser() async {
-    try {
-      Response response =
-          await dio.post("http://192.168.16.138:8008/signup", data: {
-        "name": "$setName",
-        "email": "$setEmail",
-        "password": "$setPassword",
-        "facial_data": "./faces/JohnDoe_Face.jpg",
-        "cars": ["car-id-1", "car-id-2"],
-        "phone": "$setPhone"
-      });
+  Future postSignUpUser(name, email, password, phone) async {
+    print("Enter in function");
 
-      setToken(response.data['access_token']);
+    try {
+      print("Enter in try block");
+
+      Response response = await dio.post(
+        "http://192.168.16.138:8008/signup",
+        data: {
+          "name": "$name",
+          "email": "$email",
+          "password": "$password",
+          "phone": "$phone",
+        },
+      );
+      // setTokenAndId(response.data['access_token'], response.data['id']);
+      print(response);
     } catch (e) {
       print(e);
     }
+  }
+
+  Future setDriver(file) async {
+    String id = "602f4df57652d71cf7006bc4";
+    FormData formData = FormData.fromMap({
+      "image": "$file",
+    });
+    print(formData.fields);
+    Response response = await dio.post(
+      "http://192.168.43.180/user/face/$id",
+      data: formData,
+    );
+    print(response);
   }
 }

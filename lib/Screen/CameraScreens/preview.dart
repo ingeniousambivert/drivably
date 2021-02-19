@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:drivably_app/Module/const.dart';
 import 'package:drivably_app/Module/routing.dart';
 import 'package:drivably_app/Screen/deshboardScreen.dart';
+import 'package:drivably_app/Services/apiServices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ class PreviewScreen extends StatefulWidget {
 
 class _PreviewScreenState extends State<PreviewScreen> {
   String name, age;
+  ApiServices _services = ApiServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +82,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
           print('here now');
           print(widget.imgPath);
           print(name + " " + age);
+          _services.setDriver(widget.imgPath);
           pushToNext(context, DeshboardScreen());
 
           // getBytes().then((bytes) {
@@ -88,7 +91,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
           //   Share.file('Share via', widget.fileName,
           //       bytes.buffer.asUint8List(), 'image/path');
           // },
-          //);
+          // );
         },
         child: Icon(
           Icons.arrow_right,

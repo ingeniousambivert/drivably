@@ -1,5 +1,6 @@
 import 'package:drivably_app/Module/const.dart';
-import 'package:drivably_app/Screen/secSignUpScreen.dart';
+import 'package:drivably_app/Screen/CameraScreens/camera.dart';
+
 import 'package:flutter/material.dart';
 
 class RegScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _RegScreenState extends State<RegScreen> {
               cars.add(licensePlate);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SignupSecScreen()),
+                MaterialPageRoute(builder: (context) => CameraScreen()),
               );
             }
           },

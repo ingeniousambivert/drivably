@@ -1,6 +1,7 @@
 import 'package:drivably_app/Module/const.dart';
 import 'package:drivably_app/Module/routing.dart';
-import 'package:drivably_app/Screen/CameraScreens/camera.dart';
+import 'package:drivably_app/Screen/signupScreen.dart';
+import 'package:drivably_app/Services/apiServices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,6 +15,7 @@ class SignupSecScreen extends StatefulWidget {
 class _SignupSecScreenState extends State<SignupSecScreen> {
   String name, email, phoneNumber, password, cnfPassword;
   final _formKey = GlobalKey<FormState>();
+  ApiServices _services = ApiServices();
 
   @override
   Widget build(BuildContext context) {
@@ -131,35 +133,34 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        setState(() {
-                          setName = name;
-                          setEmail = email;
-                          setPassword = password;
-                          setPhone = phoneNumber;
-                        });
+                        // if (cnfPassword == password) {
+                        //   print("Pass : " +
+                        //       name +
+                        //       email +
+                        //       password +
+                        //       phoneNumber);
+
+                        //   await _services.postSignUpUser(
+                        //       name, email, password, phoneNumber);
+                        //   pushToNext(
+                        //     context,
+                        //     RegScreen(),
+                        //   );
+                        // }
                         pushToNext(
                           context,
-                          CameraScreen(),
+                          RegScreen(),
                         );
                       }
-
-                      // if (cnfPassword == password) {
-                      //   print("Pass");
-                      //   _services.postSignUpUser();
-                      //   pushToNext(
-                      //     context,
-                      //     CameraScreen(),
-                      //   );
-                      // }
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 21.0,
                       ),
                       child: Text(
-                        "Next to add Driver's Details",
+                        "Next",
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
