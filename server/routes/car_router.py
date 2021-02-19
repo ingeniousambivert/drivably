@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Body
+from typing import Dict
 from fastapi.encoders import jsonable_encoder
 from server.utils.helpers import check_car_exists
 
@@ -9,6 +10,7 @@ from server.database.controllers.car_controller import (
     retrieve_car,
     retrieve_cars,
     update_car,
+    update_car_array_attributes
 )
 from server.database.models.car_model import (
     ErrorResponseModel,
@@ -60,6 +62,23 @@ async def update_car_data(id: str, data: UpdateCarModel = Body(...)):
     if updated_car:
         return ResponseModel(
             "car with ID: {} updated successfully".format(id),
+        )
+    return ErrorResponseModel(
+        "An error occurred",
+        404,
+        "There was an error updating the car data.",
+    )
+
+
+# UPDATE a car's attributes
+@router.put("/extras/{id}", response_description="car data updated")
+async def update_car_attributes(id: str, car_attribute: str, car_attribute_data: Dict = Body(...)):
+    # car_attribute_data = {key: value for key, value in car_attribute_data.dict().items()
+    #         if value is not None}
+    updated_car_attribute = await update_car_array_attributes(id, car_attribute, car_attribute_data)
+    if updated_car_attribute:
+        return ResponseModel(
+            "car attribute with ID: {} updated successfully".format(id),
         )
     return ErrorResponseModel(
         "An error occurred",
