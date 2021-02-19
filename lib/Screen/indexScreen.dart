@@ -50,7 +50,7 @@ class IndexScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          FlatButton(
+                          MaterialButton(
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16.0),
@@ -67,7 +67,7 @@ class IndexScreen extends StatelessWidget {
                               child: Text("Register"),
                             ),
                           ),
-                          FlatButton(
+                          MaterialButton(
                             onPressed: () {
                               pushToNext(
                                 context,
