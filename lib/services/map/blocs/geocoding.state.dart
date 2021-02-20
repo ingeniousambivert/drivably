@@ -1,4 +1,4 @@
-import 'package:drivably_app/MapModule/api/models/geocoding.model.dart';
+import 'package:drivably_app/services/map/api/models/geocoding.model.dart';
 
 abstract class GeocodingState {
   const GeocodingState();

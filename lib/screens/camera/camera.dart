@@ -1,5 +1,4 @@
-import 'package:drivably_app/Screen/CameraScreens/preview.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:drivably_app/screens/camera/preview.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:path_provider/path_provider.dart';
@@ -158,7 +157,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Driver Face"),
+        title: Text("Add Driver's Facial Data"),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         centerTitle: true,
@@ -201,11 +200,11 @@ class _CameraScreenState extends State<CameraScreen> {
   getCameraLensIcons(lensDirection) {
     switch (lensDirection) {
       case CameraLensDirection.back:
-        return CupertinoIcons.switch_camera;
+        return IconData(58929, fontFamily: 'MaterialIcons');
       case CameraLensDirection.front:
-        return CupertinoIcons.switch_camera_solid;
+        return IconData(57542, fontFamily: 'MaterialIcons');
       case CameraLensDirection.external:
-        return CupertinoIcons.photo_camera;
+        return IconData(57541, fontFamily: 'MaterialIcons');
       default:
         return Icons.device_unknown;
     }

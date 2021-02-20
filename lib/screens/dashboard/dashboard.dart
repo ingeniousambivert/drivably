@@ -1,24 +1,24 @@
 import 'dart:collection';
-import 'package:drivably_app/Config/routing.dart';
-import 'package:drivably_app/Screen/wapperClass.dart';
-import 'package:drivably_app/Storage/localStorage.dart';
+import 'package:drivably_app/routes/routing.dart';
+import 'package:drivably_app/screens/wrapper/wrapperClass.dart';
+import 'package:drivably_app/utils/storage/localStorage.dart';
 import 'package:flutter/material.dart';
 
-class DeshboardScreen extends StatefulWidget {
-  DeshboardScreen({Key key}) : super(key: key);
+class DashboardScreen extends StatefulWidget {
+  DashboardScreen({Key key}) : super(key: key);
 
   @override
-  _DeshboardScreenState createState() => _DeshboardScreenState();
+  _DashboardScreenState createState() => _DashboardScreenState();
 }
 
-class _DeshboardScreenState extends State<DeshboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen> {
   MapView controller;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("GJ 00 xx 0000"),
+        title: Text("XX 00 xx 0000"),
         centerTitle: true,
         backgroundColor: Colors.black,
         actions: [],
@@ -93,7 +93,7 @@ class _DeshboardScreenState extends State<DeshboardScreen> {
           await removeToken();
           removeUntil(
             context,
-            WapperClass(),
+            WrapperClass(),
           );
         },
       ),

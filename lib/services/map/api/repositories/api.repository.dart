@@ -1,6 +1,6 @@
-import 'package:drivably_app/MapModule/api/models/geocoding.model.dart';
-import 'package:drivably_app/MapModule/api/providers/api.provider.dart';
-import 'package:drivably_app/MapModule/api/repositories/iapi.repository.dart';
+import 'package:drivably_app/services/map/api/models/geocoding.model.dart';
+import 'package:drivably_app/services/map/api/providers/api.provider.dart';
+import 'package:drivably_app/services/map/api/repositories/iapi.repository.dart';
 
 import '../../utils/helpers/config.helper.dart';
 

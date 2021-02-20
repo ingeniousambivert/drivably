@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:drivably_app/Config/routing.dart';
-import 'package:drivably_app/Constants/const.dart';
-import 'package:drivably_app/Screen/deshboardScreen.dart';
-import 'package:drivably_app/Utils/apiServices.dart';
+import 'package:drivably_app/routes/routing.dart';
+import 'package:drivably_app/constants/consts.dart';
+import 'package:drivably_app/screens/dashboard/dashboard.dart';
+import 'package:drivably_app/services/api/client.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ class PreviewScreen extends StatefulWidget {
 
 class _PreviewScreenState extends State<PreviewScreen> {
   String name, age;
-  ApiServices _services = ApiServices();
+  APIServices _services = APIServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +82,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
           print(widget.imgPath);
           print(name + " " + age);
           _services.setDriver(widget.imgPath);
-          pushToNext(context, DeshboardScreen());
+          pushToNext(context, DashboardScreen());
 
           // getBytes().then((bytes) {
 

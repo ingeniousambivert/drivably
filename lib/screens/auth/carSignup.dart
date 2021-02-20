@@ -1,14 +1,14 @@
-import 'package:drivably_app/Constants/const.dart';
-import 'package:drivably_app/Screen/CameraScreens/camera.dart';
+import 'package:drivably_app/constants/consts.dart';
+import 'package:drivably_app/screens/camera/camera.dart';
 
 import 'package:flutter/material.dart';
 
-class RegScreen extends StatefulWidget {
+class CarSignupScreen extends StatefulWidget {
   @override
-  _RegScreenState createState() => _RegScreenState();
+  _CarSignupScreenState createState() => _CarSignupScreenState();
 }
 
-class _RegScreenState extends State<RegScreen> {
+class _CarSignupScreenState extends State<CarSignupScreen> {
   String licensePlate;
   final _formKey = GlobalKey<FormState>();
 
@@ -27,7 +27,7 @@ class _RegScreenState extends State<RegScreen> {
                 height: 50,
               ),
               Text(
-                "Register with License plate",
+                "Add your car's license plate number",
                 style: signUpTextStyle(),
                 textAlign: TextAlign.center,
               ),
@@ -40,12 +40,12 @@ class _RegScreenState extends State<RegScreen> {
                 child: TextFormField(
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please enter license plate number';
+                      return 'Please enter a license plate number';
                     }
                     return null;
                   },
                   autofocus: true,
-                  decoration: textFormFieldStyle("Ex. GJ 00 xx 0000"),
+                  decoration: textFormFieldStyle("Ex. XX 00 xx 0000"),
                   style: TextStyle(color: Colors.white),
                   onChanged: (value) {
                     setState(() {

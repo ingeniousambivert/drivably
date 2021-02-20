@@ -33,14 +33,8 @@ String setName, setEmail, setPassword, setPhone;
 String setUserName, setSignInPassword;
 String accessToken;
 
-// {
-//   "name": "John Doe",
-//   "email": "john@doe.com",
-//   "password": "johndoe123",
-//   "facial_data": "./faces/JohnDoe_Face.jpg",
-//   "cars": [
-//     "sasjniluh8989p8uunih8",
-//     "baskjb878huo8as7iho87"
-//   ],
-//   "phone": "0123456789"
-// }
+// Meet Local
+//final baseUrl = 'http://192.168.43.180:8008';
+
+// Monarch Local
+final baseUrl = 'http://192.168.1.18:8008';

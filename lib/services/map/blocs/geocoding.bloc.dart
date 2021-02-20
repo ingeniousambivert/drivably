@@ -1,6 +1,6 @@
-import 'package:drivably_app/MapModule/api/repositories/api.repository.dart';
-import 'package:drivably_app/MapModule/blocs/geocoding.event.dart';
-import 'package:drivably_app/MapModule/blocs/geocoding.state.dart';
+import 'package:drivably_app/services/map/api/repositories/api.repository.dart';
+import 'package:drivably_app/services/map/blocs/geocoding.event.dart';
+import 'package:drivably_app/services/map/blocs/geocoding.state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GeocodingBloc extends Bloc<GeocodingEvent, GeocodingState> {

@@ -1,5 +1,5 @@
 name: drivably_app
-description: A new Flutter project.
+description: Drivably Admin App
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.1
+  #cupertino_icons: ^1.0.1
   dio: ^3.0.10
   http: ^0.12.2
   shared_preferences: ^0.5.12+4
@@ -74,7 +74,7 @@ flutter:
           weight: 700
         - asset: assets/fonts/Montserrat-ExtraBold.ttf
           weight: 800
-        - asset: fassets/onts/Montserrat-Black.ttf
+        - asset: assets/fonts/Montserrat-Black.ttf
           weight: 900
     # - family: Schyler
     #   fonts:

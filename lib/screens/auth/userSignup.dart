@@ -1,21 +1,21 @@
-import 'package:drivably_app/Config/routing.dart';
-import 'package:drivably_app/Constants/const.dart';
-import 'package:drivably_app/Screen/signupScreen.dart';
-import 'package:drivably_app/Utils/apiServices.dart';
+import 'package:drivably_app/routes/routing.dart';
+import 'package:drivably_app/constants/consts.dart';
+import 'package:drivably_app/screens/auth/carSignup.dart';
+import 'package:drivably_app/services/api/client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SignupSecScreen extends StatefulWidget {
-  const SignupSecScreen({Key key}) : super(key: key);
+class UserSignupScreen extends StatefulWidget {
+  const UserSignupScreen({Key key}) : super(key: key);
 
   @override
-  _SignupSecScreenState createState() => _SignupSecScreenState();
+  _UserSignupScreenState createState() => _UserSignupScreenState();
 }
 
-class _SignupSecScreenState extends State<SignupSecScreen> {
+class _UserSignupScreenState extends State<UserSignupScreen> {
   String name, email, phoneNumber, password, cnfPassword;
   final _formKey = GlobalKey<FormState>();
-  ApiServices _services = ApiServices();
+  APIServices _services = APIServices();
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +35,11 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Let's register",
+                            "Register to",
                             style: signUpTextStyle(),
                           ),
                           Text(
-                            "your self !",
+                            "Drivably",
                             style: signUpTextStyle(),
                           ),
                           SizedBox(height: 50),
@@ -52,12 +52,11 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                             },
                             validator: (value) {
                               if (value.isEmpty) {
-                                return 'Please enter User Name';
+                                return 'Please enter your name';
                               }
                               return null;
                             },
-                            decoration:
-                                textFormFieldStyle("Enter your full name"),
+                            decoration: textFormFieldStyle("Enter your name"),
                             keyboardType: TextInputType.name,
                           ),
                           SizedBox(height: 20),
@@ -70,11 +69,11 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                             },
                             validator: (value) {
                               if (value.isEmpty) {
-                                return 'Please enter Email';
+                                return 'Please enter your email';
                               }
                               return null;
                             },
-                            decoration: textFormFieldStyle("Enter email"),
+                            decoration: textFormFieldStyle("Enter your email"),
                             keyboardType: TextInputType.emailAddress,
                           ),
                           SizedBox(height: 20),
@@ -87,12 +86,12 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                             },
                             validator: (value) {
                               if (value.isEmpty) {
-                                return 'Please enter Phone Number';
+                                return 'Please enter your phone number';
                               }
                               return null;
                             },
                             decoration:
-                                textFormFieldStyle("Enter Phone Number"),
+                                textFormFieldStyle("Enter your phone number"),
                             keyboardType: TextInputType.number,
                           ),
                           SizedBox(height: 20),
@@ -105,11 +104,11 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                             },
                             validator: (value) {
                               if (value.isEmpty) {
-                                return 'Please enter Password';
+                                return 'Please enter a password';
                               }
                               return null;
                             },
-                            decoration: textFormFieldStyle("Enter Password"),
+                            decoration: textFormFieldStyle("Enter a password"),
                             keyboardType: TextInputType.visiblePassword,
                           ),
                           SizedBox(height: 20),
@@ -122,11 +121,12 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                             },
                             validator: (value) {
                               if (value.isEmpty) {
-                                return 'Please enter Confirm Password';
+                                return 'Please confirm your password';
                               }
                               return null;
                             },
-                            decoration: textFormFieldStyle("Confirm password"),
+                            decoration:
+                                textFormFieldStyle("Confirm your password"),
                             keyboardType: TextInputType.visiblePassword,
                           ),
                           SizedBox(height: 20),
@@ -152,7 +152,7 @@ class _SignupSecScreenState extends State<SignupSecScreen> {
                           // }
                           pushToNext(
                             context,
-                            RegScreen(),
+                            CarSignupScreen(),
                           );
                         }
                       },

@@ -1,7 +1,7 @@
-import 'package:drivably_app/Config/routing.dart';
-import 'package:drivably_app/Constants/const.dart';
-import 'package:drivably_app/Screen/loginScreen.dart';
-import 'package:drivably_app/Screen/secSignUpScreen.dart';
+import 'package:drivably_app/routes/routing.dart';
+import 'package:drivably_app/constants/consts.dart';
+import 'package:drivably_app/screens/auth/userSignin.dart';
+import 'package:drivably_app/screens/auth/userSignup.dart';
 import 'package:flutter/material.dart';
 
 class IndexScreen extends StatelessWidget {
@@ -24,18 +24,18 @@ class IndexScreen extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        fontSize: 35,
+                        fontSize: 45,
                       ),
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 65,
                     ),
                     Text(
-                      "Car Safety Assistant Smart cars are not a new concept. This is a quick sign in / register screen of a current project.",
+                      "Car safety and assistant system with Internet Of Things",
                       style: TextStyle(
                         color: grey,
                         fontWeight: FontWeight.w600,
-                        fontSize: 14,
+                        fontSize: 16,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -58,20 +58,20 @@ class IndexScreen extends StatelessWidget {
                             onPressed: () {
                               pushToNext(
                                 context,
-                                SignupSecScreen(),
+                                UserSignupScreen(),
                               );
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 21.0, horizontal: 35.0),
-                              child: Text("Register"),
+                              child: Text("Sign Up"),
                             ),
                           ),
                           MaterialButton(
                             onPressed: () {
                               pushToNext(
                                 context,
-                                LoginScreen(),
+                                UserSigninScreen(),
                               );
                             },
                             child: Padding(

@@ -1,11 +1,16 @@
 import 'package:dio/dio.dart';
-import 'package:drivably_app/Constants/const.dart';
-import 'package:drivably_app/Storage/localStorage.dart';
+import 'package:drivably_app/constants/consts.dart';
+import 'package:drivably_app/utils/storage/localStorage.dart';
 
+/* TODO: 
+POST - car/ (with safe_user object) 
+PUT - user/ (with car licennse plate number)
+PUT - user/ (with facial data)
+*/
 
-class ApiServices {
+class APIServices {
   Dio dio = new Dio();
-  final baseUrl = 'http://192.168.43.180';
+
   Future postSignIdUser() async {
     print(setUserName + setSignInPassword);
     try {
@@ -29,7 +34,7 @@ class ApiServices {
       print("Enter in try block");
 
       Response response = await dio.post(
-        "http://192.168.16.138:8008/signup",
+        "$baseUrl/signup",
         data: {
           "name": "$name",
           "email": "$email",
@@ -44,6 +49,7 @@ class ApiServices {
     }
   }
 
+  // get ID as a parameter
   Future setDriver(file) async {
     String id = "602f4df57652d71cf7006bc4";
     FormData formData = FormData.fromMap({
@@ -51,7 +57,7 @@ class ApiServices {
     });
     print(formData.fields);
     Response response = await dio.post(
-      "http://192.168.43.180/user/face/$id",
+      "$baseUrl/user/face/$id",
       data: formData,
     );
     print(response);

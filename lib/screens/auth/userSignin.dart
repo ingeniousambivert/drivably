@@ -1,16 +1,16 @@
-import 'package:drivably_app/Config/routing.dart';
-import 'package:drivably_app/Constants/const.dart';
-import 'package:drivably_app/Screen/deshboardScreen.dart';
-import 'package:drivably_app/Utils/apiServices.dart';
+import 'package:drivably_app/routes/routing.dart';
+import 'package:drivably_app/constants/consts.dart';
+import 'package:drivably_app/screens/dashboard/dashboard.dart';
+import 'package:drivably_app/services/api/client.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class UserSigninScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _UserSigninScreenState createState() => _UserSigninScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  ApiServices _service = ApiServices();
+class _UserSigninScreenState extends State<UserSigninScreen> {
+  APIServices _service = APIServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Let’s sign you in.",
+                "Sign In",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 30,
               ),
               Text(
-                "Welcome back. You’ve been missed !",
+                "Welcome back !",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28,
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         new BorderSide(color: Color(0xff707070), width: 1),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  labelText: "Username / licenses number",
+                  labelText: "Email",
                   labelStyle: TextStyle(fontSize: 14, color: Color(0xFFB3B1B1)),
                 ),
               ),
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         new BorderSide(color: Color(0xff707070), width: 1),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  labelText: "Enter password",
+                  labelText: "Password",
                   labelStyle: TextStyle(fontSize: 14, color: Color(0xFFB3B1B1)),
                 ),
               ),
@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 minWidth: MediaQuery.of(context).size.width,
                 onPressed: () async {
                   await _service.postSignIdUser();
-                  pushToNext(context, DeshboardScreen());
+                  pushToNext(context, DashboardScreen());
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
