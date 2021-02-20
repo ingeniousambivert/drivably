@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:drivably_app/constants/consts.dart';
 import 'package:drivably_app/utils/storage/localStorage.dart';
 
-/* TODO: 
+/* TODO
 POST - car/ (with safe_user object) 
 PUT - user/ (with car licennse plate number)
 PUT - user/ (with facial data)
@@ -11,14 +11,13 @@ PUT - user/ (with facial data)
 class APIServices {
   Dio dio = new Dio();
 
-  Future postSignIdUser() async {
-    print(setUserName + setSignInPassword);
+  Future signInUser(email, password) async {
     try {
       Response response = await dio.post(
         "$baseUrl/signin",
         data: {
-          "username": "$setUserName",
-          "password": "$setSignInPassword",
+          "username": email,
+          "password": password,
         },
       );
       setTokenAndId(response.data['access_token'], response.data['id']);
@@ -27,19 +26,15 @@ class APIServices {
     }
   }
 
-  Future postSignUpUser(name, email, password, phone) async {
-    print("Enter in function");
-
+  Future signUpUser(name, email, password, phone) async {
     try {
-      print("Enter in try block");
-
       Response response = await dio.post(
         "$baseUrl/signup",
         data: {
-          "name": "$name",
-          "email": "$email",
-          "password": "$password",
-          "phone": "$phone",
+          "name": name,
+          "email": email,
+          "password": password,
+          "phone": phone,
         },
       );
       // setTokenAndId(response.data['access_token'], response.data['id']);

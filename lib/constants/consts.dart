@@ -29,8 +29,8 @@ TextStyle signUpTextStyle() {
 }
 
 List<String> cars = [];
-String setName, setEmail, setPassword, setPhone;
-String setUserName, setSignInPassword;
+String signUpName, signUpEmail, signUpPassword, signUpPhone;
+String signInEmail, signInPassword;
 String accessToken;
 
 // Meet Local

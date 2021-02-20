@@ -45,7 +45,7 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
               TextFormField(
                 onChanged: (value) {
                   setState(() {
-                    setUserName = value;
+                    signInEmail = value;
                   });
                 },
                 style: TextStyle(color: Colors.white),
@@ -70,7 +70,7 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
               TextFormField(
                 onChanged: (value) {
                   setState(() {
-                    setSignInPassword = value;
+                    signInPassword = value;
                   });
                 },
                 style: TextStyle(color: Colors.white),
@@ -117,7 +117,7 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
                 ),
                 minWidth: MediaQuery.of(context).size.width,
                 onPressed: () async {
-                  await _service.postSignIdUser();
+                  await _service.signInUser(signInEmail, signInPassword);
                   pushToNext(context, DashboardScreen());
                 },
                 child: Padding(
