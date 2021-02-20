@@ -31,7 +31,7 @@ class IndexScreen extends StatelessWidget {
                       height: 65,
                     ),
                     Text(
-                      "Car safety and assistant system with Internet Of Things",
+                      "Car safety and assistance system with Internet Of Things",
                       style: TextStyle(
                         color: grey,
                         fontWeight: FontWeight.w600,
