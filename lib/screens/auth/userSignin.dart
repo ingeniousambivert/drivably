@@ -17,6 +17,7 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Container(
+          height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 100),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
