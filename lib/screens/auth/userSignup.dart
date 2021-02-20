@@ -13,7 +13,6 @@ class UserSignupScreen extends StatefulWidget {
 }
 
 class _UserSignupScreenState extends State<UserSignupScreen> {
-  String name, email, phoneNumber, password, cnfPassword;
   final _formKey = GlobalKey<FormState>();
   APIServices _services = APIServices();
 
@@ -47,7 +46,7 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                             style: TextStyle(color: Colors.white),
                             onChanged: (value) {
                               setState(() {
-                                name = value;
+                                signUpName = value;
                               });
                             },
                             validator: (value) {
@@ -64,7 +63,7 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                             style: TextStyle(color: Colors.white),
                             onChanged: (value) {
                               setState(() {
-                                email = value;
+                                signUpEmail = value;
                               });
                             },
                             validator: (value) {
@@ -81,7 +80,7 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                             style: TextStyle(color: Colors.white),
                             onChanged: (value) {
                               setState(() {
-                                phoneNumber = value;
+                                signUpPhoneNumber = value;
                               });
                             },
                             validator: (value) {
@@ -99,7 +98,7 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                             style: TextStyle(color: Colors.white),
                             onChanged: (value) {
                               setState(() {
-                                password = value;
+                                signUpPassword = value;
                               });
                             },
                             validator: (value) {
@@ -116,7 +115,7 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                             style: TextStyle(color: Colors.white),
                             onChanged: (value) {
                               setState(() {
-                                cnfPassword = value;
+                                signUpConfirmPassword = value;
                               });
                             },
                             validator: (value) {
@@ -136,7 +135,7 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                     MaterialButton(
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          // if (cnfPassword == password) {
+                          // if (confirmPassword == password) {
                           //   print("Pass : " +
                           //       name +
                           //       email +

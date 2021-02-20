@@ -29,7 +29,11 @@ TextStyle signUpTextStyle() {
 }
 
 List<String> cars = [];
-String signUpName, signUpEmail, signUpPassword, signUpPhone;
+String signUpName,
+    signUpEmail,
+    signUpPassword,
+    signUpConfirmPassword,
+    signUpPhoneNumber;
 String signInEmail, signInPassword;
 String accessToken;
 
