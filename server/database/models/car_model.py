@@ -8,11 +8,13 @@ class CarSchema(BaseModel):
     owner: Dict = Field(...)
     drivers: List[str]
     current_location: Dict
+    current_profile: Dict
+    # attributes start
+    previous_profiles: List[Dict]
     alcohol_concentrations: List[Dict]
     casualties: List[Dict]
     activities: List[Dict]
-    current_profile: Dict
-    previous_profiles: List[Dict]
+    # attributes end
     created_at: str = Field(None)
 
     class Config:
