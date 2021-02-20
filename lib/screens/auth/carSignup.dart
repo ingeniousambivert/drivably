@@ -1,4 +1,4 @@
-import 'package:drivably_app/constants/consts.dart';
+import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/screens/camera/camera.dart';
 
 import 'package:flutter/material.dart';

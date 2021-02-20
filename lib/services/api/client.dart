@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:drivably_app/constants/consts.dart';
+import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/utils/storage/localStorage.dart';
 
 /* TODO

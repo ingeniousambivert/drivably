@@ -1,5 +1,5 @@
 import 'package:drivably_app/routes/routing.dart';
-import 'package:drivably_app/constants/consts.dart';
+import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/screens/dashboard/dashboard.dart';
 import 'package:drivably_app/services/api/client.dart';
 import 'package:flutter/material.dart';
