@@ -1,5 +1,5 @@
-import 'package:drivably_app/Module/const.dart';
-import 'package:drivably_app/Module/routing.dart';
+import 'package:drivably_app/Config/routing.dart';
+import 'package:drivably_app/Constants/const.dart';
 import 'package:drivably_app/Screen/loginScreen.dart';
 import 'package:drivably_app/Screen/secSignUpScreen.dart';
 import 'package:flutter/material.dart';

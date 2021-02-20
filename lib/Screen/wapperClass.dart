@@ -1,6 +1,6 @@
 import 'package:drivably_app/Screen/deshboardScreen.dart';
 import 'package:drivably_app/Screen/indexScreen.dart';
-import 'package:drivably_app/Services/localStorage.dart';
+import 'package:drivably_app/Storage/localStorage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:drivably_app/Module/const.dart';
-import 'package:drivably_app/Services/localStorage.dart';
+import 'package:drivably_app/Constants/const.dart';
+import 'package:drivably_app/Storage/localStorage.dart';
+
 
 class ApiServices {
   Dio dio = new Dio();

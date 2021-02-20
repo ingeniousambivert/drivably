@@ -1,7 +1,7 @@
-import 'package:drivably_app/Module/const.dart';
-import 'package:drivably_app/Module/routing.dart';
+import 'package:drivably_app/Config/routing.dart';
+import 'package:drivably_app/Constants/const.dart';
 import 'package:drivably_app/Screen/signupScreen.dart';
-import 'package:drivably_app/Services/apiServices.dart';
+import 'package:drivably_app/Utils/apiServices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

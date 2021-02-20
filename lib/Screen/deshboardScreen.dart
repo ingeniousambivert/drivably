@@ -1,8 +1,7 @@
 import 'dart:collection';
-
-import 'package:drivably_app/Module/routing.dart';
+import 'package:drivably_app/Config/routing.dart';
 import 'package:drivably_app/Screen/wapperClass.dart';
-import 'package:drivably_app/Services/localStorage.dart';
+import 'package:drivably_app/Storage/localStorage.dart';
 import 'package:flutter/material.dart';
 
 class DeshboardScreen extends StatefulWidget {
