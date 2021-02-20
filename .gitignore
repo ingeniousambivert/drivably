@@ -1,3 +1,10 @@
+# PYTHON 
+drivablyEnv/
+__pycache__
+
+# MISC
+.env
+
 # Miscellaneous
 *.class
 *.lock
