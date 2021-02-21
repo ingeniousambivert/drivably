@@ -4,6 +4,7 @@ __pycache__
 
 # MISC
 .env
+.DS_Store
 
 # Miscellaneous
 *.class
