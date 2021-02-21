@@ -21,7 +21,7 @@ def add_token(user):
     return user
 
 
-async def verify_password(password: str, password_hash: str):
+def verify_password(password: str, password_hash: str):
     if bcrypt.verify(password, password_hash):
         return True
     return False
