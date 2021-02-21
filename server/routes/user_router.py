@@ -55,11 +55,16 @@ async def update_user_data(id: str, data: UpdateUserModel = Body(...)):
 @router.put("/face/{id}", response_description="User data updated")
 async def update_user_facial_data(id: str, image: UploadFile = File(...)):
     user_data = await retrieve_user(id)
-    safe_file_name = user_data["name"].replace(" ", "") + "_" + user_data["id"]
-    facial_data = save_upload_file(image, safe_file_name)
-    user_data["facial_data"] = facial_data["location"]
-    user_data.pop("id")  # prevent data duplication
-    updated_user = await update_user(id, user_data)
+    safe_file_name = "user_{}_Face.png".format(id)
+    safe_dir_name = "user_{}".format(id)
+    known_dataset_path = f"intelligence/facial_recognition/dataset/known_facial_data/{safe_dir_name}/"
+    facial_data = save_upload_file(image, safe_file_name, known_dataset_path)
+
+    if facial_data is not None:
+        user_data["facial_data"] = facial_data
+        user_data.pop("id")  # prevent data duplication
+        updated_user = await update_user(id, user_data)
+
     if updated_user:
         return ResponseModel(
             "Facial Data for User with ID: {} updated successfully".format(id)
