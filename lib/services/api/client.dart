@@ -12,7 +12,9 @@ POST driver/signin - Signin for the key app
 
 
 FLOW CHANGE :
-User Signup page (store user object in state) -> Car Signup page (embed safe_user object in car object and make a POST Request to car/ first and when successful make a POST Request to user/ with the car license plate number updated) -> Facial Data page (make a PUT request to user/ to upload the facial data)
+User Signup page (store user object in state) -> Car Signup page (embed safe_user object in car object and make a POST Request to car/ first and when successful make a POST Request to user/ with the car license plate number added) -> Facial Data page (make a PUT request to user/ to upload the facial data) -> Dashboard
+
+Look at car, user model for reference
 */
 
 class APIServices {
