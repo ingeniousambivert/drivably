@@ -12,6 +12,7 @@ def user_helper(user) -> dict:
         "name": user["name"],
         "email": user["email"],
         "phone": user["phone"],
+        "owner": user["owner"],
         "facial_data": user["facial_data"],
         "cars": user["cars"],
         "created_at": user["created_at"],
