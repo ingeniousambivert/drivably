@@ -2,17 +2,15 @@ import face_recognition
 known_image = face_recognition.load_image_file("./known/elon.jpg")
 unknown_image = face_recognition.load_image_file("./unknown/jeff.jpg")
 
-known_face_names = [
-    "Elon Musk",
-]
-
-elon_face_encoding = face_recognition.face_encodings(known_image)[0]
+known_encoding = face_recognition.face_encodings(known_image)[0]
 unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
 
 result = face_recognition.compare_faces(
-    [elon_face_encoding], unknown_encoding)
+    [known_encoding], unknown_encoding)
 
-if result is True:
-    print(known_face_names[0])
+res = ''.join([str(elem) for elem in result])
 
-print("Unknown Face")
+if res == "True":
+    print("Known Face")
+else:
+    print("Unknown Face")
