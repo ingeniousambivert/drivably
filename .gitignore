@@ -1,11 +1,3 @@
-# PYTHON 
-drivablyEnv/
-__pycache__
-
-# MISC
-.env
-.DS_Store
-
 # Miscellaneous
 *.class
 *.lock
@@ -25,10 +17,16 @@ __pycache__
 .idea/
 
 # Visual Studio Code related
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 .classpath
 .project
 .settings/
-.vscode/
+
 
 # Flutter repo-specific
 /bin/cache/
