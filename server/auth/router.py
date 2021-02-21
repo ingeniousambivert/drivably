@@ -1,17 +1,22 @@
-from fastapi import Body, APIRouter
+
+from fastapi import Body, APIRouter, File, UploadFile
 from fastapi.security import HTTPBasicCredentials
-from server.database.controllers.user_controller import retrieve_user_by_email
+from server.database.controllers.user_controller import (
+    retrieve_user_by_email, retrieve_user)
+from server.utils.helpers import (
+    save_upload_file, gen_uuid)
 from .helpers import (
     validate_user, create_encoded_user,
     check_user_exists, add_token
 )
-
 
 from server.database.models.user_model import (
     ErrorResponseModel,
     ResponseModel,
     UserSchema
 )
+
+from intelligence.facial_recognition.recognize_picture import recognize
 
 router = APIRouter()
 
@@ -78,9 +83,26 @@ async def signin_driver(credentials:  HTTPBasicCredentials = Body(...)):
     if validated:
         user_data = await retrieve_user_by_email(credentials.username)
         user_with_token = add_token(user_data)
+
         return ResponseModel(user_with_token)
 
     elif not validated:
         return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
 
     return ErrorResponseModel("Server Error", 500, "Could not sign in user")
+
+
+# Authenticate Driver's face
+@router.post("/driver/face", response_description="Driver authenticated")
+async def authenticate_facial_data(id: str, image: UploadFile = File(...)):
+    user_data = await retrieve_user(id)
+    response = None
+    temp_dir_name = gen_uuid()
+    temp_file_name = "{}_Face.png".format(temp_dir_name)
+    unknown_dataset_path = f"intelligence/facial_recognition/dataset/unknown_facial_data/{temp_dir_name}/"
+    if save_upload_file(image,
+                        temp_file_name, unknown_dataset_path):
+        response = recognize(user_data, temp_dir_name)
+        return response
+
+    return ErrorResponseModel("An error occurred", 500, "Could not upload image")
