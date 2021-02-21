@@ -5,6 +5,9 @@ import uuid
 from fastapi import UploadFile
 from server.database.helpers.car_helper import cars_collection
 
+KNOWN_DATASET_PATH: str = "intelligence/facial_recognition/dataset/known_facial_data/"
+UNKNOWN_DATASET_PATH: str = "intelligence/facial_recognition/dataset/unknown_facial_data/"
+
 
 async def check_car_exists(car_license: str):
     car = await cars_collection.find_one({"car_license": car_license}, {"_id": 0})

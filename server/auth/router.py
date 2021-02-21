@@ -4,6 +4,7 @@ from fastapi.security import HTTPBasicCredentials
 from server.database.controllers.user_controller import (
     retrieve_user_by_email, retrieve_user)
 from server.utils.helpers import (
+    UNKNOWN_DATASET_PATH,
     save_upload_file, gen_uuid)
 from .helpers import (
     validate_user, create_encoded_user,
@@ -99,7 +100,7 @@ async def authenticate_facial_data(id: str, image: UploadFile = File(...)):
     response = None
     temp_dir_name = gen_uuid()
     temp_file_name = "{}_Face.png".format(temp_dir_name)
-    unknown_dataset_path = f"intelligence/facial_recognition/dataset/unknown_facial_data/{temp_dir_name}/"
+    unknown_dataset_path = f"{UNKNOWN_DATASET_PATH}{temp_dir_name}/"
     if save_upload_file(image,
                         temp_file_name, unknown_dataset_path):
         response = recognize(user_data, temp_dir_name)

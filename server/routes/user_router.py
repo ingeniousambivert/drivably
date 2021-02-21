@@ -10,7 +10,7 @@ from server.database.controllers.user_controller import (
     update_user,
 )
 from fastapi import Body, APIRouter, File, UploadFile
-from server.utils.helpers import save_upload_file
+from server.utils.helpers import (save_upload_file, KNOWN_DATASET_PATH)
 
 
 router = APIRouter()
@@ -57,7 +57,7 @@ async def update_user_facial_data(id: str, image: UploadFile = File(...)):
     user_data = await retrieve_user(id)
     safe_file_name = "user_{}_Face.png".format(id)
     safe_dir_name = "user_{}".format(id)
-    known_dataset_path = f"intelligence/facial_recognition/dataset/known_facial_data/{safe_dir_name}/"
+    known_dataset_path = f"{KNOWN_DATASET_PATH}{safe_dir_name}/"
     facial_data = save_upload_file(image, safe_file_name, known_dataset_path)
 
     if facial_data is not None:
