@@ -51,7 +51,7 @@ async def update_user_data(id: str, data: UpdateUserModel = Body(...)):
     )
 
 
-# UPDATE a user's files and object
+# UPDATE a user's facial data
 @router.put("/face/{id}", response_description="User data updated")
 async def update_user_facial_data(id: str, image: UploadFile = File(...)):
     user_data = await retrieve_user(id)
