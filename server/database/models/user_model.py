@@ -9,6 +9,7 @@ class UserSchema(BaseModel):
     phone: Optional[float] = Field(...)
     facial_data: Optional[str]
     cars: Optional[List[str]]
+    owner: bool = False
     created_at: str = Field(None)
 
     class Config:
