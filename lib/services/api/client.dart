@@ -6,6 +6,9 @@ import 'package:drivably_app/utils/storage/localStorage.dart';
 POST - car/ (with safe_user object) 
 PUT - user/ (with car licennse plate number)
 PUT - user/ (with facial data)
+
+POST driver/signup - Owner adds driver profiles
+POST driver/signin - Signin for the key app
 */
 
 class APIServices {
@@ -14,7 +17,7 @@ class APIServices {
   Future signInUser(email, password) async {
     try {
       Response response = await dio.post(
-        "$baseUrl/signin",
+        "$baseUrl/owner/signin",
         data: {
           "username": email,
           "password": password,
@@ -29,7 +32,7 @@ class APIServices {
   Future signUpUser(name, email, password, phone) async {
     try {
       Response response = await dio.post(
-        "$baseUrl/signup",
+        "$baseUrl/owner/signup",
         data: {
           "name": name,
           "email": email,
