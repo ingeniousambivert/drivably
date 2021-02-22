@@ -42,7 +42,7 @@ async def get_car_data(id):
 
 # GET a car's owner data
 @router.get("/owner/", response_description="car's owner data retrieved")
-async def get_car_owner_data(license_number: str):
+async def get_owner_data(license_number: str):
     car_owner = await retrieve_car_owner(license_number)
     if car_owner:
         return ResponseModel(car_owner)
