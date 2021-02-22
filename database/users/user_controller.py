@@ -1,7 +1,6 @@
 from bson.objectid import ObjectId
 from datetime import datetime
 from server.services.users.helpers.user_helper import users_collection, user_helper
-from server.services.cars.helpers.car_helper import cars_collection
 from database.aggregation.pipelines import aggregate_match_owner
 
 
@@ -58,5 +57,5 @@ async def delete_user(id: str):
 
 # Retrieve owners car
 async def retrieve_car_data(email: str):
-    owner_car = await aggregate_match_owner(cars_collection, email)
+    owner_car = await aggregate_match_owner(email)
     return owner_car
