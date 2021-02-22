@@ -1,13 +1,14 @@
-from server.database.models.user_model import (
+from server.services.users.models.user_model import (
     ErrorResponseModel,
     ResponseModel,
     UpdateUserModel,
 )
-from server.database.controllers.user_controller import (
+from database.users.user_controller import (
     delete_user,
     retrieve_user,
     retrieve_users,
     update_user,
+    retrieve_car_data,
 )
 from fastapi import Body, APIRouter, File, UploadFile
 from server.utils.helpers import (save_upload_file, KNOWN_DATASET_PATH)
@@ -87,3 +88,11 @@ async def delete_user_data(id: str):
     return ErrorResponseModel(
         "An error occurred", 404, "User with id {0} doesn't exist".format(id)
     )
+
+
+@router.get("/owner/car", response_description="owner's car data retrieved")
+async def get_owner_car_data(email: str):
+    car_data = await retrieve_car_data(email)
+    if car_data:
+        return ResponseModel(car_data)
+    return ResponseModel("Empty list returned")

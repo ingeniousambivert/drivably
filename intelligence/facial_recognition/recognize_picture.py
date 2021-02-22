@@ -1,6 +1,6 @@
 import os
 import face_recognition
-from server.database.models.user_model import (
+from server.services.users.models.user_model import (
     ErrorResponseModel, ResponseModel)
 from server.utils.helpers import remove_dir_tree
 

@@ -1,7 +1,7 @@
 
 from fastapi import Body, APIRouter, File, UploadFile
 from fastapi.security import HTTPBasicCredentials
-from server.database.controllers.user_controller import (
+from database.users.user_controller import (
     retrieve_user_by_email, retrieve_user)
 from server.utils.helpers import (
     UNKNOWN_DATASET_PATH,
@@ -11,7 +11,7 @@ from .helpers import (
     check_user_exists, add_token
 )
 
-from server.database.models.user_model import (
+from server.services.users.models.user_model import (
     ErrorResponseModel,
     ResponseModel,
     UserSchema

@@ -3,7 +3,7 @@ import os
 import uuid
 
 from fastapi import UploadFile
-from server.database.helpers.car_helper import cars_collection
+from server.services.cars.helpers.car_helper import cars_collection
 
 KNOWN_DATASET_PATH: str = "intelligence/facial_recognition/dataset/known_facial_data/"
 UNKNOWN_DATASET_PATH: str = "intelligence/facial_recognition/dataset/unknown_facial_data/"

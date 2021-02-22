@@ -3,8 +3,8 @@ from passlib.hash import bcrypt
 from .jwt.handler import signJWT
 from fastapi.security import HTTPBasicCredentials, HTTPBasic
 from fastapi.encoders import jsonable_encoder
-from server.database.helpers.user_helper import users_collection
-from server.database.controllers.user_controller import add_user
+from server.services.users.helpers.user_helper import users_collection
+from database.users.user_controller import add_user
 
 security = HTTPBasic()
 

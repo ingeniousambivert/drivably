@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from datetime import datetime
-
-from server.database.helpers.car_helper import cars_collection, car_helper
+from database.aggregation.pipelines import aggregate_lookup_owner
+from server.services.cars.helpers.car_helper import cars_collection, car_helper
 
 
 # Retrieve all cars present in the database
@@ -67,3 +67,14 @@ async def delete_car(id: str):
     if car:
         await cars_collection.delete_one({"_id": ObjectId(id)})
         return True
+
+
+# Retrieve a car with a matching ID
+# async def retrieve_car_owner():
+#     # car = await cars_collection.find_one({"_id": ObjectId(id)})
+#     pipeline = {"from": "users",
+#                 "localField": "owner_email",
+#                 "foreignField": "email",
+#                 "as": "owner_data"}
+#     car_owner = await aggregate_lookup_owner(cars_collection, **pipeline)
+#     return car_owner

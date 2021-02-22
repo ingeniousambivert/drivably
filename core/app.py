@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from server.routes.user_router import router as UserRouter
 from server.routes.car_router import router as CarRouter
-from server.routes.services_router import router as ServicesRouter
+from server.routes.email_router import router as EmailRouter
 from server.auth.router import router as AuthRouter
 from server.auth.jwt.bearer import JWTBearer
 from server.utils.config import configured
@@ -32,8 +32,8 @@ app.include_router(UserRouter, tags=["User"],
                    prefix="/user", dependencies=[Depends(token_listener)])
 app.include_router(CarRouter, tags=["Car"],
                    prefix="/car", dependencies=[Depends(token_listener)])
-app.include_router(ServicesRouter, tags=["Services"],
-                   prefix="/services", dependencies=[Depends(token_listener)])
+app.include_router(EmailRouter, tags=["Email"],
+                   prefix="/email", dependencies=[Depends(token_listener)])
 
 
 @ app.get("/", tags=["Root"])

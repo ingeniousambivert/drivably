@@ -4,15 +4,15 @@ from fastapi.encoders import jsonable_encoder
 from server.utils.helpers import check_car_exists
 
 
-from server.database.controllers.car_controller import (
+from database.cars.car_controller import (
     add_car,
     delete_car,
     retrieve_car,
     retrieve_cars,
     update_car,
-    update_car_array_attributes
+    update_car_array_attributes,
 )
-from server.database.models.car_model import (
+from server.services.cars.model.car_model import (
     ErrorResponseModel,
     ResponseModel,
     CarSchema,
@@ -22,7 +22,14 @@ from server.database.models.car_model import (
 router = APIRouter()
 
 
+# async def get_car_owner_data():
+#     car_owner = await retrieve_car_owner()
+#     if car_owner:
+#         return ResponseModel(car_owner)
+#     return ErrorResponseModel("An error occurred.", 404, "car owner doesn't exist.")
 # GET all cars
+
+
 @router.get("/", response_description="cars retrieved")
 async def get_cars():
     cars = await retrieve_cars()
