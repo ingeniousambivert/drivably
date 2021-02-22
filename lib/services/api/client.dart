@@ -36,7 +36,9 @@ class APIServices {
   }
 
   Future signUpUser(name, email, password, phone) async {
+    print("Here,");
     try {
+      print("In try block");
       Response response = await dio.post(
         "$baseUrl/owner/signup",
         data: {
@@ -46,6 +48,7 @@ class APIServices {
           "phone": phone,
         },
       );
+      print("response");
       // setTokenAndId(response.data['access_token'], response.data['id']);
       print(response);
     } catch (e) {

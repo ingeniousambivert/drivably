@@ -15,6 +15,10 @@ class UserSignupScreen extends StatefulWidget {
 class _UserSignupScreenState extends State<UserSignupScreen> {
   final _formKey = GlobalKey<FormState>();
   APIServices _services = APIServices();
+  bool _obscureText = true;
+  IconData _icon = Icons.lock;
+  bool _obscureTextCnf = true;
+  IconData _iconCnf = Icons.lock;
 
   @override
   Widget build(BuildContext context) {
@@ -101,13 +105,46 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                                 signUpPassword = value;
                               });
                             },
+                            obscureText: _obscureText,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter a password';
                               }
                               return null;
                             },
-                            decoration: textFormFieldStyle("Enter a password"),
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color(0xFF212121),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: new BorderSide(
+                                    color: Color(0xff707070), width: 1),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: new BorderSide(
+                                    color: Color(0xff707070), width: 1),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              suffix: IconButton(
+                                icon: Icon(_icon),
+                                onPressed: () {
+                                  if (_obscureText == true) {
+                                    setState(() {
+                                      _obscureText = false;
+                                      _icon = Icons.lock_open;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _obscureText = true;
+                                      _icon = Icons.lock;
+                                    });
+                                  }
+                                },
+                              ),
+                              labelText: "Enter your password",
+                              labelStyle: TextStyle(
+                                  fontSize: 14, color: Color(0xFFB3B1B1)),
+                            ),
                             keyboardType: TextInputType.visiblePassword,
                           ),
                           SizedBox(height: 20),
@@ -115,17 +152,49 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                             style: TextStyle(color: Colors.white),
                             onChanged: (value) {
                               setState(() {
-                                signUpConfirmPassword = value;
+                                signUpPassword = value;
                               });
                             },
+                            obscureText: _obscureTextCnf,
                             validator: (value) {
                               if (value.isEmpty) {
-                                return 'Please confirm your password';
+                                return 'Please enter a password';
                               }
                               return null;
                             },
-                            decoration:
-                                textFormFieldStyle("Confirm your password"),
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color(0xFF212121),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: new BorderSide(
+                                    color: Color(0xff707070), width: 1),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: new BorderSide(
+                                    color: Color(0xff707070), width: 1),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              suffix: IconButton(
+                                icon: Icon(_iconCnf),
+                                onPressed: () {
+                                  if (_obscureTextCnf == true) {
+                                    setState(() {
+                                      _obscureTextCnf = false;
+                                      _iconCnf = Icons.lock_open;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _obscureTextCnf = true;
+                                      _iconCnf = Icons.lock;
+                                    });
+                                  }
+                                },
+                              ),
+                              labelText: "Confirm your password",
+                              labelStyle: TextStyle(
+                                  fontSize: 14, color: Color(0xFFB3B1B1)),
+                            ),
                             keyboardType: TextInputType.visiblePassword,
                           ),
                           SizedBox(height: 20),
@@ -135,24 +204,24 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                     MaterialButton(
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          // if (confirmPassword == password) {
-                          //   print("Pass : " +
-                          //       name +
-                          //       email +
-                          //       password +
-                          //       phoneNumber);
+                          if (signUpConfirmPassword == signUpPassword) {
+                            print("Pass : " +
+                                signUpName +
+                                signUpEmail +
+                                signUpPassword +
+                                signUpPhoneNumber);
 
-                          //   await _services.postSignUpUser(
-                          //       name, email, password, phoneNumber);
-                          //   pushToNext(
-                          //     context,
-                          //     RegScreen(),
-                          //   );
-                          // }
-                          pushToNext(
-                            context,
-                            CarSignupScreen(),
-                          );
+                            await _services.signUpUser(
+                                signUpName, signUpEmail, signUpPassword, signUpPhoneNumber);
+                            // pushToNext(
+                            //   context,
+                            //   CarSignupScreen(),
+                            // );
+                          }
+                          // pushToNext(
+                          //   context,
+                          //   CarSignupScreen(),
+                          // );
                         }
                       },
                       child: Padding(

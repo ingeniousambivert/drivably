@@ -28,6 +28,10 @@ TextStyle signUpTextStyle() {
   );
 }
 
+showPassword(bool pswdState) {
+  if (pswdState == true) {}
+}
+
 List<String> cars = [];
 String signUpName,
     signUpEmail,
@@ -41,4 +45,7 @@ String accessToken;
 //final baseUrl = 'http://192.168.43.180:8008';
 
 // Monarch Local
-final baseUrl = 'http://192.168.1.18:8008';
+// final baseUrl = 'http://192.168.1.18:8008';
+
+// Aditya Local
+final baseUrl = 'http://192.168.1.9:8008';
