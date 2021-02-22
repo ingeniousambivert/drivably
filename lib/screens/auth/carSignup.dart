@@ -1,7 +1,5 @@
-import 'package:drivably_app/services/api/client.dart';
-import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/screens/camera/camera.dart';
-
+import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
 
 class CarSignupScreen extends StatefulWidget {
@@ -65,6 +63,9 @@ class _CarSignupScreenState extends State<CarSignupScreen> {
           onPressed: () {
             if (_formKey.currentState.validate()) {
               cars.add(licensePlate);
+              setState(() {
+                setLicense = licensePlate;
+              });
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => CameraScreen()),

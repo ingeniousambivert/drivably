@@ -41,6 +41,7 @@ String signUpName,
 String signInEmail, signInPassword;
 String accessToken;
 
+String setLicense;
 // Meet Local
 final baseUrl = 'http://192.168.16.123:8008';
 

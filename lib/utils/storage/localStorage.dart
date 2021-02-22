@@ -27,4 +27,5 @@ checkToken() async {
 removeToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove('accessToken');
+  prefs.remove('userId');
 }

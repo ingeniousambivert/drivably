@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:drivably_app/routes/routing.dart';
+import 'package:drivably_app/screens/dashboard/dashboard.dart';
 import 'package:drivably_app/services/api/client.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/cupertino.dart';
@@ -80,15 +82,15 @@ class _PreviewScreenState extends State<PreviewScreen> {
           print('here now');
           print(widget.imgPath);
           print(name + " " + age);
-          _services.setDriver(widget.imgPath);
-          // pushToNext(context, DashboardScreen());
+          _services.setDriver(widget.imgPath.toString());
+          pushToNext(context, DashboardScreen());
 
-          // getBytes().then((bytes) {
-
-          //   print(bytes.buffer.asUint8List());
-          //   Share.file('Share via', widget.fileName,
-          //       bytes.buffer.asUint8List(), 'image/path');
-          // },
+          // getBytes().then(
+          //   (bytes) {
+          //     print(bytes.buffer.asUint8List());
+          //     Share.file('Share via', widget.fileName,
+          //         bytes.buffer.asUint8List(), 'image/path');
+          //   },
           // );
         },
         child: Icon(
@@ -100,8 +102,8 @@ class _PreviewScreenState extends State<PreviewScreen> {
     );
   }
 
-//   Future getBytes () async {
-//     Uint8List bytes = File(widget.imgPath).readAsBytesSync() as Uint8List;
+//   Future getBytes() async {
+//     Uint8List bytes = File(widget.imgPath).readAsBytesSync();
 // //    print(ByteData.view(buffer))
 //     return ByteData.view(bytes.buffer);
 //   }

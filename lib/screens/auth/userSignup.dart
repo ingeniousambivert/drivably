@@ -207,6 +207,7 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                           if (signUpConfirmPassword == signUpPassword) {
                             await _services.signUpUser(signUpName, signUpEmail,
                                 signUpPassword, signUpPhoneNumber);
+
                             pushToNext(
                               context,
                               CarSignupScreen(),

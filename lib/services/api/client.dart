@@ -13,9 +13,12 @@ POST driver/signin - Signin for the key app
 
 
 FLOW CHANGE :
-User Signup page (store user object in state) -> Car Signup page (embed safe_user object in car object and make a POST Request to car/ first and when successful make a POST Request to user/ with the car license plate number added) -> Facial Data page (make a PUT request to user/ to upload the facial data) -> Dashboard
+  User Signup page (store user object in state) -> Car Signup page (embed safe_user object in
+  car object and make a POST Request to car/ first and when successful make a POST Request 
+  to user/ with the car license plate number added) -> Facial Data page (make a PUT request 
+  to user/ to upload the facial data) -> Dashboard
 
-Look at car, user model for reference
+  Look at car, user model for reference
 */
 
 class APIServices {
@@ -31,6 +34,7 @@ class APIServices {
         },
       );
       setTokenAndId(response.data['access_token'], response.data['id']);
+      print(response.data);
     } catch (e) {
       print(e);
     }
@@ -49,26 +53,40 @@ class APIServices {
       );
       print("response");
       setTokenAndId(response.data['access_token'], response.data['id']);
-      print(response.data['id']);
+
       print(response);
     } catch (e) {
       print(e);
     }
   }
 
+  Future postCarData() async {
+    try {} catch (e) {
+      print(e);
+    }
+  }
+
   // get ID as a parameter
-  Future setDriver(file) async {
-    String _id;
+  Future setDriver(String file) async {
+    String _id, _token;
     await getId().then((value) {
       _id = value;
     });
+    await getToken().then((value) {
+      _token = value;
+    });
 
     FormData formData = FormData.fromMap({
-      "image": "$file",
+      "image": await MultipartFile.fromFile(file),
     });
-    print(formData.fields);
-    Response response = await dio.post(
+
+    Response response = await dio.put(
       "$baseUrl/user/face/$_id",
+      options: new Options(
+        headers: {
+          'Authorization': 'Bearer $_token',
+        },
+      ),
       data: formData,
     );
     print(response);
