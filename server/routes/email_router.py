@@ -26,7 +26,7 @@ message_text: str = "This is a test of the template"
 
 
 # Send Email
-@router.post("/email", response_description="Email Sent")
+@router.post("/", response_description="Email Sent")
 async def send_email(email_address: List[EmailStr]):
 
     message = MessageSchema(
