@@ -1,4 +1,8 @@
-async def aggregate_lookup_owner(collection, **pipeline):
+from server.services.cars.helpers.car_helper import cars_collection
+from server.services.users.helpers.user_helper import users_collection
+
+
+async def aggregate_lookup_owner(**pipeline):
     data = []
     pipeline = [
         {
@@ -13,20 +17,20 @@ async def aggregate_lookup_owner(collection, **pipeline):
                 "as": pipeline["as"]
             }
         },
-        {
-            "$project": {
-                "owner_data._id": 0
-            }
-        },
+        # {
+        #     "$project": {
+        #         "owner_data._id": 0
+        #     }
+        # },
     ]
 
-    async for doc in collection.aggregate(pipeline):
+    async for doc in users_collection.aggregate(pipeline):
         data.append(doc)
 
     return data
 
 
-async def aggregate_match_owner(collection, email):
+async def aggregate_match_owner(email: str):
     data = []
     pipeline = [
         {
@@ -37,7 +41,24 @@ async def aggregate_match_owner(collection, email):
         },
     ]
 
-    async for doc in collection.aggregate(pipeline):
+    async for doc in cars_collection.aggregate(pipeline):
+        data.append(doc)
+
+    return data
+
+
+async def aggregate_match_car(license_number: str):
+    data = []
+    pipeline = [
+        {
+            "$project": {"_id": 0}
+        },
+        {
+            "$match": {"cars": license_number}
+        },
+    ]
+
+    async for doc in users_collection.aggregate(pipeline):
         data.append(doc)
 
     return data
