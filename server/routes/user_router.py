@@ -90,8 +90,8 @@ async def delete_user_data(id: str):
     )
 
 
-@router.get("/owner/car", response_description="owner's car data retrieved")
-async def get_owner_car_data(email: str):
+@router.get("/car/", response_description="user's car data retrieved")
+async def get_car_data(email: str):
     car_data = await retrieve_car_data(email)
     if car_data:
         return ResponseModel(car_data)
