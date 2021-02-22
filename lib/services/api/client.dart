@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/utils/storage/localStorage.dart';
 
+// ignore: todo
 /* TODO
 POST - car/ (with safe_user object) 
 PUT - user/ (with car licennse plate number)
@@ -36,9 +37,7 @@ class APIServices {
   }
 
   Future signUpUser(name, email, password, phone) async {
-    print("Here,");
     try {
-      print("In try block");
       Response response = await dio.post(
         "$baseUrl/owner/signup",
         data: {
@@ -49,7 +48,8 @@ class APIServices {
         },
       );
       print("response");
-      // setTokenAndId(response.data['access_token'], response.data['id']);
+      setTokenAndId(response.data['access_token'], response.data['id']);
+      print(response.data['id']);
       print(response);
     } catch (e) {
       print(e);
@@ -58,13 +58,17 @@ class APIServices {
 
   // get ID as a parameter
   Future setDriver(file) async {
-    String id = "602f4df57652d71cf7006bc4";
+    String _id;
+    await getId().then((value) {
+      _id = value;
+    });
+
     FormData formData = FormData.fromMap({
       "image": "$file",
     });
     print(formData.fields);
     Response response = await dio.post(
-      "$baseUrl/user/face/$id",
+      "$baseUrl/user/face/$_id",
       data: formData,
     );
     print(response);

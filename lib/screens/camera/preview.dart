@@ -1,8 +1,7 @@
 import 'dart:io';
-import 'package:drivably_app/routes/routing.dart';
-import 'package:drivably_app/utils/constants/consts.dart';
-import 'package:drivably_app/screens/dashboard/dashboard.dart';
+
 import 'package:drivably_app/services/api/client.dart';
+import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +81,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
           print(widget.imgPath);
           print(name + " " + age);
           _services.setDriver(widget.imgPath);
-          pushToNext(context, DashboardScreen());
+          // pushToNext(context, DashboardScreen());
 
           // getBytes().then((bytes) {
 

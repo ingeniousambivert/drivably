@@ -1,7 +1,7 @@
 import 'package:drivably_app/routes/routing.dart';
-import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/screens/auth/carSignup.dart';
 import 'package:drivably_app/services/api/client.dart';
+import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -152,7 +152,7 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                             style: TextStyle(color: Colors.white),
                             onChanged: (value) {
                               setState(() {
-                                signUpPassword = value;
+                                signUpConfirmPassword = value;
                               });
                             },
                             obscureText: _obscureTextCnf,
@@ -205,18 +205,12 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           if (signUpConfirmPassword == signUpPassword) {
-                            print("Pass : " +
-                                signUpName +
-                                signUpEmail +
-                                signUpPassword +
-                                signUpPhoneNumber);
-
-                            await _services.signUpUser(
-                                signUpName, signUpEmail, signUpPassword, signUpPhoneNumber);
-                            // pushToNext(
-                            //   context,
-                            //   CarSignupScreen(),
-                            // );
+                            await _services.signUpUser(signUpName, signUpEmail,
+                                signUpPassword, signUpPhoneNumber);
+                            pushToNext(
+                              context,
+                              CarSignupScreen(),
+                            );
                           }
                           // pushToNext(
                           //   context,

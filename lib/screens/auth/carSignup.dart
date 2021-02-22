@@ -1,3 +1,4 @@
+import 'package:drivably_app/services/api/client.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/screens/camera/camera.dart';
 
