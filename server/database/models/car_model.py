@@ -6,7 +6,7 @@ class CarSchema(BaseModel):
     car_license: str = Field(...)
     car_name: str = Field(...)
     owner: Dict = Field(...)
-    drivers: List[str]
+    drivers: List[Dict]
     current_location: Dict
     current_profile: Dict
     # attributes start
@@ -28,7 +28,17 @@ class CarSchema(BaseModel):
                     "cars": ["car-id-1", "car-id-2"],
                     "phone": "0123456789",
                 },
-                "drivers": ["user-email-2", "user-email-3", "user-email-4"],
+                "drivers": [{
+                    "name": "Jane Doe",
+                    "email": "jane@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                }, {
+                    "name": "Jake Doe",
+                    "email": "jake@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                }],
                 "current_location": {
                     "latitude": "40.758896",
                     "longitude": "-73.985130",
@@ -80,7 +90,7 @@ class UpdateCarModel(BaseModel):
     car_license:  Optional[str]
     car_name:  Optional[str]
     owner:  Optional[Dict]
-    drivers: Optional[List[str]]
+    drivers: Optional[List[Dict]]
     current_location: Optional[Dict]
     alcohol_concentrations: Optional[List[Dict]]
     casualties: Optional[List[Dict]]
@@ -97,7 +107,17 @@ class UpdateCarModel(BaseModel):
                     "cars": ["car-id-1", "car-id-2"],
                     "phone": "0123456789",
                 },
-                "drivers": ["user-email-2", "user-email-3"],
+                "drivers": [{
+                    "name": "Jane Doe",
+                    "email": "jane@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                }, {
+                    "name": "Jake Doe",
+                    "email": "jake@doe.com",
+                    "cars": ["car-id-1", "car-id-2"],
+                    "phone": "0123456789",
+                }],
                 "current_location": {
                     "latitude": "40.758896",
                     "longitude": "-73.985130",
