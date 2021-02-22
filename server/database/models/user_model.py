@@ -36,6 +36,7 @@ class UpdateUserModel(BaseModel):
             "example": {
                 "name": "John Does",
                 "email": "john@does.com",
+                "cars": ["XX-01-ABC123", "XY-02-BCD234"]
             }
         }
 
