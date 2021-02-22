@@ -11,6 +11,7 @@ from database.cars.car_controller import (
     retrieve_cars,
     update_car,
     update_car_array_attributes,
+    retrieve_car_owner
 )
 from server.services.cars.model.car_model import (
     ErrorResponseModel,
@@ -20,14 +21,6 @@ from server.services.cars.model.car_model import (
 )
 
 router = APIRouter()
-
-
-# async def get_car_owner_data():
-#     car_owner = await retrieve_car_owner()
-#     if car_owner:
-#         return ResponseModel(car_owner)
-#     return ErrorResponseModel("An error occurred.", 404, "car owner doesn't exist.")
-# GET all cars
 
 
 @router.get("/", response_description="cars retrieved")
@@ -45,6 +38,15 @@ async def get_car_data(id):
     if car:
         return ResponseModel(car)
     return ErrorResponseModel("An error occurred.", 404, "car doesn't exist.")
+
+
+# GET a car's owner data
+@router.get("/owner/", response_description="car's owner data retrieved")
+async def get_car_owner_data(license_number: str):
+    car_owner = await retrieve_car_owner(license_number)
+    if car_owner:
+        return ResponseModel(car_owner)
+    return ErrorResponseModel("An error occurred.", 404, "car owner doesn't exist.")
 
 
 # CREATE a car
