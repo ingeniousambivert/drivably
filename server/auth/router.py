@@ -7,7 +7,7 @@ from server.utils.helpers import (
     UNKNOWN_DATASET_PATH,
     save_upload_file, gen_uuid)
 from .helpers import (
-    validate_user, create_encoded_user,
+    validate_user, create_encoded_user, safe_user,
     check_email_exists, add_token, check_phone_exists
 )
 
@@ -35,7 +35,7 @@ async def signup_owner(user: UserSchema = Body(...)):
             encoded_user_with_token = add_token(encoded_user)
             encoded_user_with_token["owner"] = True
 
-            return ResponseModel(encoded_user_with_token, 200, "Owner successfully signed up")
+            return safe_user(encoded_user_with_token)
 
         return ErrorResponseModel("Conflict", 409, "Phone number already in use")
 
@@ -54,7 +54,7 @@ async def signin_owner(credentials:  HTTPBasicCredentials = Body(...)):
         user_data = await retrieve_user_by_email(credentials.username)
         if user_data["owner"]:
             user_with_token = add_token(user_data)
-            return ResponseModel(user_with_token, 200, "Owner successfully signed in")
+            return safe_user(user_with_token)
 
         return ErrorResponseModel("Forbidden", 403, "Your account is forbidden")
 
@@ -77,7 +77,7 @@ async def signup_driver(user: UserSchema = Body(...)):
             encoded_user_with_token = add_token(encoded_user)
             encoded_user_with_token["owner"] = False
 
-            return ResponseModel(encoded_user_with_token, 200, "Owner successfully signed up")
+            return safe_user(encoded_user_with_token)
 
         return ErrorResponseModel("Conflict", 409, "Phone number already in use")
 
@@ -96,7 +96,7 @@ async def signin_driver(credentials:  HTTPBasicCredentials = Body(...)):
         user_data = await retrieve_user_by_email(credentials.username)
         user_with_token = add_token(user_data)
 
-        return ResponseModel(user_with_token, 200, "Driver successfully signed in")
+        return safe_user(user_with_token)
 
     elif not validated:
         return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
