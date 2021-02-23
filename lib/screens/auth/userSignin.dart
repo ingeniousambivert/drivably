@@ -11,6 +11,9 @@ class UserSigninScreen extends StatefulWidget {
 
 class _UserSigninScreenState extends State<UserSigninScreen> {
   APIServices _service = APIServices();
+  final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
+  IconData _icon = Icons.lock;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,123 +22,171 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 100),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Sign In",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "Welcome back !",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(height: 60),
-              TextFormField(
-                onChanged: (value) {
-                  setState(() {
-                    signInEmail = value;
-                  });
-                },
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color(0xFF212121),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        new BorderSide(color: Color(0xff707070), width: 1),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        new BorderSide(color: Color(0xff707070), width: 1),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  labelText: "Email",
-                  labelStyle: TextStyle(fontSize: 14, color: Color(0xFFB3B1B1)),
-                ),
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                onChanged: (value) {
-                  setState(() {
-                    signInPassword = value;
-                  });
-                },
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color(0xFF212121),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        new BorderSide(color: Color(0xff707070), width: 1),
-                    borderRadius: BorderRadius.circular(13.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        new BorderSide(color: Color(0xff707070), width: 1),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  labelText: "Password",
-                  labelStyle: TextStyle(fontSize: 14, color: Color(0xFFB3B1B1)),
-                ),
-              ),
-              Spacer(),
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    text: "Don't have an account ? ",
-                    style: TextStyle(
-                        color: Color(0xff868691),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15),
-                    children: [
-                      TextSpan(
-                          text: "Register",
-                          style: TextStyle(color: Colors.white)),
-                    ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Sign In",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              MaterialButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
+                SizedBox(
+                  height: 30,
                 ),
-                minWidth: MediaQuery.of(context).size.width,
-                onPressed: () async {
-                  await _service.signInUser(signInEmail, signInPassword);
-                  removeUntil(context, DashboardScreen());
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 21.0,
+                Text(
+                  "Welcome back !",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w400,
                   ),
-                  child: Text(
-                    "Sign In",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
+                ),
+                SizedBox(height: 60),
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  onChanged: (value) {
+                    setState(() {
+                      signInEmail = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xFF212121),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          new BorderSide(color: Color(0xff707070), width: 1),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          new BorderSide(color: Color(0xff707070), width: 1),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    labelText: "Email",
+                    labelStyle:
+                        TextStyle(fontSize: 14, color: Color(0xFFB3B1B1)),
+                  ),
+                ),
+                SizedBox(height: 20),
+                SizedBox(
+                  height: 60.0,
+                  child: TextFormField(
+                    keyboardType: TextInputType.visiblePassword,
+                    style: TextStyle(color: Colors.white),
+                    onChanged: (value) {
+                      setState(() {
+                        signUpPassword = value;
+                      });
+                    },
+                    obscureText: _obscureText,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter a password';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xFF212121),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            new BorderSide(color: Color(0xff707070), width: 1),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            new BorderSide(color: Color(0xff707070), width: 1),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      suffix: IconButton(
+                        icon: Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Icon(
+                            _icon,
+                            color: Colors.white,
+                            size: 23.0,
+                          ),
+                        ),
+                        onPressed: () {
+                          if (_obscureText == true) {
+                            setState(() {
+                              _obscureText = false;
+                              _icon = Icons.lock_open;
+                            });
+                          } else {
+                            setState(() {
+                              _obscureText = true;
+                              _icon = Icons.lock;
+                            });
+                          }
+                        },
+                      ),
+                      labelText: "Password",
+                      labelStyle:
+                          TextStyle(fontSize: 14, color: Color(0xFFB3B1B1)),
                     ),
                   ),
                 ),
-                color: Colors.white,
-              ),
-            ],
+                Spacer(),
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      text: "Don't have an account ? ",
+                      style: TextStyle(
+                          color: Color(0xff868691),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15),
+                      children: [
+                        TextSpan(
+                            text: "Register",
+                            style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                MaterialButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  minWidth: MediaQuery.of(context).size.width,
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      await _service.signInUser(signInEmail, signInPassword);
+                      removeUntil(context, DashboardScreen());
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 21.0,
+                    ),
+                    child: Text(
+                      "Sign In",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  color: Colors.white,
+                ),
+              ],
+            ),
           ),
         ),
       ),
