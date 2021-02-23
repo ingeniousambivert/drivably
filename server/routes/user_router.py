@@ -59,10 +59,11 @@ async def update_user_facial_data(id: str, image: UploadFile = File(...)):
     safe_file_name = "user_{}_Face.png".format(id)
     safe_dir_name = "user_{}".format(id)
     known_dataset_path = f"{KNOWN_DATASET_PATH}{safe_dir_name}/"
-    facial_data = save_upload_file(image, safe_file_name, known_dataset_path)
+    facial_data_path = save_upload_file(
+        image, safe_file_name, known_dataset_path)
 
-    if facial_data is not None:
-        user_data["facial_data"] = facial_data
+    if facial_data_path:
+        user_data["facial_data"] = facial_data_path
         user_data.pop("id")  # prevent data duplication
         updated_user = await update_user(id, user_data)
 
