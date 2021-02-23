@@ -11,8 +11,9 @@ from database.users.user_controller import (
     retrieve_car_data,
 )
 from fastapi import Body, APIRouter, File, UploadFile
-from server.utils.helpers import (save_upload_file, KNOWN_DATASET_PATH)
-
+from server.utils.helpers import (
+    save_upload_file, KNOWN_DATASET_PATH, remove_file)
+from intelligence.facial_recognition.helpers import detect_face
 
 router = APIRouter()
 
@@ -55,15 +56,21 @@ async def update_user_data(id: str, data: UpdateUserModel = Body(...)):
 # UPDATE a user's facial data
 @router.put("/face/{id}", response_description="User facial data updated")
 async def update_user_facial_data(id: str, image: UploadFile = File(...)):
+
     user_data = await retrieve_user(id)
     safe_file_name = "user_{}_Face.png".format(id)
     safe_dir_name = "user_{}".format(id)
     known_dataset_path = f"{KNOWN_DATASET_PATH}{safe_dir_name}/"
-    facial_data_path = save_upload_file(
+
+    facial_data = save_upload_file(
         image, safe_file_name, known_dataset_path)
 
-    if facial_data_path:
-        user_data["facial_data"] = facial_data_path
+    if not detect_face(facial_data["file_location"]):
+        remove_file(facial_data["file_location"])
+        return ErrorResponseModel("Face Not Found", 400, "Could not find a face in the uploaded image")
+
+    if facial_data:
+        user_data["facial_data"] = facial_data["dir_location"]
         user_data.pop("id")  # prevent data duplication
         updated_user = await update_user(id, user_data)
 
