@@ -96,56 +96,66 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                             keyboardType: TextInputType.number,
                           ),
                           SizedBox(height: 20),
-                          TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            onChanged: (value) {
-                              setState(() {
-                                signUpPassword = value;
-                              });
-                            },
-                            obscureText: _obscureText,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter a password';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color(0xFF212121),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: new BorderSide(
-                                    color: Color(0xff707070), width: 1),
-                                borderRadius: BorderRadius.circular(10.0),
+                          SizedBox(
+                            height: 60.0,
+                            child: TextFormField(
+                              style: TextStyle(color: Colors.white),
+                              onChanged: (value) {
+                                setState(() {
+                                  signUpPassword = value;
+                                });
+                              },
+                              obscureText: _obscureText,
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter a password';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color(0xFF212121),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Color(0xff707070), width: 1),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Color(0xff707070), width: 1),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                suffix: IconButton(
+                                  icon: Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Icon(
+                                      _icon,
+                                      color: Colors.white,
+                                      size: 23.0,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    if (_obscureText == true) {
+                                      setState(() {
+                                        _obscureText = false;
+                                        _icon = Icons.lock_open;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        _obscureText = true;
+                                        _icon = Icons.lock;
+                                      });
+                                    }
+                                  },
+                                ),
+                                labelText: "Enter your password",
+                                labelStyle: TextStyle(
+                                    fontSize: 14, color: Color(0xFFB3B1B1)),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: new BorderSide(
-                                    color: Color(0xff707070), width: 1),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              suffix: IconButton(
-                                icon: Icon(_icon),
-                                onPressed: () {
-                                  if (_obscureText == true) {
-                                    setState(() {
-                                      _obscureText = false;
-                                      _icon = Icons.lock_open;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      _obscureText = true;
-                                      _icon = Icons.lock;
-                                    });
-                                  }
-                                },
-                              ),
-                              labelText: "Enter your password",
-                              labelStyle: TextStyle(
-                                  fontSize: 14, color: Color(0xFFB3B1B1)),
+                              keyboardType: TextInputType.visiblePassword,
                             ),
-                            keyboardType: TextInputType.visiblePassword,
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 50),
                         ],
                       ),
                     ),
