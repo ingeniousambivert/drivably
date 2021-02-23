@@ -3,6 +3,7 @@ import face_recognition
 from server.services.users.models.user_model import (
     ErrorResponseModel, ResponseModel)
 from server.utils.helpers import remove_dir_tree
+from .helpers import detect_face
 
 
 def recognize(user, temp_user):
@@ -29,6 +30,11 @@ def recognize(user, temp_user):
                 f"{known_dataset_path}{user_file}/{user_file}_Face.png")
             unknown_image = face_recognition.load_image_file(
                 f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png")
+
+            if not detect_face(f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png"):
+                os.remove(
+                    f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png")
+                return ErrorResponseModel("Face Not Found", 400, "Could not find a face in the uploaded image")
 
             known_face_encoding = face_recognition.face_encodings(known_image)[
                 0]
