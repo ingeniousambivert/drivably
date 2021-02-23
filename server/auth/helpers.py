@@ -48,3 +48,9 @@ async def check_phone_exists(phone: float):
     if user:
         return True
     return False
+
+
+def safe_user(user):
+    safe_user = {"id": user["id"], "email": user["email"],
+                 "access_token": user["access_token"]}
+    return safe_user
