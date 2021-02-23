@@ -13,7 +13,6 @@ from .helpers import (
 
 from server.services.users.models.user_model import (
     ErrorResponseModel,
-    ResponseModel,
     UserSchema
 )
 
