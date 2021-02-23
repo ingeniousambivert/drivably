@@ -1,8 +1,5 @@
 import 'package:drivably_app/screens/camera/camera.dart';
-import 'package:drivably_app/screens/dashboard/mapScreen.dart';
 import 'package:drivably_app/screens/dashboard/settingScreen.dart';
-import 'package:drivably_app/services/api/client.dart';
-import 'package:drivably_app/utils/classes/user.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +12,7 @@ class DashboardScreen extends StatefulWidget {
 
 class DashboardScreenState extends State<DashboardScreen> {
   List _selectedWidged = [
-    MapScreeen(),
+    // MapboxExample(),
     CameraScreen(),
     SettingScreen(),
   ];

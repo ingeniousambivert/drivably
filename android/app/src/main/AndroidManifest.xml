@@ -3,13 +3,15 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    
    <application
         android:label="drivably_app"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         >
         
+        <meta-data android:name="com.mapbox.token" android:value="pk.eyJ1IjoiYmxhY2tkZXZpbDk4IiwiYSI6ImNrNGpxY3BmODBjbHQzam1sbTBuaWh1MDcifQ.tR35Ox0EonGORTdc83r_Nw" />
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

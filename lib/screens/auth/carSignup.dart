@@ -89,7 +89,7 @@ class _CarSignupScreenState extends State<CarSignupScreen> {
               setState(() {
                 setLicense = licensePlate;
               });
-              await services.postCarData(licensePlate, name);
+              await services.addCarData(licensePlate, name);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => CameraScreen()),

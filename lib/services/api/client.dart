@@ -63,50 +63,6 @@ class APIServices {
     }
   }
 
-  Future postCarData(licenseNumber, name) async {
-    String _token;
-    await getToken().then((value) {
-      _token = value;
-    });
-    print(_token);
-    try {
-      Response response = await dio.post(
-        "$baseUrl/car",
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $_token',
-          },
-        ),
-        data: {
-          "car_license": "$licenseNumber",
-          "car_name": "$name",
-          "owner_mail": "$signUpEmail",
-          "drivers_email": ["jane@doe.com", "jake@doe.com"],
-          "current_location": {
-            "latitude": "40.758896",
-            "longitude": "-73.985130"
-          },
-          "alcohol_concentrations": [
-            {"value": "21.09", "driver": "driver-id-1"}
-          ],
-          "casualties": [
-            {
-              "location": {"latitude": "40.758896", "longitude": "-73.985130"},
-              "driver": "driver-id-1"
-            }
-          ],
-          "activities": [
-            {"driver": "driver-id-1", "data": "drowsiness_alert"}
-          ]
-        },
-      );
-      print("response");
-      print(response);
-    } catch (e) {
-      print(e);
-    }
-  }
-
   Future setDriver(String file) async {
     String _id, _token;
     await getId().then((value) {
@@ -149,6 +105,49 @@ class APIServices {
           ));
 
       UserData.fromJson(jsonDecode(response.data));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future addCarData(plate, name) async {
+    String _token;
+    await getToken().then((value) {
+      _token = value;
+    });
+    try {
+      Response response = await dio.post("$baseUrl/car/",
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $_token',
+            },
+          ),
+          data: {
+            "car_license": "$plate",
+            "car_name": "$name",
+            "owner_email": "john@doe.com",
+            "drivers_email": ["jane@doe.com", "jake@doe.com"],
+            "current_location": {
+              "latitude": "40.758896",
+              "longitude": "-73.985130"
+            },
+            "alcohol_concentrations": [
+              {"value": "21.09", "driver": "driver-id-1"}
+            ],
+            "casualties": [
+              {
+                "location": {
+                  "latitude": "40.758896",
+                  "longitude": "-73.985130"
+                },
+                "driver": "driver-id-1"
+              }
+            ],
+            "activities": [
+              {"driver": "driver-id-1", "data": "drowsiness_alert"}
+            ]
+          });
+      print(response);
     } catch (e) {
       print(e);
     }
