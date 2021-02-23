@@ -8,7 +8,7 @@ from server.utils.helpers import (
     save_upload_file, gen_uuid)
 from .helpers import (
     validate_user, create_encoded_user,
-    check_user_exists, add_token
+    check_email_exists, add_token, check_phone_exists
 )
 
 from server.services.users.models.user_model import (
@@ -25,17 +25,22 @@ router = APIRouter()
 # SIGN UP Owner
 @router.post("/owner/signup", response_description="Owner signed up")
 async def signup_owner(user: UserSchema = Body(...)):
-    email_exists = await check_user_exists(user.email)
+    email_exists = await check_email_exists(user.email)
     encoded_user = dict()
 
     if not email_exists:
-        encoded_user = await create_encoded_user(user)
-        encoded_user_with_token = add_token(encoded_user)
-        encoded_user_with_token["owner"] = True
-        return ResponseModel(encoded_user_with_token, 200, "Owner successfully signed up")
+        phone_exists = await check_phone_exists(user.phone)
+        if not phone_exists:
+            encoded_user = await create_encoded_user(user)
+            encoded_user_with_token = add_token(encoded_user)
+            encoded_user_with_token["owner"] = True
+
+            return ResponseModel(encoded_user_with_token, 200, "Owner successfully signed up")
+
+        return ErrorResponseModel("Conflict", 409, "Phone number already in use")
 
     elif email_exists:
-        return ErrorResponseModel("Conflict", 409, "Email already exists")
+        return ErrorResponseModel("Conflict", 409, "Email already in use")
 
     return ErrorResponseModel("Server Error", 500, "Could not signup user")
 
@@ -62,16 +67,22 @@ async def signin_owner(credentials:  HTTPBasicCredentials = Body(...)):
 # SIGN UP Driver
 @router.post("/driver/signup", response_description="Driver signed up")
 async def signup_driver(user: UserSchema = Body(...)):
-    email_exists = await check_user_exists(user.email)
+    email_exists = await check_email_exists(user.email)
     encoded_user = dict()
 
     if not email_exists:
-        encoded_user = await create_encoded_user(user)
-        encoded_user_with_token = add_token(encoded_user)
-        return ResponseModel(encoded_user_with_token, 200, "Driver successfully signed up")
+        phone_exists = await check_phone_exists(user.phone)
+        if not phone_exists:
+            encoded_user = await create_encoded_user(user)
+            encoded_user_with_token = add_token(encoded_user)
+            encoded_user_with_token["owner"] = False
+
+            return ResponseModel(encoded_user_with_token, 200, "Owner successfully signed up")
+
+        return ErrorResponseModel("Conflict", 409, "Phone number already in use")
 
     elif email_exists:
-        return ErrorResponseModel("Conflict", 409, "Email already exists")
+        return ErrorResponseModel("Conflict", 409, "Email already in use")
 
     return ErrorResponseModel("Server Error", 500, "Could not signup user")
 
@@ -97,7 +108,6 @@ async def signin_driver(credentials:  HTTPBasicCredentials = Body(...)):
 @router.post("/driver/face", response_description="Driver authenticated")
 async def authenticate_facial_data(id: str, image: UploadFile = File(...)):
     user_data = await retrieve_user(id)
-    response = None
     temp_dir_name = gen_uuid()
     temp_file_name = "{}_Face.png".format(temp_dir_name)
     unknown_dataset_path = f"{UNKNOWN_DATASET_PATH}{temp_dir_name}/"

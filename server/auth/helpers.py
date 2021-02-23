@@ -36,8 +36,15 @@ async def validate_user(credentials: HTTPBasicCredentials = Depends(security)):
     return True
 
 
-async def check_user_exists(email: str):
+async def check_email_exists(email: str):
     user = await users_collection.find_one({"email": email}, {"_id": 0})
+    if user:
+        return True
+    return False
+
+
+async def check_phone_exists(phone: float):
+    user = await users_collection.find_one({"phone": phone}, {"_id": 0})
     if user:
         return True
     return False
