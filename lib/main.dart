@@ -1,5 +1,5 @@
+import 'package:drivably_app/screens/index.dart';
 import 'package:drivably_app/services/map/blocs/geocoding.bloc.dart';
-import 'package:drivably_app/screens/wrapper/wrapperClass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: "Montserrat",
       ),
-      home: WrapperClass(),
+      home: IndexScreen(),
     );
   }
 }

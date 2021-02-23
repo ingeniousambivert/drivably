@@ -36,21 +36,42 @@ class _CarSignupScreenState extends State<CarSignupScreen> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 width: double.infinity,
-                child: TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter a license plate number';
-                    }
-                    return null;
-                  },
-                  autofocus: true,
-                  decoration: textFormFieldStyle("Ex. XX 00 xx 0000"),
-                  style: TextStyle(color: Colors.white),
-                  onChanged: (value) {
-                    setState(() {
-                      licensePlate = value;
-                    });
-                  },
+                child: Column(
+                  children: [
+                    TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter a license plate number';
+                        }
+                        return null;
+                      },
+                      autofocus: true,
+                      decoration: textFormFieldStyle("Ex. XX 00 xx 0000"),
+                      style: TextStyle(color: Colors.white),
+                      onChanged: (value) {
+                        setState(() {
+                          licensePlate = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter a license plate number';
+                        }
+                        return null;
+                      },
+                      autofocus: true,
+                      decoration: textFormFieldStyle("Enter car name"),
+                      style: TextStyle(color: Colors.white),
+                      onChanged: (value) {
+                        setState(() {
+                          licensePlate = value;
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
