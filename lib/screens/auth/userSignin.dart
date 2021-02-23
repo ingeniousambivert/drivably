@@ -119,7 +119,7 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
                 minWidth: MediaQuery.of(context).size.width,
                 onPressed: () async {
                   await _service.signInUser(signInEmail, signInPassword);
-                  pushToNext(context, DashboardScreen());
+                  removeUntil(context, DashboardScreen());
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(

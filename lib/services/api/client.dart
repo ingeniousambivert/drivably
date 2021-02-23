@@ -80,7 +80,24 @@ class APIServices {
         data: {
           "car_license": "$licenseNumber",
           "car_name": "$name",
-          "owner_mail": "$signUpEmail"
+          "owner_mail": "$signUpEmail",
+          "drivers_email": ["jane@doe.com", "jake@doe.com"],
+          "current_location": {
+            "latitude": "40.758896",
+            "longitude": "-73.985130"
+          },
+          "alcohol_concentrations": [
+            {"value": "21.09", "driver": "driver-id-1"}
+          ],
+          "casualties": [
+            {
+              "location": {"latitude": "40.758896", "longitude": "-73.985130"},
+              "driver": "driver-id-1"
+            }
+          ],
+          "activities": [
+            {"driver": "driver-id-1", "data": "drowsiness_alert"}
+          ]
         },
       );
       print("response");
