@@ -32,7 +32,7 @@ async def signup_owner(user: UserSchema = Body(...)):
         encoded_user = await create_encoded_user(user)
         encoded_user_with_token = add_token(encoded_user)
         encoded_user_with_token["owner"] = True
-        return ResponseModel(encoded_user_with_token)
+        return ResponseModel(encoded_user_with_token, 200, "Owner successfully signed up")
 
     elif email_exists:
         return ErrorResponseModel("Conflict", 409, "Email already exists")
@@ -49,7 +49,7 @@ async def signin_owner(credentials:  HTTPBasicCredentials = Body(...)):
         user_data = await retrieve_user_by_email(credentials.username)
         if user_data["owner"]:
             user_with_token = add_token(user_data)
-            return ResponseModel(user_with_token)
+            return ResponseModel(user_with_token, 200, "Owner successfully signed in")
 
         return ErrorResponseModel("Forbidden", 403, "Your account is forbidden")
 
@@ -68,7 +68,7 @@ async def signup_driver(user: UserSchema = Body(...)):
     if not email_exists:
         encoded_user = await create_encoded_user(user)
         encoded_user_with_token = add_token(encoded_user)
-        return ResponseModel(encoded_user_with_token)
+        return ResponseModel(encoded_user_with_token, 200, "Driver successfully signed up")
 
     elif email_exists:
         return ErrorResponseModel("Conflict", 409, "Email already exists")
@@ -85,7 +85,7 @@ async def signin_driver(credentials:  HTTPBasicCredentials = Body(...)):
         user_data = await retrieve_user_by_email(credentials.username)
         user_with_token = add_token(user_data)
 
-        return ResponseModel(user_with_token)
+        return ResponseModel(user_with_token, 200, "Driver successfully signed in")
 
     elif not validated:
         return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")

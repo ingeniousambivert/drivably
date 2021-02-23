@@ -41,6 +41,6 @@ async def send_email(email_address: List[EmailStr]):
 
     if send_mail:
         await send_mail.send_message(message)
-        return ResponseModel("Email sent successfully")
+        return ResponseModel("Sent", 200, "Email sent successfully")
 
     return ErrorResponseModel("Server Error", 500, "Could not send email")

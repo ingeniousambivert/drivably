@@ -27,7 +27,7 @@ router = APIRouter()
 async def get_cars():
     cars = await retrieve_cars()
     if cars:
-        return ResponseModel(cars)
+        return ResponseModel(cars, 200, "Successfully retrieved cars")
     return ResponseModel("Empty list returned")
 
 
@@ -36,7 +36,7 @@ async def get_cars():
 async def get_car_data(id):
     car = await retrieve_car(id)
     if car:
-        return ResponseModel(car)
+        return ResponseModel(car, 200, "Successfully retrieved car with ID: " + id)
     return ErrorResponseModel("An error occurred.", 404, "car doesn't exist.")
 
 
@@ -45,7 +45,7 @@ async def get_car_data(id):
 async def get_owner_data(license_number: str):
     car_owner = await retrieve_car_owner(license_number)
     if car_owner:
-        return ResponseModel(car_owner)
+        return ResponseModel(car_owner, 200, "Successfully retrieved car's owner data")
     return ErrorResponseModel("An error occurred.", 404, "car owner doesn't exist.")
 
 
@@ -57,9 +57,9 @@ async def add_car_data(car: CarSchema = Body(...)):
     if not car_exists:
         car = jsonable_encoder(car)
         new_car = await add_car(car)
-        return ResponseModel(new_car)
+        return ResponseModel(new_car, 200, "Successfully registered new car")
 
-    return ErrorResponseModel("Conflict", 409, "Car already exists")
+    return ErrorResponseModel("Conflict", 409, "Car already registered")
 
 
 # UPDATE a car
@@ -69,9 +69,9 @@ async def update_car_data(id: str, data: UpdateCarModel = Body(...)):
             if value is not None}
     updated_car = await update_car(id, data)
     if updated_car:
-        return ResponseModel(
-            "car with ID: {} updated successfully".format(id),
-        )
+        return ResponseModel("Updated", 200,
+                             "Successfully updated car with ID: " + id
+                             )
     return ErrorResponseModel(
         "An error occurred",
         404,
@@ -86,10 +86,9 @@ async def update_car_attributes(id: str, car_attribute: str, car_attribute_data:
                           if value is not None}
     updated_car_attribute = await update_car_array_attributes(id, car_attribute, car_attribute_data)
     if updated_car_attribute:
-        return ResponseModel(
-            "car ID: {}, attribute : ".format(id) + car_attribute +
-            " updated successfully",
-        )
+        return ResponseModel("Updated", 200,
+                             "Successfully updated car attribute: " + car_attribute + " with ID: " + id
+                             )
     return ErrorResponseModel(
         "An error occurred",
         404,
@@ -102,9 +101,9 @@ async def update_car_attributes(id: str, car_attribute: str, car_attribute_data:
 async def delete_car_data(id: str):
     deleted_car = await delete_car(id)
     if deleted_car:
-        return ResponseModel(
-            "car with ID: {} deleted successfully".format(id),
-        )
+        return ResponseModel("Deleted", 200,
+                             "Successfully deleted car with ID: " + id
+                             )
     return ErrorResponseModel(
         "An error occurred", 404, "car with id {0} doesn't exist".format(id)
     )

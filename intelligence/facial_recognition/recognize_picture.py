@@ -40,7 +40,7 @@ def recognize(user, temp_user):
             if result_str == "True":
                 remove_dir_tree(f"{unknown_dataset_path}{temp_user}")
                 return ResponseModel(
-                    "Authenticated")
+                    "Authenticated", 200, "Facial data authenticated")
             return ErrorResponseModel("Not Authenticated", 401, "Invalid facial data")
 
         return ErrorResponseModel("Not Found", 404, "Could not find user in storage")
