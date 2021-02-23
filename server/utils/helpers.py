@@ -27,13 +27,19 @@ def save_upload_file(file_upload: UploadFile, file_name: str, dir_location: str)
             shutil.copyfileobj(file_upload.file, file_object)
             response = {"filename": file_name,
                         "file_location": file_location, "dir_location": dir_location}
-        return response["dir_location"]
+        return response
     finally:
         file_upload.file.close()
 
 
 def remove_dir_tree(path):
     if shutil.rmtree(path):
+        return True
+    return False
+
+
+def remove_file(path):
+    if os.remove(path):
         return True
     return False
 
