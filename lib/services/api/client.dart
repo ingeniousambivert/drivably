@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:drivably_app/utils/classes/user.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/utils/storage/localStorage.dart';
 
@@ -61,12 +64,22 @@ class APIServices {
   }
 
   Future postCarData() async {
-    try {} catch (e) {
+    try {
+      Response response = await dio.post(
+        "$baseUrl/car",
+        data: {
+          "car_license": "car-license-1",
+          "car_name": "car-1",
+          "owner_mail": "str"
+        },
+      );
+      print("response");
+      print(response);
+    } catch (e) {
       print(e);
     }
   }
 
-  // get ID as a parameter
   Future setDriver(String file) async {
     String _id, _token;
     await getId().then((value) {
@@ -82,7 +95,7 @@ class APIServices {
 
     Response response = await dio.put(
       "$baseUrl/user/face/$_id",
-      options: new Options(
+      options: Options(
         headers: {
           'Authorization': 'Bearer $_token',
         },
@@ -90,5 +103,27 @@ class APIServices {
       data: formData,
     );
     print(response);
+  }
+
+  Future getUserData() async {
+    String _id, _token;
+    await getId().then((value) {
+      _id = value;
+    });
+    await getToken().then((value) {
+      _token = value;
+    });
+    try {
+      Response response = await dio.get("$baseUrl/user/$_id",
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $_token',
+            },
+          ));
+
+      UserData.fromJson(jsonDecode(response.data));
+    } catch (e) {
+      print(e);
+    }
   }
 }

@@ -17,8 +17,6 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
   APIServices _services = APIServices();
   bool _obscureText = true;
   IconData _icon = Icons.lock;
-  bool _obscureTextCnf = true;
-  IconData _iconCnf = Icons.lock;
 
   @override
   Widget build(BuildContext context) {
@@ -148,75 +146,19 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                             keyboardType: TextInputType.visiblePassword,
                           ),
                           SizedBox(height: 20),
-                          TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            onChanged: (value) {
-                              setState(() {
-                                signUpConfirmPassword = value;
-                              });
-                            },
-                            obscureText: _obscureTextCnf,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter a password';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color(0xFF212121),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: new BorderSide(
-                                    color: Color(0xff707070), width: 1),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: new BorderSide(
-                                    color: Color(0xff707070), width: 1),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              suffix: IconButton(
-                                icon: Icon(_iconCnf),
-                                onPressed: () {
-                                  if (_obscureTextCnf == true) {
-                                    setState(() {
-                                      _obscureTextCnf = false;
-                                      _iconCnf = Icons.lock_open;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      _obscureTextCnf = true;
-                                      _iconCnf = Icons.lock;
-                                    });
-                                  }
-                                },
-                              ),
-                              labelText: "Confirm your password",
-                              labelStyle: TextStyle(
-                                  fontSize: 14, color: Color(0xFFB3B1B1)),
-                            ),
-                            keyboardType: TextInputType.visiblePassword,
-                          ),
-                          SizedBox(height: 20),
                         ],
                       ),
                     ),
                     MaterialButton(
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          if (signUpConfirmPassword == signUpPassword) {
-                            await _services.signUpUser(signUpName, signUpEmail,
-                                signUpPassword, signUpPhoneNumber);
+                          await _services.signUpUser(signUpName, signUpEmail,
+                              signUpPassword, signUpPhoneNumber);
 
-                            pushToNext(
-                              context,
-                              CarSignupScreen(),
-                            );
-                          }
-                          // pushToNext(
-                          //   context,
-                          //   CarSignupScreen(),
-                          // );
+                          pushToNext(
+                            context,
+                            CarSignupScreen(),
+                          );
                         }
                       },
                       child: Padding(

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:drivably_app/routes/routing.dart';
 import 'package:drivably_app/screens/dashboard/dashboard.dart';
 import 'package:drivably_app/services/api/client.dart';
-import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -43,55 +42,14 @@ class _PreviewScreenState extends State<PreviewScreen> {
                   fit: BoxFit.fitHeight,
                 ),
               ),
-              SizedBox(height: 40),
-              Expanded(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: textFormFieldStyle("Driver's Name"),
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          name = value;
-                        });
-                      },
-                    ),
-                    SizedBox(height: 20),
-                    TextFormField(
-                      decoration: textFormFieldStyle("Driver's Age"),
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          age = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('here now');
-          print(widget.imgPath);
-          print(name + " " + age);
           _services.setDriver(widget.imgPath.toString());
-          pushToNext(context, DashboardScreen());
-
-          // getBytes().then(
-          //   (bytes) {
-          //     print(bytes.buffer.asUint8List());
-          //     Share.file('Share via', widget.fileName,
-          //         bytes.buffer.asUint8List(), 'image/path');
-          //   },
-          // );
+          removeUntil(context, DashboardScreen());
         },
         child: Icon(
           Icons.arrow_right,
@@ -101,10 +59,4 @@ class _PreviewScreenState extends State<PreviewScreen> {
       ),
     );
   }
-
-//   Future getBytes() async {
-//     Uint8List bytes = File(widget.imgPath).readAsBytesSync();
-// //    print(ByteData.view(buffer))
-//     return ByteData.view(bytes.buffer);
-//   }
 }
