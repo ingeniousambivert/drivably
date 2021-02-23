@@ -63,14 +63,24 @@ class APIServices {
     }
   }
 
-  Future postCarData() async {
+  Future postCarData(licenseNumber, name) async {
+    String _token;
+    await getToken().then((value) {
+      _token = value;
+    });
+    print(_token);
     try {
       Response response = await dio.post(
         "$baseUrl/car",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $_token',
+          },
+        ),
         data: {
-          "car_license": "car-license-1",
-          "car_name": "car-1",
-          "owner_mail": "str"
+          "car_license": "$licenseNumber",
+          "car_name": "$name",
+          "owner_mail": "$signUpEmail"
         },
       );
       print("response");

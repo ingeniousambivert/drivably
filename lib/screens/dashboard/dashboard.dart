@@ -3,6 +3,7 @@ import 'package:drivably_app/screens/dashboard/mapScreen.dart';
 import 'package:drivably_app/screens/dashboard/settingScreen.dart';
 import 'package:drivably_app/services/api/client.dart';
 import 'package:drivably_app/utils/classes/user.dart';
+import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -20,8 +21,6 @@ class DashboardScreenState extends State<DashboardScreen> {
   ];
 
   int _selectedIndex = 0;
-  APIServices _services = APIServices();
-  UserData _user = UserData();
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +28,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       body: _selectedWidged.elementAt(_selectedIndex),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await _services.getUserData();
-          print(_user.toJson());
+          print(cars);
         },
         child: Icon(Icons.get_app),
       ),

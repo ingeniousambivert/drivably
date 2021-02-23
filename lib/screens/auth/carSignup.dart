@@ -1,4 +1,5 @@
 import 'package:drivably_app/screens/camera/camera.dart';
+import 'package:drivably_app/services/api/client.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +9,9 @@ class CarSignupScreen extends StatefulWidget {
 }
 
 class _CarSignupScreenState extends State<CarSignupScreen> {
-  String licensePlate;
+  String licensePlate, name;
   final _formKey = GlobalKey<FormState>();
+  APIServices services = APIServices();
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,7 @@ class _CarSignupScreenState extends State<CarSignupScreen> {
                       style: TextStyle(color: Colors.white),
                       onChanged: (value) {
                         setState(() {
-                          licensePlate = value;
+                          name = value;
                         });
                       },
                     ),
@@ -81,12 +83,13 @@ class _CarSignupScreenState extends State<CarSignupScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
             if (_formKey.currentState.validate()) {
               cars.add(licensePlate);
               setState(() {
                 setLicense = licensePlate;
               });
+              await services.postCarData(licensePlate, name);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => CameraScreen()),
