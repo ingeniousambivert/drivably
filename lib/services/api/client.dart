@@ -64,6 +64,26 @@ class APIServices {
     }
   }
 
+  Future signUpDriver(name, email, password, phone) async {
+    try {
+      Response response = await dio.post(
+        "$baseUrl/driver/signup",
+        data: {
+          "name": name,
+          "email": email,
+          "password": password,
+          "phone": phone,
+        },
+      );
+      print("response");
+      setTokenAndId(response.data['access_token'], response.data['id']);
+
+      print(response);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future setDriver(String file) async {
     String _id, _token;
     await getId().then((value) {
@@ -102,7 +122,6 @@ class APIServices {
           'Authorization': 'Bearer $_token',
         }),
       );
-      print(response.data['data']);
       return (response.data['data'] as List)
           .map((p) => DriverData.fromJson(p))
           .toList();

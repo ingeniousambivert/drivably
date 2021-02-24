@@ -1,5 +1,3 @@
-import 'package:drivably_app/screens/dashboard/addDriver.dart';
-
 class DriverData {
   final String id, name, email, phone, owner, facialData, cars, createdAt;
 
