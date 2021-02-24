@@ -15,7 +15,7 @@ def recognize(user, temp_user):
     if not user["facial_data"]:
         return ErrorResponseModel("Not Found", 404, "Could not find facial data.")
     else:
-        user_file = f"user_{user['id']}"
+        user_file = f"user_{user['email']}"
 
         with os.scandir(known_dataset_path) as folders:
             for entry in folders:
