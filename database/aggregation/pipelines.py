@@ -17,11 +17,11 @@ async def aggregate_lookup_owner(**pipeline):
                 "as": pipeline["as"]
             }
         },
-        # {
-        #     "$project": {
-        #         "owner_data._id": 0
-        #     }
-        # },
+        {
+            "$project": {
+                "owner_data._id": 0
+            }
+        },
     ]
 
     async for doc in users_collection.aggregate(pipeline):
@@ -34,7 +34,9 @@ async def aggregate_match_owner(email: str):
     data = []
     pipeline = [
         {
+
             "$project": {"_id": 0}
+
         },
         {
             "$match": {"owner_email": email}
