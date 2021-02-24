@@ -1,4 +1,3 @@
-from bson.objectid import ObjectId
 from datetime import datetime
 from database.aggregation.pipelines import aggregate_match_car
 from server.services.cars.helpers.car_helper import cars_collection, car_helper
@@ -20,40 +19,40 @@ async def add_car(car_data: dict) -> dict:
     return car_helper(new_car)
 
 
-# Retrieve a car with a matching ID
-async def retrieve_car(id: str) -> dict:
-    car = await cars_collection.find_one({"_id": ObjectId(id)})
+# Retrieve a car with a matching license_number
+async def retrieve_car(license_number: str) -> dict:
+    car = await cars_collection.find_one({"car_license": license_number})
     if car:
         return car_helper(car)
 
 
-# Update a car with a matching ID
-async def update_car(id: str, car_data: dict):
+# Update a car with a matching license_number
+async def update_car(license_number: str, car_data: dict):
     # Return false if an empty request body is sent.
     if len(car_data) < 1:
         return False
 
-    car = await cars_collection.find_one({"_id": ObjectId(id)})
+    car = await cars_collection.find_one({"car_license": license_number})
 
     if car:
         car_data.update({"updated_at": datetime.now()})
         updated_car = await cars_collection.update_one(
-            {"_id": ObjectId(id)}, {"$set": car_data}
+            {"car_license": license_number}, {"$set": car_data}
         )
         if updated_car:
             return True
         return False
 
 
-# Update ARRAY ATTRIBUTES of a car with a matching ID
-async def update_car_array_attributes(id: str, car_attribute: str, car_attribute_data: dict):
+# Update ARRAY ATTRIBUTES of a car with a matching license_number
+async def update_car_array_attributes(license_number: str, car_attribute: str, car_attribute_data: dict):
 
-    car = await cars_collection.find_one({"_id": ObjectId(id)})
+    car = await cars_collection.find_one({"car_license": license_number})
 
     if car:
         car_attribute_data["created_at"] = datetime.now()
         updated_car_attribute = await cars_collection.update_one(
-            {"_id": ObjectId(id)}, {
+            {"car_license": license_number}, {
                 "$push": {car_attribute: car_attribute_data}, }
         )
         if updated_car_attribute:
@@ -61,15 +60,45 @@ async def update_car_array_attributes(id: str, car_attribute: str, car_attribute
         return False
 
 
-# Delete a car from the database
-async def delete_car(id: str):
-    car = await cars_collection.find_one({"_id": ObjectId(id)})
+# Add car driver
+async def add_car_driver(license_number: str, car_driver: str):
+
+    car = await cars_collection.find_one({"car_license": license_number})
+
     if car:
-        await cars_collection.delete_one({"_id": ObjectId(id)})
+        updated_car_ = await cars_collection.update_one(
+            {"car_license": license_number}, {
+                "$push": {"drivers_email": car_driver}, }
+        )
+        if updated_car_:
+            return True
+        return False
+
+
+# Remove car driver
+async def remove_car_driver(license_number: str, car_driver: str):
+
+    car = await cars_collection.find_one({"car_license": license_number})
+
+    if car:
+        updated_car_ = await cars_collection.update_one(
+            {"car_license": license_number}, {
+                "$pull": {"drivers_email": car_driver}, }
+        )
+        if updated_car_:
+            return True
+        return False
+
+
+# Delete a car from the database
+async def delete_car(license_number: str):
+    car = await cars_collection.find_one({"car_license": license_number})
+    if car:
+        await cars_collection.delete_one({"car_license": license_number})
         return True
 
 
-# Retrieve a car with a matching ID
+# Retrieve a car with a matching license_number
 async def retrieve_car_owner(license_number: str):
     car_owner = await aggregate_match_car(license_number)
     return car_owner

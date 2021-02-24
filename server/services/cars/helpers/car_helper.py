@@ -8,7 +8,7 @@ cars_collection = database["cars"]
 
 def car_helper(car) -> dict:
     return {
-        "id": str(car["_id"]),
+        # "id": str(car["_id"]),
         "car_license": car["car_license"],
         "car_name": car["car_name"],
         "owner_email": car["owner_email"],

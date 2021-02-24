@@ -10,9 +10,12 @@ from database.cars.car_controller import (
     retrieve_car,
     retrieve_cars,
     update_car,
+    add_car_driver,
+    remove_car_driver,
     update_car_array_attributes,
     retrieve_car_owner
 )
+
 from server.services.cars.model.car_model import (
     ErrorResponseModel,
     ResponseModel,
@@ -32,11 +35,11 @@ async def get_cars():
 
 
 # GET a car
-@router.get("/{id}", response_description="car data retrieved")
-async def get_car_data(id):
-    car = await retrieve_car(id)
+@router.get("/{license}", response_description="car data retrieved")
+async def get_car_data(license_number: str):
+    car = await retrieve_car(license_number)
     if car:
-        return ResponseModel(car, 200, "Successfully retrieved car with ID: " + id)
+        return ResponseModel(car, 200, "Successfully retrieved car with license: " + license_number)
     return ErrorResponseModel("An error occurred.", 404, "car doesn't exist.")
 
 
@@ -63,14 +66,31 @@ async def add_car_data(car: CarSchema = Body(...)):
 
 
 # UPDATE a car
-@router.put("/{id}", response_description="car data updated")
-async def update_car_data(id: str, data: UpdateCarModel = Body(...)):
+@router.put("/{license}", response_description="car data updated")
+async def update_car_data(license_number: str, data: UpdateCarModel = Body(...)):
     data = {key: value for key, value in data.dict().items()
             if value is not None}
-    updated_car = await update_car(id, data)
+    updated_car = await update_car(license_number, data)
     if updated_car:
         return ResponseModel("Updated", 200,
-                             "Successfully updated car with ID: " + id
+                             "Successfully updated car with license: " + license_number
+                             )
+    return ErrorResponseModel(
+        "An error occurred",
+        404,
+        "There was an error updating the car data.",
+    )
+
+
+# Add a car's drivers
+@router.put("/driver/{license}", response_description="car driver added")
+async def add_car_driver_data(license_number: str, car_driver: str):
+
+    updated_car = await add_car_driver(license_number, car_driver)
+    if updated_car:
+        return ResponseModel("Updated", 200,
+                             "Successfully added driver: " +
+                             car_driver + " to car: " + license_number
                              )
     return ErrorResponseModel(
         "An error occurred",
@@ -80,14 +100,32 @@ async def update_car_data(id: str, data: UpdateCarModel = Body(...)):
 
 
 # UPDATE a car's attributes
-@router.put("/attribute/{id}", response_description="car attribute updated")
-async def update_car_attributes(id: str, car_attribute: str, car_attribute_data: Dict = Body(...)):
+@router.put("/attribute/{license}", response_description="car attribute updated")
+async def update_car_attributes(license_number: str, car_attribute: str, car_attribute_data: Dict = Body(...)):
     car_attribute_data = {key: value for key, value in car_attribute_data.items()
                           if value is not None}
-    updated_car_attribute = await update_car_array_attributes(id, car_attribute, car_attribute_data)
+    updated_car_attribute = await update_car_array_attributes(license_number, car_attribute, car_attribute_data)
     if updated_car_attribute:
         return ResponseModel("Updated", 200,
-                             "Successfully updated car attribute: " + car_attribute + " with ID: " + id
+                             "Successfully updated car attribute: " +
+                             car_attribute + " with license: " + license_number
+                             )
+    return ErrorResponseModel(
+        "An error occurred",
+        404,
+        "There was an error updating the car data.",
+    )
+
+
+# Delete a car's drivers
+@router.delete("/driver/{license}", response_description="car driver deleted")
+async def remove_car_driver_data(license_number: str, car_driver: str):
+
+    updated_car = await remove_car_driver(license_number, car_driver)
+    if updated_car:
+        return ResponseModel("Updated", 200,
+                             "Successfully removed driver: " +
+                             car_driver + " to car: " + license_number
                              )
     return ErrorResponseModel(
         "An error occurred",
@@ -97,13 +135,14 @@ async def update_car_attributes(id: str, car_attribute: str, car_attribute_data:
 
 
 # DELETE a car
-@router.delete("/{id}", response_description="car data deleted from the database")
-async def delete_car_data(id: str):
-    deleted_car = await delete_car(id)
+@router.delete("/{license}", response_description="car data deleted from the database")
+async def delete_car_data(license_number: str):
+    deleted_car = await delete_car(license_number)
     if deleted_car:
         return ResponseModel("Deleted", 200,
-                             "Successfully deleted car with ID: " + id
+                             "Successfully deleted car with license: " + license_number
                              )
     return ErrorResponseModel(
-        "An error occurred", 404, "car with id {0} doesn't exist".format(id)
+        "An error occurred", 404, "car with license: {} doesn't exist".format(
+            license_number)
     )

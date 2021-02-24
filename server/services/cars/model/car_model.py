@@ -6,9 +6,9 @@ class CarSchema(BaseModel):
     car_license: str = Field(...)
     car_name: str = Field(...)
     owner_email: str = Field(...)
-    drivers_email: Optional[List[str]]
     current_location: Optional[Dict]
     # attributes start
+    drivers_email: Optional[List[str]]
     alcohol_concentrations: Optional[List[Dict]]
     casualties: Optional[List[Dict]]
     activities: Optional[List[Dict]]
@@ -99,7 +99,7 @@ class UpdateCarModel(BaseModel):
         }
 
 
-def ResponseModel(data,code, message):
+def ResponseModel(data, code, message):
     return {
         "data": data,
         "code": code,
