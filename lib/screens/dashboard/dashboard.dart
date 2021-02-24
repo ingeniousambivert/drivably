@@ -1,6 +1,6 @@
-import 'package:drivably_app/screens/camera/camera.dart';
+import 'package:drivably_app/screens/dashboard/addDriver.dart';
+import 'package:drivably_app/screens/dashboard/mapScreen.dart';
 import 'package:drivably_app/screens/dashboard/settingScreen.dart';
-import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -12,8 +12,9 @@ class DashboardScreen extends StatefulWidget {
 
 class DashboardScreenState extends State<DashboardScreen> {
   List _selectedWidged = [
-    // MapboxExample(),
-    CameraScreen(),
+    MapScreen(),
+    DriverScreen(),
+    SettingScreen(),
     SettingScreen(),
   ];
 
@@ -23,22 +24,21 @@ class DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _selectedWidged.elementAt(_selectedIndex),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          print(cars);
-        },
-        child: Icon(Icons.get_app),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
             label: "Map",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: "Add Driver",
+            icon: Icon(Icons.people),
+            label: "Drivers List",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_active),
+            label: "Notifaction",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
@@ -47,6 +47,7 @@ class DashboardScreenState extends State<DashboardScreen> {
         ],
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
+        showUnselectedLabels: false,
         currentIndex: _selectedIndex,
         onTap: (value) {
           setState(() {

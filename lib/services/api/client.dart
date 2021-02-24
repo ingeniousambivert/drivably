@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:drivably_app/utils/classes/driver.dart';
 import 'package:drivably_app/utils/classes/user.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/utils/storage/localStorage.dart';
@@ -32,8 +33,8 @@ class APIServices {
       Response response = await dio.post(
         "$baseUrl/owner/signin",
         data: {
-          "username": email,
-          "password": password,
+          "username": "$email",
+          "password": "$password",
         },
       );
       setTokenAndId(response.data['access_token'], response.data['id']);
@@ -86,6 +87,28 @@ class APIServices {
       data: formData,
     );
     print(response);
+  }
+
+  Future<List<DriverData>> getDrivers() async {
+    String _token;
+    await getToken().then((value) {
+      _token = value;
+    });
+
+    try {
+      Response response = await dio.get(
+        "$baseUrl/user",
+        options: Options(headers: {
+          'Authorization': 'Bearer $_token',
+        }),
+      );
+      print(response.data['data']);
+      return (response.data['data'] as List)
+          .map((p) => DriverData.fromJson(p))
+          .toList();
+    } catch (e) {
+      return (e);
+    }
   }
 
   Future getUserData() async {
