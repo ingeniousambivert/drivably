@@ -1,4 +1,3 @@
-from bson.objectid import ObjectId
 from datetime import datetime
 from server.services.users.helpers.user_helper import users_collection, user_helper
 from database.aggregation.pipelines import aggregate_match_owner
@@ -20,27 +19,48 @@ async def add_user(user_data: dict) -> dict:
     return user_helper(new_user)
 
 
-# Retrieve a user with a matching ID
-async def retrieve_user(id: str) -> dict:
-    user = await users_collection.find_one({"_id": ObjectId(id)})
-    if user:
-        return user_helper(user)
-
-
 # Retrieve a user with a matching EMAIL
-async def retrieve_user_by_email(email: str) -> dict:
+async def retrieve_user(email: str) -> dict:
     user = await users_collection.find_one({"email": email})  # , {"_id": 0}
     if user:
         return user_helper(user)
 
 
-# Update a user with a matching ID
-async def update_user(id: str, user_data: dict):
-    user = await users_collection.find_one({"_id": ObjectId(id)})
+# Update a user with a matching email
+async def update_user(email: str, user_data: dict):
+    user = await users_collection.find_one({"email": email})
     if user:
         user_data.update({"updated_at": datetime.now()})
         updated_user = await users_collection.update_one(
-            {"_id": ObjectId(id)}, {"$set": user_data}
+            {"email": email}, {"$set": user_data}
+        )
+        if updated_user:
+            return True
+        return False
+
+
+# Add car driver
+async def add_car_driver(email: str, license_number: str):
+
+    user = await users_collection.find_one({"email": email})
+
+    if user:
+        updated_user_car = await users_collection.update_one(
+            {"email": email}, {
+                "$push": {"cars": license_number}, }
+        )
+        if updated_user_car:
+            return True
+        return False
+
+
+# Delete a user from the database
+async def delete_car(email: str, license_number: str):
+    user = await users_collection.find_one({"email": email})
+    if user:
+        updated_user = await users_collection.update_one(
+            {"email": email}, {
+                "$pull": {"cars": license_number}, }
         )
         if updated_user:
             return True
@@ -48,11 +68,12 @@ async def update_user(id: str, user_data: dict):
 
 
 # Delete a user from the database
-async def delete_user(id: str):
-    user = await users_collection.find_one({"_id": ObjectId(id)})
+async def delete_user(email: str):
+    user = await users_collection.find_one({"email": email})
     if user:
-        await users_collection.delete_one({"_id": ObjectId(id)})
+        await users_collection.delete_one({"email": email})
         return True
+    return False
 
 
 # Retrieve owners car
