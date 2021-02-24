@@ -1,13 +1,12 @@
 
 from fastapi import Body, APIRouter, File, UploadFile
 from fastapi.security import HTTPBasicCredentials
-from database.users.user_controller import (
-    retrieve_user_by_email, retrieve_user)
+from database.users.user_controller import retrieve_user
 from server.utils.helpers import (
     UNKNOWN_DATASET_PATH,
     save_upload_file, gen_uuid)
 from .helpers import (
-    validate_user, create_encoded_user, safe_user,
+    validate_user, create_encoded_owner, create_encoded_driver, safe_user,
     check_email_exists, add_token, check_phone_exists
 )
 
@@ -30,9 +29,8 @@ async def signup_owner(user: UserSchema = Body(...)):
     if not email_exists:
         phone_exists = await check_phone_exists(user.phone)
         if not phone_exists:
-            encoded_user = await create_encoded_user(user)
+            encoded_user = await create_encoded_owner(user)
             encoded_user_with_token = add_token(encoded_user)
-            encoded_user_with_token["owner"] = True
 
             return safe_user(encoded_user_with_token)
 
@@ -50,7 +48,7 @@ async def signin_owner(credentials:  HTTPBasicCredentials = Body(...)):
     validated = await validate_user(credentials)
 
     if validated:
-        user_data = await retrieve_user_by_email(credentials.username)
+        user_data = await retrieve_user(credentials.username)
         if user_data["owner"]:
             user_with_token = add_token(user_data)
             return safe_user(user_with_token)
@@ -72,9 +70,8 @@ async def signup_driver(user: UserSchema = Body(...)):
     if not email_exists:
         phone_exists = await check_phone_exists(user.phone)
         if not phone_exists:
-            encoded_user = await create_encoded_user(user)
+            encoded_user = await create_encoded_driver(user)
             encoded_user_with_token = add_token(encoded_user)
-            encoded_user_with_token["owner"] = False
 
             return safe_user(encoded_user_with_token)
 
@@ -92,7 +89,7 @@ async def signin_driver(credentials:  HTTPBasicCredentials = Body(...)):
     validated = await validate_user(credentials)
 
     if validated:
-        user_data = await retrieve_user_by_email(credentials.username)
+        user_data = await retrieve_user(credentials.username)
         user_with_token = add_token(user_data)
 
         return safe_user(user_with_token)
@@ -105,8 +102,8 @@ async def signin_driver(credentials:  HTTPBasicCredentials = Body(...)):
 
 # Authenticate Driver's face
 @router.post("/driver/face", response_description="Driver authenticated")
-async def authenticate_facial_data(id: str, image: UploadFile = File(...)):
-    user_data = await retrieve_user(id)
+async def authenticate_facial_data(email: str, image: UploadFile = File(...)):
+    user_data = await retrieve_user(email)
     temp_dir_name = gen_uuid()
     temp_file_name = "{}_Face.png".format(temp_dir_name)
     unknown_dataset_path = f"{UNKNOWN_DATASET_PATH}{temp_dir_name}/"

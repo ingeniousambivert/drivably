@@ -9,10 +9,18 @@ from database.users.user_controller import add_user
 security = HTTPBasic()
 
 
-async def create_encoded_user(user):
-    user.password = bcrypt.hash(user.password)
-    user = jsonable_encoder(user)
-    return await add_user(user)
+async def create_encoded_driver(driver):
+    driver.owner = False
+    driver.password = bcrypt.hash(driver.password)
+    driver = jsonable_encoder(driver)
+    return await add_user(driver)
+
+
+async def create_encoded_owner(owner):
+    owner.owner = True
+    owner.password = bcrypt.hash(owner.password)
+    owner = jsonable_encoder(owner)
+    return await add_user(owner)
 
 
 def add_token(user):
@@ -51,6 +59,6 @@ async def check_phone_exists(phone: float):
 
 
 def safe_user(user):
-    safe_user = {"id": user["id"], "email": user["email"],
-                 "access_token": user["access_token"]}
+    safe_user = {
+        "access_token": user["access_token"]}
     return safe_user
