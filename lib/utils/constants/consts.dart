@@ -43,27 +43,10 @@ String accessToken;
 
 String setLicense;
 
-<<<<<<< Updated upstream
 //  Meet Local
-// final baseUrl = 'http://192.168.43.180:8008';
-=======
-<<<<<<< HEAD
-List<String> driversList;
-
-// Meet Local
 final baseUrl = 'http://192.168.43.180:8008';
-=======
-//  Meet Local
-// final baseUrl = 'http://192.168.43.180:8008';
->>>>>>> d81301d313d5fb12c0cefc31bf7941684e2224f9
->>>>>>> Stashed changes
-
-// Monarch Local
-// final baseUrl = 'http://192.168.1.18:8008';
-
-// Aditya Local
-final baseUrl = 'http://192.168.1.9:8008';
-
+List<String> driversList;
 // MapBox Access Token
 // ignore: non_constant_identifier_names
-final String ACCESS_TOKEN = "pk.eyJ1IjoiYmxhY2tkZXZpbDk4IiwiYSI6ImNrNGpxY3BmODBjbHQzam1sbTBuaWh1MDcifQ.tR35Ox0EonGORTdc83r_Nw";
+final String ACCESS_TOKEN =
+    "pk.eyJ1IjoiYmxhY2tkZXZpbDk4IiwiYSI6ImNrNGpxY3BmODBjbHQzam1sbTBuaWh1MDcifQ.tR35Ox0EonGORTdc83r_Nw";

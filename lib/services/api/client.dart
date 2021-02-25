@@ -128,7 +128,7 @@ class APIServices {
     print(response);
   }
 
-  Future<List<DriverData>> getDrivers() async {
+  Future<List<DriverDataSec>> getDrivers() async {
     String _token;
     await getToken().then((value) {
       _token = value;
@@ -136,20 +136,19 @@ class APIServices {
 
     try {
       Response response = await dio.get(
-        "$baseUrl/user",
+        "$baseUrl/car",
         options: Options(headers: {
           'Authorization': 'Bearer $_token',
         }),
       );
       return (response.data['data'] as List)
-          .map((p) => DriverData.fromJson(p))
+          .map((p) => DriverDataSec.fromJson(p))
           .toList();
     } catch (e) {
       return (e);
     }
   }
 
-<<<<<<< HEAD
   Future printDrivers(doc) async {
     String _token;
     await getToken().then((value) {
@@ -169,8 +168,6 @@ class APIServices {
     }
   }
 
-=======
->>>>>>> parent of 50efe40 (update some changes)
   Future getUserData() async {
     String _id, _token;
     await getId().then((value) {
