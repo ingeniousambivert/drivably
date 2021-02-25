@@ -1,8 +1,9 @@
-import 'package:drivably_app/screens/dashboard/dashboard.dart';
 import 'package:drivably_app/services/map/blocs/geocoding.bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'screens/index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: "Montserrat",
       ),
-      home: DashboardScreen(),
+      home: IndexScreen(),
     );
   }
 }

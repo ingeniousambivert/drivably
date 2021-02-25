@@ -206,26 +206,11 @@ class APIServices {
             "car_license": "$plate",
             "car_name": "$name",
             "owner_email": "john@doe.com",
-            "drivers_email": ["jane@doe.com", "jake@doe.com"],
-            "current_location": {
-              "latitude": "40.758896",
-              "longitude": "-73.985130"
-            },
-            "alcohol_concentrations": [
-              {"value": "21.09", "driver": "driver-id-1"}
-            ],
-            "casualties": [
-              {
-                "location": {
-                  "latitude": "40.758896",
-                  "longitude": "-73.985130"
-                },
-                "driver": "driver-id-1"
-              }
-            ],
-            "activities": [
-              {"driver": "driver-id-1", "data": "drowsiness_alert"}
-            ]
+            "drivers_email": [],
+            "current_location": {},
+            "alcohol_concentrations": [],
+            "casualties": [],
+            "activities": []
           });
       setCarNumber(plate);
       print(response);
