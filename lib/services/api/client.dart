@@ -109,7 +109,7 @@ class APIServices {
     print(response);
   }
 
-  Future<List<DriverData>> getDrivers() async {
+  Future<List<DriverDataSec>> getDrivers() async {
     String _token;
     await getToken().then((value) {
       _token = value;
@@ -117,17 +117,21 @@ class APIServices {
 
     try {
       Response response = await dio.get(
-        "$baseUrl/user",
+        "$baseUrl/car",
         options: Options(headers: {
           'Authorization': 'Bearer $_token',
         }),
       );
       return (response.data['data'] as List)
-          .map((p) => DriverData.fromJson(p))
+          .map((p) => DriverDataSec.fromJson(p))
           .toList();
     } catch (e) {
       return (e);
     }
+  }
+
+  Future printDrivers(doc) async {
+    await print(doc);
   }
 
   Future getUserData() async {
@@ -167,27 +171,12 @@ class APIServices {
           data: {
             "car_license": "$plate",
             "car_name": "$name",
-            "owner_email": "john@doe.com",
-            "drivers_email": ["jane@doe.com", "jake@doe.com"],
-            "current_location": {
-              "latitude": "40.758896",
-              "longitude": "-73.985130"
-            },
-            "alcohol_concentrations": [
-              {"value": "21.09", "driver": "driver-id-1"}
-            ],
-            "casualties": [
-              {
-                "location": {
-                  "latitude": "40.758896",
-                  "longitude": "-73.985130"
-                },
-                "driver": "driver-id-1"
-              }
-            ],
-            "activities": [
-              {"driver": "driver-id-1", "data": "drowsiness_alert"}
-            ]
+            "owner_email": "$signUpEmail",
+            "drivers_email": ["$signUpEmail"],
+            "current_location": {},
+            "alcohol_concentrations": [{}],
+            "casualties": [],
+            "activities": []
           });
       print(response);
     } catch (e) {

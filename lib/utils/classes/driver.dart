@@ -24,3 +24,27 @@ class DriverData {
     );
   }
 }
+
+class DriverDataSec {
+  List<String> driversEmail;
+  List<String> driver;
+
+  DriverDataSec({this.driversEmail});
+
+  DriverDataSec.fromJson(Map<String, dynamic> json) {
+    driversEmail = json['drivers_email'].cast<String>();
+    for (var doc in driversEmail) {}
+  }
+
+  printDriver() {
+    for (var doc in driversEmail) {
+      print(doc);
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['drivers_email'] = this.driversEmail;
+    return data;
+  }
+}

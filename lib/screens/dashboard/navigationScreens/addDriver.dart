@@ -24,7 +24,21 @@ class _DriverScreenState extends State<DriverScreen> {
         backgroundColor: Colors.black,
       ),
       body: SafeArea(
-        child: FutureBuilder<List<DriverData>>(
+        // child: Container(
+        //   child: Center(
+        //     child: MaterialButton(
+        //       color: Colors.blueGrey,
+        //       onPressed: () {
+        //         _services.getDrivers();
+        //       },
+        //       child: Text(
+        //         "Get Data",
+        //         style: TextStyle(color: Colors.white),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        child: FutureBuilder<List<DriverDataSec>>(
           future: _services.getDrivers(),
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
@@ -40,8 +54,7 @@ class _DriverScreenState extends State<DriverScreen> {
                         child: Column(children: [
                           ListTile(
                             tileColor: Colors.white,
-                            title: Text(doc.name),
-                            subtitle: Text(doc.email),
+                            title: Text(doc.driversEmail.toString()),
                           ),
                         ]),
                       );
