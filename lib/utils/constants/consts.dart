@@ -43,11 +43,15 @@ String accessToken;
 
 String setLicense;
 
-// Meet Local
-final baseUrl = 'http://192.168.43.180:8008';
+//  Meet Local
+// final baseUrl = 'http://192.168.43.180:8008';
 
 // Monarch Local
 // final baseUrl = 'http://192.168.1.18:8008';
 
 // Aditya Local
-// final baseUrl = 'http://192.168.43.166:8008';
+final baseUrl = 'http://192.168.1.9:8008';
+
+// MapBox Access Token
+// ignore: non_constant_identifier_names
+final String ACCESS_TOKEN = "pk.eyJ1IjoiYmxhY2tkZXZpbDk4IiwiYSI6ImNrNGpxY3BmODBjbHQzam1sbTBuaWh1MDcifQ.tR35Ox0EonGORTdc83r_Nw";
