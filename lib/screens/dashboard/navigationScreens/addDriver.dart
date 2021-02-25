@@ -23,6 +23,7 @@ class _DriverScreenState extends State<DriverScreen> {
         backgroundColor: Colors.black,
       ),
       body: SafeArea(
+<<<<<<< HEAD
         child: Container(
           child: Center(
             child: MaterialButton(
@@ -41,6 +42,12 @@ class _DriverScreenState extends State<DriverScreen> {
         //   future: _services.getDrivers(),
         //   builder: (context, snapshot) {
         //     if (snapshot.hasError) print(snapshot.error);
+=======
+        child: FutureBuilder<List<DriverData>>(
+          future: _services.getDrivers(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
+>>>>>>> parent of 50efe40 (update some changes)
 
         //     return snapshot.hasData
         //         ? ListView.builder(
@@ -48,6 +55,7 @@ class _DriverScreenState extends State<DriverScreen> {
         //             itemBuilder: (context, index) {
         //               var doc = snapshot.data[index];
 
+<<<<<<< HEAD
         //               return Card(
         //                 color: Colors.white,
         //                 child: Column(children: [
@@ -62,6 +70,23 @@ class _DriverScreenState extends State<DriverScreen> {
         //         : Center(child: CircularProgressIndicator());
         //   },
         // ),
+=======
+                      return Card(
+                        color: Colors.white,
+                        child: Column(children: [
+                          ListTile(
+                            tileColor: Colors.white,
+                            title: Text(doc.name),
+                            subtitle: Text(doc.email),
+                          ),
+                        ]),
+                      );
+                    },
+                  )
+                : Center(child: CircularProgressIndicator());
+          },
+        ),
+>>>>>>> parent of 50efe40 (update some changes)
       ),
       floatingActionButton: FloatingActionButton.extended(
         label: Text("Add driver"),

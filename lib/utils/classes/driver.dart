@@ -26,6 +26,7 @@ class DriverData {
     );
   }
 }
+<<<<<<< HEAD
 
 class DriverDataSec {
   APIServices _services = APIServices();
@@ -94,3 +95,5 @@ class UserProfile {
     return data;
   }
 }
+=======
+>>>>>>> parent of 50efe40 (update some changes)

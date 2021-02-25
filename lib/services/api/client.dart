@@ -128,7 +128,7 @@ class APIServices {
     print(response);
   }
 
-  Future<List<DriverDataSec>> getDrivers() async {
+  Future<List<DriverData>> getDrivers() async {
     String _token;
     await getToken().then((value) {
       _token = value;
@@ -136,19 +136,20 @@ class APIServices {
 
     try {
       Response response = await dio.get(
-        "$baseUrl/car",
+        "$baseUrl/user",
         options: Options(headers: {
           'Authorization': 'Bearer $_token',
         }),
       );
       return (response.data['data'] as List)
-          .map((p) => DriverDataSec.fromJson(p))
+          .map((p) => DriverData.fromJson(p))
           .toList();
     } catch (e) {
       return (e);
     }
   }
 
+<<<<<<< HEAD
   Future printDrivers(doc) async {
     String _token;
     await getToken().then((value) {
@@ -168,6 +169,8 @@ class APIServices {
     }
   }
 
+=======
+>>>>>>> parent of 50efe40 (update some changes)
   Future getUserData() async {
     String _id, _token;
     await getId().then((value) {
@@ -205,12 +208,27 @@ class APIServices {
           data: {
             "car_license": "$plate",
             "car_name": "$name",
-            "owner_email": "$signUpEmail",
-            "drivers_email": ["$signUpEmail"],
-            "current_location": {},
-            "alcohol_concentrations": [{}],
-            "casualties": [],
-            "activities": []
+            "owner_email": "john@doe.com",
+            "drivers_email": ["jane@doe.com", "jake@doe.com"],
+            "current_location": {
+              "latitude": "40.758896",
+              "longitude": "-73.985130"
+            },
+            "alcohol_concentrations": [
+              {"value": "21.09", "driver": "driver-id-1"}
+            ],
+            "casualties": [
+              {
+                "location": {
+                  "latitude": "40.758896",
+                  "longitude": "-73.985130"
+                },
+                "driver": "driver-id-1"
+              }
+            ],
+            "activities": [
+              {"driver": "driver-id-1", "data": "drowsiness_alert"}
+            ]
           });
       setCarNumber(plate);
       print(response);
