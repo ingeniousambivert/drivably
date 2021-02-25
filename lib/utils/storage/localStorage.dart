@@ -7,6 +7,12 @@ setTokenAndId(token, id) async {
   print("Token set, ID set");
 }
 
+setCarNumber(number) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('licenseNumber', number);
+  print("Number set");
+}
+
 Future<String> getToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String stringValue = prefs.getString('accessToken');
@@ -16,6 +22,12 @@ Future<String> getToken() async {
 Future<String> getId() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String stringValue = prefs.getString('userId');
+  return stringValue;
+}
+
+Future<String> getCarNumber() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String stringValue = prefs.getString('licenseNumber');
   return stringValue;
 }
 

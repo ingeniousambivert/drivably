@@ -1,6 +1,10 @@
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+<<<<<<< Updated upstream
+=======
+import 'package:location/location.dart';
+>>>>>>> Stashed changes
 
 final LatLngBounds sydneyBounds = LatLngBounds(
   southwest: const LatLng(-34.022631, 150.620685),

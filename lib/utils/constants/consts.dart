@@ -43,8 +43,20 @@ String accessToken;
 
 String setLicense;
 
+<<<<<<< Updated upstream
 //  Meet Local
 // final baseUrl = 'http://192.168.43.180:8008';
+=======
+<<<<<<< HEAD
+List<String> driversList;
+
+// Meet Local
+final baseUrl = 'http://192.168.43.180:8008';
+=======
+//  Meet Local
+// final baseUrl = 'http://192.168.43.180:8008';
+>>>>>>> d81301d313d5fb12c0cefc31bf7941684e2224f9
+>>>>>>> Stashed changes
 
 // Monarch Local
 // final baseUrl = 'http://192.168.1.18:8008';

@@ -76,9 +76,28 @@ class APIServices {
         },
       );
       print("response");
-      setTokenAndId(response.data['access_token'], response.data['id']);
 
       print(response);
+
+      // String _token, _license;
+
+      // await getCarNumber().then((value) {
+      //   _license = value;
+      // });
+      // await getToken().then((value) {
+      //   _token = value;
+      // });
+
+      // Response res = await dio.put(
+      //   "$baseUrl/car/driver/$_license",
+      //   options: Options(
+      //     headers: {
+      //       'Authorization': 'Bearer $_token',
+      //     },
+      //   ),
+      //   data: email,
+      // );
+      // print(res);
     } catch (e) {
       print(e);
     }
@@ -131,7 +150,22 @@ class APIServices {
   }
 
   Future printDrivers(doc) async {
-    await print(doc);
+    String _token;
+    await getToken().then((value) {
+      _token = value;
+    });
+
+    try {
+      Response response = await dio.get(
+        "$baseUrl/user/$doc",
+        options: Options(headers: {
+          'Authorization': 'Bearer $_token',
+        }),
+      );
+      print(response.data['data']);
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future getUserData() async {
@@ -178,6 +212,7 @@ class APIServices {
             "casualties": [],
             "activities": []
           });
+      setCarNumber(plate);
       print(response);
     } catch (e) {
       print(e);

@@ -1,7 +1,6 @@
 import 'package:drivably_app/routes/routing.dart';
 import 'package:drivably_app/screens/camera/camera.dart';
 import 'package:drivably_app/services/api/client.dart';
-import 'package:drivably_app/utils/classes/driver.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
 
@@ -24,45 +23,45 @@ class _DriverScreenState extends State<DriverScreen> {
         backgroundColor: Colors.black,
       ),
       body: SafeArea(
-        // child: Container(
-        //   child: Center(
-        //     child: MaterialButton(
-        //       color: Colors.blueGrey,
-        //       onPressed: () {
-        //         _services.getDrivers();
-        //       },
-        //       child: Text(
-        //         "Get Data",
-        //         style: TextStyle(color: Colors.white),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        child: FutureBuilder<List<DriverDataSec>>(
-          future: _services.getDrivers(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
-
-            return snapshot.hasData
-                ? ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      var doc = snapshot.data[index];
-
-                      return Card(
-                        color: Colors.white,
-                        child: Column(children: [
-                          ListTile(
-                            tileColor: Colors.white,
-                            title: Text(doc.driversEmail.toString()),
-                          ),
-                        ]),
-                      );
-                    },
-                  )
-                : Center(child: CircularProgressIndicator());
-          },
+        child: Container(
+          child: Center(
+            child: MaterialButton(
+              color: Colors.blueGrey,
+              onPressed: () {
+                _services.getDrivers();
+              },
+              child: Text(
+                "Get Data",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
         ),
+        // child: FutureBuilder<List<DriverDataSec>>(
+        //   future: _services.getDrivers(),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.hasError) print(snapshot.error);
+
+        //     return snapshot.hasData
+        //         ? ListView.builder(
+        //             itemCount: snapshot.data.length,
+        //             itemBuilder: (context, index) {
+        //               var doc = snapshot.data[index];
+
+        //               return Card(
+        //                 color: Colors.white,
+        //                 child: Column(children: [
+        //                   ListTile(
+        //                     tileColor: Colors.white,
+        //                     title: Text(doc.driversEmail.toString()),
+        //                   ),
+        //                 ]),
+        //               );
+        //             },
+        //           )
+        //         : Center(child: CircularProgressIndicator());
+        //   },
+        // ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         label: Text("Add driver"),
