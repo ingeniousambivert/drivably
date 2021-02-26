@@ -95,40 +95,44 @@ class _MapScreenState extends State<MapScreen> {
     );
     return Scaffold(
       body: SafeArea(
-        child: Row(
+        child: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                // height: MediaQuery.of(context).size.height / 9,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                color: Colors.black,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Nexon",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    Text(
-                      licenseNumber,
-                      style: TextStyle(color: Colors.white70, fontSize: 15),
-                    ),
-                    SizedBox(
-                      height: 50.0,
-                    ),
-                    Center(
-                      child: Container(
-                        height: 400.0,
-                        width: 300.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50.0),
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 9,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    color: Colors.black,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Nexon",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
-                        child: mapboxMap,
-                      ),
+                        Text(
+                          licenseNumber,
+                          style: TextStyle(color: Colors.white70, fontSize: 15),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
+              ],
+            ),
+            SizedBox(
+              height: 50.0,
+            ),
+            Center(
+              child: Container(
+                height: 400.0,
+                width: 300.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                child: mapboxMap,
               ),
             ),
           ],
