@@ -4,9 +4,6 @@ import imutils
 import dlib
 import cv2
 
-# Dat file is the crux of the code
-shape_predictor_dataset = "./shape_/shape_predictor_68_face_landmarks.dat"
-
 
 def eye_aspect_ratio(eye):
     A = distance.euclidean(eye[1], eye[5])
@@ -19,7 +16,9 @@ def eye_aspect_ratio(eye):
 thresh = 0.25
 frame_check = 20
 detect = dlib.get_frontal_face_detector()
-predict = dlib.shape_predictor(shape_predictor_dataset)
+# Dat file is the crux of the code
+predict = dlib.shape_predictor(
+    "intelligence/drowsiness_detection/dataset/shape_predictor_68_face_landmarks.dat")
 
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_68_IDXS["left_eye"]
 (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_68_IDXS["right_eye"]
@@ -46,25 +45,10 @@ while True:
             flag += 1
             print(flag)
             if flag >= frame_check:
-                cv2.putText(
-                    frame,
-                    "****************DROWSINESS ALERT!****************",
-                    (10, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.7,
-                    (0, 0, 255),
-                    2,
-                )
-                cv2.putText(
-                    frame,
-                    "****************DROWSINESS ALERT!****************",
-                    (10, 325),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.7,
-                    (0, 0, 255),
-                    2,
-                )
-                # print ("Drowsy")
+                cv2.putText(frame, "****************DROWSINESS ALERT!****************", (10, 30),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+                cv2.putText(frame, "****************DROWSINESS ALERT!****************", (10, 325),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
         else:
             flag = 0
     cv2.imshow("Frame", frame)
