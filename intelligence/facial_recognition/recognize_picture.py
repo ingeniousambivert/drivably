@@ -1,6 +1,6 @@
 import os
 import face_recognition
-from server.services.users.models.user_model import (
+from server.services.users.model.user_model import (
     ErrorResponseModel, ResponseModel)
 from server.utils.helpers import remove_dir_tree
 from .helpers import detect_face
