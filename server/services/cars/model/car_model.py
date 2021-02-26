@@ -29,7 +29,7 @@ class CarSchema(BaseModel):
                 "alcohol_concentrations": [
                     {
                         "value": "21.09",
-                        "driver": "driver-id-1",
+                        "driver": "driver-email-1",
                     }
                 ],
                 "casualties": [
@@ -38,12 +38,12 @@ class CarSchema(BaseModel):
                             "latitude": "40.758896",
                             "longitude": "-73.985130",
                         },
-                        "driver": "driver-id-1",
+                        "driver": "driver-email-1",
                     }
                 ],
                 "activities": [
                     {
-                        "driver": "driver-id-1",
+                        "driver": "driver-email-1",
                         "data": "drowsiness_alert"
                     }
                 ],
@@ -76,7 +76,7 @@ class UpdateCarModel(BaseModel):
                 "alcohol_concentrations": [
                     {
                         "value": "21.09",
-                        "driver": "driver-id-1",
+                        "driver": "driver-email-1",
                     }
                 ],
                 "casualties": [
@@ -85,12 +85,12 @@ class UpdateCarModel(BaseModel):
                             "latitude": "40.758896",
                             "longitude": "-73.985130",
                         },
-                        "driver": "driver-id-1",
+                        "driver": "driver-email-1",
                     }
                 ],
                 "activities": [
                     {
-                        "driver": "driver-id-1",
+                        "driver": "driver-email-1",
                         "data": "drowsiness_alert"
                     }
                 ],
