@@ -1,4 +1,4 @@
-from server.services.users.models.user_model import (
+from server.services.users.model.user_model import (
     ErrorResponseModel,
     ResponseModel,
     UpdateUserModel,
@@ -16,6 +16,7 @@ from fastapi import Body, APIRouter, File, UploadFile
 from server.utils.helpers import (
     save_upload_file, KNOWN_DATASET_PATH, remove_file)
 from intelligence.facial_recognition.helpers import detect_face
+from intelligence.drowsiness_detection.detect_live import detect_drowsiness
 
 router = APIRouter()
 
@@ -138,3 +139,9 @@ async def get_user_car(email: str):
     if car_data:
         return ResponseModel(car_data, 200, "Successfully retrieved user's car data")
     return ErrorResponseModel("An error occurred.", 404, "Car/s don't exist.")
+
+
+# Drowsiness detection for a user
+@ router.post("/face/drowsy/", response_description="Drowsiness monitoring for the user")
+async def drowsiness_detection(detect: bool):
+    return detect_drowsiness(detect)

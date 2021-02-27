@@ -1,4 +1,4 @@
-from server.services.users.models.user_model import (
+from server.services.users.model.user_model import (
     ResponseModel, ErrorResponseModel)
 from fastapi import APIRouter
 from fastapi_mail import (FastMail, MessageSchema, ConnectionConfig)

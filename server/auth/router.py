@@ -10,7 +10,7 @@ from .helpers import (
     check_email_exists, add_token, check_phone_exists
 )
 
-from server.services.users.models.user_model import (
+from server.services.users.model.user_model import (
     ErrorResponseModel,
     UserSchema
 )
