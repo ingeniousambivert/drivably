@@ -20,8 +20,8 @@ class CarSchema(BaseModel):
             "example": {
                 "car_license": "car-license-1",
                 "car_name": "car-1",
-                "owner_email": "john@doe.com",
-                "drivers_email": ["jane@doe.com", "jake@doe.com"],
+                "owner_email": "owner-mail",
+                "drivers_email": ["driver-email-1", "driver-email-2"],
                 "current_location": {
                     "latitude": "40.758896",
                     "longitude": "-73.985130",
@@ -67,8 +67,8 @@ class UpdateCarModel(BaseModel):
             "example": {
                 "car_license": "car-license-1",
                 "car_name": "car-1",
-                "owner_email": "john@doe.com",
-                "drivers_email": ["jane@doe.com", "jake@doe.com"],
+                "owner_email": "owner-mail",
+                "drivers_email": ["driver-email-1", "driver-email-2"],
                 "current_location": {
                     "latitude": "40.758896",
                     "longitude": "-73.985130",
