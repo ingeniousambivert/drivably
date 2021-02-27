@@ -59,14 +59,14 @@ Padding notificationCard(notificationTitle, code) {
           ButtonBar(
             alignment: MainAxisAlignment.start,
             children: [
-              FlatButton(
+              MaterialButton(
                 textColor: code == "Denger" ? Colors.white : Colors.black,
                 onPressed: () {
                   // Perform some action
                 },
                 child: const Text('Get Location'),
               ),
-              FlatButton(
+              MaterialButton(
                 textColor: code == "Denger" ? Colors.white : Colors.black,
                 onPressed: () {
                   // Perform some action
