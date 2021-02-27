@@ -205,8 +205,8 @@ class APIServices {
           data: {
             "car_license": "$plate",
             "car_name": "$name",
-            "owner_email": "john@doe.com",
-            "drivers_email": [],
+            "owner_email": "$signInEmail",
+            "drivers_email": ["$signInEmail"],
             "current_location": {},
             "alcohol_concentrations": [],
             "casualties": [],

@@ -1,6 +1,7 @@
 import 'package:drivably_app/screens/dashboard/navigationScreens/addDriver.dart';
 import 'package:drivably_app/screens/dashboard/navigationScreens/mapScreen.dart';
 import 'package:drivably_app/screens/dashboard/navigationScreens/notifactionScreen.dart';
+
 import 'package:drivably_app/screens/dashboard/navigationScreens/settingScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class DashboardScreenState extends State<DashboardScreen> {
   List _selectedWidged = [
     MapScreen(),
     DriverScreen(),
-    NotifactionScreen(),
+    NotificationScreen(),
     SettingScreen(),
   ];
 
@@ -39,7 +40,7 @@ class DashboardScreenState extends State<DashboardScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications_active),
-            label: "Notifaction",
+            label: "notification",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

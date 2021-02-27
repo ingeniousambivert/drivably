@@ -87,6 +87,7 @@ class _MapScreenState extends State<MapScreen> {
       myLocationTrackingMode: _myLocationTrackingMode,
       myLocationRenderMode: MyLocationRenderMode.GPS,
 
+      // ignore: todo
       // TODO : Implement Realtime Location here
       // onUserLocationUpdated: (location) {
       //   print(
@@ -113,7 +114,7 @@ class _MapScreenState extends State<MapScreen> {
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         Text(
-                          licenseNumber,
+                          "licenseNumber",
                           style: TextStyle(color: Colors.white70, fontSize: 15),
                         ),
                       ],

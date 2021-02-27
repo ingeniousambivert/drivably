@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class NotifactionScreen extends StatelessWidget {
-  const NotifactionScreen({Key key}) : super(key: key);
+class NotificationScreen extends StatelessWidget {
+  const NotificationScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Notifaction"),
+        title: Text("notification"),
         backgroundColor: Colors.black,
         centerTitle: true,
       ),
@@ -15,8 +15,8 @@ class NotifactionScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 5),
         child: ListView(
           children: [
-            notifactionCard("Danger Notifaction Title", "Denger"),
-            notifactionCard("Aleart Notifaction Title", "Aleart"),
+            notificationCard("Danger notification Title", "Denger"),
+            notificationCard("Aleart notification Title", "Aleart"),
           ],
         ),
       ),
@@ -24,7 +24,7 @@ class NotifactionScreen extends StatelessWidget {
   }
 }
 
-Padding notifactionCard(notifactionTitle, code) {
+Padding notificationCard(notificationTitle, code) {
   return Padding(
     padding: const EdgeInsets.only(top: 8.0),
     child: Card(
@@ -37,7 +37,7 @@ Padding notifactionCard(notifactionTitle, code) {
               color: code == "Denger" ? Colors.white : Colors.black,
             ),
             title: Text(
-              '$notifactionTitle',
+              '$notificationTitle',
               style: TextStyle(
                   color: code == "Denger" ? Colors.white : Colors.black,
                   fontWeight: FontWeight.w600),
