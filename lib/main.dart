@@ -1,7 +1,5 @@
-import 'package:drivably_app/services/map/blocs/geocoding.bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'screens/index.dart';
 
@@ -9,10 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
-    BlocProvider(
-      create: (BuildContext context) => GeocodingBloc(),
-      child: MyApp(),
-    ),
+    MyApp(),
   );
 }
 

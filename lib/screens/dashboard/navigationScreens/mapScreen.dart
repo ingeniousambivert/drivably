@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import '../../../utils/storage/localStorage.dart';
 import '../../../utils/constants/consts.dart';
 
 final LatLngBounds sydneyBounds = LatLngBounds(
@@ -16,7 +15,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  String licenseNumber;
+  String licenseNumber = "12345";
   static final CameraPosition _kInitialPosition = const CameraPosition(
     target: LatLng(-33.852, 151.211),
     zoom: 11.0,
@@ -45,9 +44,9 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
 
-    getCarNumber().then((value) {
-      licenseNumber = value;
-    });
+    // getCarNumber().then((value) {
+    //   licenseNumber = value;
+    // });
   }
 
   void _onMapChanged() {

@@ -95,6 +95,7 @@ class _CameraScreenState extends State<CameraScreen> {
     return Expanded(
       child: Align(
         alignment: Alignment.centerLeft,
+        // ignore: deprecated_member_use
         child: FlatButton.icon(
             onPressed: () {
               onSwitchCamera();
