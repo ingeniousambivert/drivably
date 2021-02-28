@@ -1,4 +1,5 @@
 import os
+from fastapi import status
 import face_recognition
 from server.services.users.model.user_model import (
     ErrorResponseModel, ResponseModel)
@@ -13,7 +14,7 @@ def recognize(user, temp_user):
     unknown_dataset_path = f"intelligence/facial_recognition/dataset/unknown_facial_data/"
 
     if not user["facial_data"]:
-        return ErrorResponseModel("Not Found", 404, "Could not find facial data.")
+        return ErrorResponseModel("Not Found", status.HTTP_404_NOT_FOUND, "Could not find facial data.")
     else:
         user_file = f"user_{user['email']}"
 
@@ -34,7 +35,7 @@ def recognize(user, temp_user):
             if not detect_face(f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png"):
                 os.remove(
                     f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png")
-                return ErrorResponseModel("Face Not Found", 400, "Could not find a face in the uploaded image")
+                return ErrorResponseModel("Face Not Found", status.HTTP_400_BAD_REQUEST, "Could not find a face in the uploaded image")
 
             known_face_encoding = face_recognition.face_encodings(known_image)[
                 0]
@@ -46,7 +47,7 @@ def recognize(user, temp_user):
             if result_str == "True":
                 remove_dir_tree(f"{unknown_dataset_path}{temp_user}")
                 return ResponseModel(
-                    "Authenticated", 200, "Facial data authenticated")
-            return ErrorResponseModel("Not Authenticated", 401, "Invalid facial data")
+                    "Authenticated", status.HTTP_200_OK, "Facial data authenticated")
+            return ErrorResponseModel("NotAuthenticated", status.HTTP_401_UNAUTHORIZED, "Invalid facial data")
 
-        return ErrorResponseModel("Not Found", 404, "Could not find user in storage")
+        return ErrorResponseModel("Not Found", status.HTTP_404_NOT_FOUND, "Could not find user in storage")
