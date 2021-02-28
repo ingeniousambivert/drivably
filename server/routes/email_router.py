@@ -1,6 +1,6 @@
 from server.services.users.model.user_model import (
     ResponseModel, ErrorResponseModel)
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 from fastapi_mail import (FastMail, MessageSchema, ConnectionConfig)
 from pydantic import EmailStr
 from typing import List
@@ -41,6 +41,6 @@ async def send_email(email_address: List[EmailStr]):
 
     if send_mail:
         await send_mail.send_message(message)
-        return ResponseModel("Sent", 200, "Email sent successfully")
+        return ResponseModel("Sent", status.HTTP_200_OK, "Email sent successfully")
 
-    return ErrorResponseModel("Server Error", 500, "Could not send email")
+    return ErrorResponseModel("Server Error", status.HTTP_500_INTERNAL_SERVER_ERROR, "Could not send email")

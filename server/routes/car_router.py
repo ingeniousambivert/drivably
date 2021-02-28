@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, status
 from typing import Dict
 from fastapi.encoders import jsonable_encoder
 from server.utils.helpers import check_car_exists
@@ -30,7 +30,7 @@ router = APIRouter()
 async def get_cars():
     cars = await retrieve_cars()
     if cars:
-        return ResponseModel(cars, 200, "Successfully retrieved cars")
+        return ResponseModel(cars, status.HTTP_200_OK, "Successfully retrieved cars")
     return ResponseModel("Empty list returned")
 
 
@@ -39,8 +39,8 @@ async def get_cars():
 async def get_car_data(license_number: str):
     car = await retrieve_car(license_number)
     if car:
-        return ResponseModel(car, 200, "Successfully retrieved car with license: " + license_number)
-    return ErrorResponseModel("An error occurred.", 404, "car doesn't exist.")
+        return ResponseModel(car, status.HTTP_200_OK, "Successfully retrieved car with license: " + license_number)
+    return ErrorResponseModel("An error occurred.", status.HTTP_404_NOT_FOUND, "car doesn't exist.")
 
 
 # GET a car's owner data
@@ -48,8 +48,8 @@ async def get_car_data(license_number: str):
 async def get_owner_data(license_number: str):
     car_owner = await retrieve_car_owner(license_number)
     if car_owner:
-        return ResponseModel(car_owner, 200, "Successfully retrieved car's owner data")
-    return ErrorResponseModel("An error occurred.", 404, "car owner doesn't exist.")
+        return ResponseModel(car_owner, status.HTTP_200_OK, "Successfully retrieved car's owner data")
+    return ErrorResponseModel("An error occurred.", status.HTTP_404_NOT_FOUND, "car owner doesn't exist.")
 
 
 # CREATE a car
@@ -60,9 +60,15 @@ async def add_car_data(car: CarSchema = Body(...)):
     if not car_exists:
         car = jsonable_encoder(car)
         new_car = await add_car(car)
-        return ResponseModel(new_car, 200, "Successfully registered new car")
+        if new_car:
+            return ResponseModel(new_car, status.HTTP_201_CREATED, "Successfully registered new car")
+        return ErrorResponseModel(
+            "An error occurred",
+            status.HTTP_500_INTERNAL_SERVER_ERROR,
+            "Could not register car",
+        )
 
-    return ErrorResponseModel("Conflict", 409, "Car already registered")
+    return ErrorResponseModel("Conflict", status.HTTP_409_CONFLICT, "Car already registered")
 
 
 # UPDATE a car
@@ -72,12 +78,12 @@ async def update_car_data(license_number: str, data: UpdateCarModel = Body(...))
             if value is not None}
     updated_car = await update_car(license_number, data)
     if updated_car:
-        return ResponseModel("Updated", 200,
+        return ResponseModel("Updated", status.HTTP_200_OK,
                              "Successfully updated car with license: " + license_number
                              )
     return ErrorResponseModel(
         "An error occurred",
-        404,
+        status.HTTP_404_NOT_FOUND,
         "There was an error updating the car data.",
     )
 
@@ -88,13 +94,13 @@ async def add_car_driver_data(license_number: str, car_driver: str):
 
     updated_car = await add_car_driver(license_number, car_driver)
     if updated_car:
-        return ResponseModel("Updated", 200,
+        return ResponseModel("Updated", status.HTTP_200_OK,
                              "Successfully added driver: " +
                              car_driver + " to car: " + license_number
                              )
     return ErrorResponseModel(
         "An error occurred",
-        404,
+        status.HTTP_404_NOT_FOUND,
         "There was an error updating the car data.",
     )
 
@@ -106,13 +112,13 @@ async def update_car_attributes(license_number: str, car_attribute: str, car_att
                           if value is not None}
     updated_car_attribute = await update_car_array_attributes(license_number, car_attribute, car_attribute_data)
     if updated_car_attribute:
-        return ResponseModel("Updated", 200,
+        return ResponseModel("Updated", status.HTTP_200_OK,
                              "Successfully updated car attribute: " +
                              car_attribute + " with license: " + license_number
                              )
     return ErrorResponseModel(
         "An error occurred",
-        404,
+        status.HTTP_404_NOT_FOUND,
         "There was an error updating the car data.",
     )
 
@@ -123,13 +129,13 @@ async def remove_car_driver_data(license_number: str, car_driver: str):
 
     updated_car = await remove_car_driver(license_number, car_driver)
     if updated_car:
-        return ResponseModel("Updated", 200,
+        return ResponseModel("Updated", status.HTTP_200_OK,
                              "Successfully removed driver: " +
                              car_driver + " to car: " + license_number
                              )
     return ErrorResponseModel(
         "An error occurred",
-        404,
+        status.HTTP_404_NOT_FOUND,
         "There was an error updating the car data.",
     )
 
@@ -139,10 +145,10 @@ async def remove_car_driver_data(license_number: str, car_driver: str):
 async def delete_car_data(license_number: str):
     deleted_car = await delete_car(license_number)
     if deleted_car:
-        return ResponseModel("Deleted", 200,
+        return ResponseModel("Deleted", status.HTTP_200_OK,
                              "Successfully deleted car with license: " + license_number
                              )
     return ErrorResponseModel(
-        "An error occurred", 404, "car with license: {} doesn't exist".format(
+        "An error occurred",  status.HTTP_404_NOT_FOUND, "car with license: {} doesn't exist".format(
             license_number)
     )

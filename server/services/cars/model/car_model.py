@@ -99,13 +99,13 @@ class UpdateCarModel(BaseModel):
         }
 
 
-def ResponseModel(data, code, message):
+def ResponseModel(data, status, message):
     return {
         "data": data,
-        "code": code,
+        "status": status,
         "message": message,
     }
 
 
-def ErrorResponseModel(error, code, message):
-    return {"error": error, "code": code, "message": message}
+def ErrorResponseModel(error, status, message):
+    return {"error": error, "status": status, "message": message}

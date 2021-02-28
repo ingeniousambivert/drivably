@@ -1,5 +1,5 @@
 
-from fastapi import Body, APIRouter, File, UploadFile
+from fastapi import Body, APIRouter, File, UploadFile, status
 from fastapi.security import HTTPBasicCredentials
 from database.users.user_controller import retrieve_user
 from server.utils.helpers import (
@@ -34,12 +34,12 @@ async def signup_owner(user: UserSchema = Body(...)):
 
             return safe_user(encoded_user_with_token)
 
-        return ErrorResponseModel("Conflict", 409, "Phone number already in use")
+        return ErrorResponseModel("Conflict", status.HTTP_409_CONFLICT, "Phone number already in use")
 
     elif email_exists:
-        return ErrorResponseModel("Conflict", 409, "Email already in use")
+        return ErrorResponseModel("Conflict", status.HTTP_409_CONFLICT, "Email already in use")
 
-    return ErrorResponseModel("Server Error", 500, "Could not signup user")
+    return ErrorResponseModel("Server Error", status.HTTP_500_INTERNAL_SERVER_ERROR, "Could not signup user")
 
 
 # SIGN IN Owner
@@ -53,12 +53,12 @@ async def signin_owner(credentials:  HTTPBasicCredentials = Body(...)):
             user_with_token = add_token(user_data)
             return safe_user(user_with_token)
 
-        return ErrorResponseModel("Forbidden", 403, "Your account is forbidden")
+        return ErrorResponseModel("Forbidden", status.HTTP_403_FORBIDDEN, "Your account is forbidden")
 
     elif not validated:
-        return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
+        return ErrorResponseModel("NotAuthenticated", status.HTTP_401_UNAUTHORIZED, "Incorrect email or password")
 
-    return ErrorResponseModel("Server Error", 500, "Could not sign in user")
+    return ErrorResponseModel("Server Error", status.HTTP_500_INTERNAL_SERVER_ERROR, "Could not sign in user")
 
 
 # SIGN UP Driver
@@ -75,12 +75,12 @@ async def signup_driver(user: UserSchema = Body(...)):
 
             return safe_user(encoded_user_with_token)
 
-        return ErrorResponseModel("Conflict", 409, "Phone number already in use")
+        return ErrorResponseModel("Conflict", status.HTTP_409_CONFLICT, "Phone number already in use")
 
     elif email_exists:
-        return ErrorResponseModel("Conflict", 409, "Email already in use")
+        return ErrorResponseModel("Conflict", status.HTTP_409_CONFLICT, "Email already in use")
 
-    return ErrorResponseModel("Server Error", 500, "Could not signup user")
+    return ErrorResponseModel("Server Error", status.HTTP_500_INTERNAL_SERVER_ERROR, "Could not signup user")
 
 
 # SIGN IN Driver
@@ -95,9 +95,9 @@ async def signin_driver(credentials:  HTTPBasicCredentials = Body(...)):
         return safe_user(user_with_token)
 
     elif not validated:
-        return ErrorResponseModel("NotAuthenticated", 401, "Incorrect email or password")
+        return ErrorResponseModel("NotAuthenticated", status.HTTP_401_UNAUTHORIZED, "Incorrect email or password")
 
-    return ErrorResponseModel("Server Error", 500, "Could not sign in user")
+    return ErrorResponseModel("Server Error", status.HTTP_500_INTERNAL_SERVER_ERROR, "Could not sign in user")
 
 
 # Authenticate Driver's face
@@ -112,4 +112,4 @@ async def authenticate_facial_data(email: str, image: UploadFile = File(...)):
         response = recognize(user_data, temp_dir_name)
         return response
 
-    return ErrorResponseModel("An error occurred", 500, "Could not upload image")
+    return ErrorResponseModel("An error occurred", status.HTTP_500_INTERNAL_SERVER_ERROR, "Could not upload image")

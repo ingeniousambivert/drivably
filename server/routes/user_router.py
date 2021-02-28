@@ -1,3 +1,4 @@
+from fastapi import status, BackgroundTasks
 from server.services.users.model.user_model import (
     ErrorResponseModel,
     ResponseModel,
@@ -22,12 +23,12 @@ router = APIRouter()
 
 
 # GET all users
-@router.get("/", response_description="Users retrieved",)
+@router.get("/", response_description="Users retrieved")
 async def get_all_users_data():
     users = await retrieve_users()
     if users:
-        return ResponseModel(users, 200, "Successfully retrieved users")
-    return ErrorResponseModel("An error occurred.", 404, "Users don't exist.")
+        return ResponseModel(users, status.HTTP_200_OK, "Successfully retrieved users")
+    return ErrorResponseModel("An error occurred.", status.HTTP_404_NOT_FOUND, "Users don't exist.")
 
 
 # GET a user
@@ -35,8 +36,8 @@ async def get_all_users_data():
 async def get_user_data(email):
     user = await retrieve_user(email)
     if user:
-        return ResponseModel(user, 200, "Successfully retrieved user")
-    return ErrorResponseModel("An error occurred.", 404, "User doesn't exist.")
+        return ResponseModel(user, status.HTTP_200_OK, "Successfully retrieved user")
+    return ErrorResponseModel("An error occurred.", status.HTTP_404_NOT_FOUND, "User doesn't exist.")
 
 
 # UPDATE a user
@@ -46,12 +47,12 @@ async def update_user_data(email: str, data: UpdateUserModel = Body(...)):
             if value is not None}
     updated_user = await update_user(email, data)
     if updated_user:
-        return ResponseModel("Updated", 200,
+        return ResponseModel("Updated", status.HTTP_200_OK,
                              "Successfully updated user with email: " + email
                              )
     return ErrorResponseModel(
         "An error occurred",
-        404,
+        status.HTTP_400_BAD_REQUEST,
         "There was an error updating the user data.",
     )
 
@@ -62,11 +63,11 @@ async def update_user_car(email: str, license_number: str):
     updated_user = await add_car_driver(email, license_number)
     if updated_user:
         return ResponseModel(
-            "Updated", 200, "Successfully updated car: " +
+            "Updated", status.HTTP_200_OK, "Successfully updated car: " +
             license_number + " for user with email : " + email
         )
     return ErrorResponseModel(
-        "An error occurred", 404, "User with email {} doesn't exist".format(
+        "An error occurred", status.HTTP_404_NOT_FOUND, "User with email {} doesn't exist".format(
             email)
     )
 
@@ -85,7 +86,7 @@ async def update_user_facial_data(email: str, image: UploadFile = File(...)):
 
     if not detect_face(facial_data["file_location"]):
         remove_file(facial_data["file_location"])
-        return ErrorResponseModel("Face Not Found", 400, "Could not find a face in the uploaded image")
+        return ErrorResponseModel("Face Not Found", status.HTTP_400_BAD_REQUEST, "Could not find a face in the uploaded image")
 
     if facial_data:
         user_data["facial_data"] = facial_data["dir_location"]
@@ -94,11 +95,11 @@ async def update_user_facial_data(email: str, image: UploadFile = File(...)):
 
     if updated_user:
         return ResponseModel(
-            "Updated", 200, "Successfully updated user's facial data with email:" + email
+            "Updated", status.HTTP_200_OK, "Successfully updated user's facial data with email:" + email
         )
     return ErrorResponseModel(
         "An error occurred",
-        404,
+        status.HTTP_400_BAD_REQUEST,
         "There was an error updating the user data.",
     )
 
@@ -109,10 +110,10 @@ async def delete_user_data(email: str):
     deleted_user = await delete_user(email)
     if deleted_user:
         return ResponseModel(
-            "Deleted", 200, "Successfully deleted user with email: " + email
+            "Deleted", status.HTTP_200_OK, "Successfully deleted user with email: " + email
         )
     return ErrorResponseModel(
-        "An error occurred", 404, "User with email {} doesn't exist".format(
+        "An error occurred", status.HTTP_404_NOT_FOUND, "User with email {} doesn't exist".format(
             email)
     )
 
@@ -123,11 +124,11 @@ async def delete_user_car(email: str, license_number: str):
     deleted_car = await delete_car(email, license_number)
     if deleted_car:
         return ResponseModel(
-            "Deleted", 200, "Successfully deleted car: " +
+            "Deleted", status.HTTP_200_OK, "Successfully deleted car: " +
             license_number + " for user with email : " + email
         )
     return ErrorResponseModel(
-        "An error occurred", 404, "Car with email {} doesn't exist".format(
+        "An error occurred", status.HTTP_404_NOT_FOUND, "Car with email {} doesn't exist".format(
             license_number)
     )
 
@@ -137,11 +138,17 @@ async def delete_user_car(email: str, license_number: str):
 async def get_user_car(email: str):
     car_data = await retrieve_car_data(email)
     if car_data:
-        return ResponseModel(car_data, 200, "Successfully retrieved user's car data")
-    return ErrorResponseModel("An error occurred.", 404, "Car/s don't exist.")
+        return ResponseModel(car_data, status.HTTP_200_OK, "Successfully retrieved user's car data")
+    return ErrorResponseModel("An error occurred.", status.HTTP_404_NOT_FOUND, "Car(s) don't exist.")
 
 
 # Drowsiness detection for a user
-@ router.post("/face/drowsy/", response_description="Drowsiness monitoring for the user")
-async def drowsiness_detection(detect: bool):
-    return detect_drowsiness(detect)
+@ router.post("/face/drowsy/start", response_description="Drowsiness monitoring for the user")
+async def start_drowsiness_detection(background_tasks: BackgroundTasks):
+    background_tasks.add_task(detect_drowsiness, True)
+    return("Drowsiness monitoring ON")
+
+
+@ router.post("/face/drowsy/stop", response_description="Drowsiness monitoring for the user")
+async def stop_drowsiness_detection():
+    return("Drowsiness monitoring OFF")
