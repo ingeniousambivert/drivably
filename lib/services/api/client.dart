@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:drivably_app/utils/classes/driver.dart';
 import 'package:drivably_app/utils/classes/user.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/utils/storage/localStorage.dart';
+
+import '../../utils/constants/consts.dart';
 
 // ignore: todo
 /* TODO
@@ -29,6 +30,7 @@ class APIServices {
   Dio dio = new Dio();
 
   Future signInUser(email, password) async {
+    print(email);
     try {
       Response response = await dio.post(
         "$baseUrl/owner/signin",
@@ -37,8 +39,11 @@ class APIServices {
           "password": "$password",
         },
       );
-      setTokenAndId(response.data['access_token'], response.data['id']);
-      print(response.data);
+      if (response.data['access_token'] == null) {
+        return (response.data['message']);
+      } else {
+        return response.data['access_token'];
+      }
     } catch (e) {
       print(e);
     }
@@ -56,7 +61,7 @@ class APIServices {
         },
       );
       print("response");
-      setTokenAndId(response.data['access_token'], response.data['id']);
+      setTokenAndId(response.data['access_token']);
 
       print(response);
     } catch (e) {
@@ -75,32 +80,32 @@ class APIServices {
           "phone": phone,
         },
       );
-      print("response");
+
+      // setDriveInCarObject(email);
 
       print(response);
-
-      // String _token, _license;
-
-      // await getCarNumber().then((value) {
-      //   _license = value;
-      // });
-      // await getToken().then((value) {
-      //   _token = value;
-      // });
-
-      // Response res = await dio.put(
-      //   "$baseUrl/car/driver/$_license",
-      //   options: Options(
-      //     headers: {
-      //       'Authorization': 'Bearer $_token',
-      //     },
-      //   ),
-      //   data: email,
-      // );
-      // print(res);
     } catch (e) {
       print(e);
     }
+  }
+
+  Future setDriveInCarObject(email) async {
+    String licenseNumber = "gl 33 bl 9898", _token;
+    await getToken().then((value) {
+      _token = value;
+    });
+
+    Response response = await dio.put(
+      "$baseUrl/car/driver/$licenseNumber",
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $_token',
+        },
+      ),
+      data: email,
+    );
+
+    print(response);
   }
 
   Future setDriver(String file) async {
@@ -128,7 +133,50 @@ class APIServices {
     print(response);
   }
 
-  Future<List<DriverDataSec>> getDrivers() async {
+  // // ignore: missing_return
+  // Future<List<DriverDataSec>> getDrivers() async {
+  //   String _token;
+  //   await getToken().then((value) {
+  //     _token = value;
+  //   });
+
+  //   try {
+  //     Response response = await dio.get(
+  //       "$baseUrl/car",
+  //       options: Options(headers: {
+  //         'Authorization': 'Bearer $_token',
+  //       }),
+  //     );
+  //     (response.data['data'] as List)
+  //         .map((p) => DriverDataSec.fromJson(p))
+  //         .toList();
+  //   } catch (e) {
+  //     return (e);
+  //   }
+  // }
+
+  // Future<List<DriverDataSec>> printDrivers(doc) async {
+  //   String _token;
+  //   await getToken().then((value) {
+  //     _token = value;
+  //   });
+
+  //   try {
+  //     Response response = await dio.get(
+  //       "$baseUrl/user/$doc",
+  //       options: Options(headers: {
+  //         'Authorization': 'Bearer $_token',
+  //       }),
+  //     );
+  //     return (response.data['data'] as List)
+  //         .map((p) => DriverDataSec.fromJsonData(p))
+  //         .toList();
+  //   } catch (e) {
+  //     return (e);
+  //   }
+  // }
+
+  Future getDrivers() async {
     String _token;
     await getToken().then((value) {
       _token = value;
@@ -137,30 +185,11 @@ class APIServices {
     try {
       Response response = await dio.get(
         "$baseUrl/car",
-        options: Options(headers: {
-          'Authorization': 'Bearer $_token',
-        }),
-      );
-      return (response.data['data'] as List)
-          .map((p) => DriverDataSec.fromJson(p))
-          .toList();
-    } catch (e) {
-      return (e);
-    }
-  }
-
-  Future printDrivers(doc) async {
-    String _token;
-    await getToken().then((value) {
-      _token = value;
-    });
-
-    try {
-      Response response = await dio.get(
-        "$baseUrl/user/$doc",
-        options: Options(headers: {
-          'Authorization': 'Bearer $_token',
-        }),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $_token',
+          },
+        ),
       );
       print(response.data['data']);
     } catch (e) {
@@ -205,8 +234,8 @@ class APIServices {
           data: {
             "car_license": "$plate",
             "car_name": "$name",
-            "owner_email": "$signInEmail",
-            "drivers_email": ["$signInEmail"],
+            "owner_email": "$signUpEmail",
+            "drivers_email": ["$signUpEmail"],
             "current_location": {},
             "alcohol_concentrations": [],
             "casualties": [],

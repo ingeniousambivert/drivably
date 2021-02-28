@@ -1,6 +1,6 @@
 import 'package:drivably_app/screens/dashboard/navigationScreens/addDriver.dart';
 import 'package:drivably_app/screens/dashboard/navigationScreens/mapScreen.dart';
-import 'package:drivably_app/screens/dashboard/navigationScreens/notifactionScreen.dart';
+import 'package:drivably_app/screens/dashboard/navigationScreens/notificationScreen.dart';
 
 import 'package:drivably_app/screens/dashboard/navigationScreens/settingScreen.dart';
 import 'package:flutter/material.dart';

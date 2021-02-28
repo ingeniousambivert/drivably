@@ -1,7 +1,7 @@
 import 'package:drivably_app/routes/routing.dart';
-import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/screens/dashboard/dashboard.dart';
 import 'package:drivably_app/services/api/client.dart';
+import 'package:drivably_app/utils/storage/localStorage.dart';
 import 'package:flutter/material.dart';
 
 class UserSigninScreen extends StatefulWidget {
@@ -14,6 +14,7 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   IconData _icon = Icons.lock;
+  String email, password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +53,7 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (value) {
                     setState(() {
-                      signInEmail = value;
+                      email = value;
                     });
                   },
                   validator: (value) {
@@ -88,7 +89,7 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
                     style: TextStyle(color: Colors.white),
                     onChanged: (value) {
                       setState(() {
-                        signUpPassword = value;
+                        password = value;
                       });
                     },
                     obscureText: _obscureText,
@@ -166,9 +167,18 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
                   ),
                   minWidth: MediaQuery.of(context).size.width,
                   onPressed: () async {
+                    print(email + password);
                     if (_formKey.currentState.validate()) {
-                      await _service.signInUser(signInEmail, signInPassword);
-                      removeUntil(context, DashboardScreen());
+                      dynamic result =
+                          await _service.signInUser(email, password);
+                      print(result);
+                      if (result == "Incorrect email or password") {
+                        //TODO:Added Tost here
+                        //Message:"Incorrect email or password"
+                      } else {
+                        setTokenAndId(result);
+                        removeUntil(context, DashboardScreen());
+                      }
                     }
                   },
                   child: Padding(

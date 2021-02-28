@@ -17,7 +17,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   String licenseNumber = "12345";
   static final CameraPosition _kInitialPosition = const CameraPosition(
-    target: LatLng(-33.852, 151.211),
+    target: LatLng(23.0225, 72.5713),
     zoom: 11.0,
   );
   MapboxMapController mapController;
@@ -25,7 +25,7 @@ class _MapScreenState extends State<MapScreen> {
   CameraPosition _position = _kInitialPosition;
   // ignore: unused_field
   bool _isMoving = false;
-  bool _compassEnabled = true;
+  bool _compassEnabled = false;
   CameraTargetBounds _cameraTargetBounds = CameraTargetBounds.unbounded;
   MinMaxZoomPreference _minMaxZoomPreference = MinMaxZoomPreference.unbounded;
   bool _rotateGesturesEnabled = true;
@@ -94,46 +94,37 @@ class _MapScreenState extends State<MapScreen> {
       // },
     );
     return Scaffold(
-      body: SafeArea(
+      appBar: AppBar(
+        title: Text("xx 00 xx 0000"),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 9,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    color: Colors.black,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Nexon",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        Text(
-                          "licenseNumber",
-                          style: TextStyle(color: Colors.white70, fontSize: 15),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 50.0,
-            ),
-            Center(
-              child: Container(
-                height: 400.0,
-                width: 300.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-                child: mapboxMap,
+            Text(
+              "Hi John !",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
               ),
+            ),
+            Text(
+              "Good Morning",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              height: 350.0,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: mapboxMap,
             ),
           ],
         ),
