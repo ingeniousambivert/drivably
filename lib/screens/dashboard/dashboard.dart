@@ -3,6 +3,7 @@ import 'package:drivably_app/screens/dashboard/navigationScreens/mapScreen.dart'
 import 'package:drivably_app/screens/dashboard/navigationScreens/notificationScreen.dart';
 
 import 'package:drivably_app/screens/dashboard/navigationScreens/settingScreen.dart';
+import 'package:drivably_app/utils/storage/localStorage.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -26,6 +27,14 @@ class DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _selectedWidged.elementAt(_selectedIndex),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          getToken().then((value) {
+            print(value);
+          });
+        },
+        child: Icon(Icons.get_app),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         type: BottomNavigationBarType.fixed,

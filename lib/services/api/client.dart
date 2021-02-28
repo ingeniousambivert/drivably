@@ -84,7 +84,7 @@ class APIServices {
         },
       );
 
-      // setDriveInCarObject(email);
+      setDriveInCarObject(email);
 
       print(response);
     } catch (e) {
@@ -93,19 +93,18 @@ class APIServices {
   }
 
   Future setDriveInCarObject(email) async {
-    String licenseNumber = "gl 33 bl 9898", _token;
+    String licenseNumber = "GJ33BL9898", _token;
     await getToken().then((value) {
       _token = value;
     });
 
     Response response = await dio.put(
-      "$baseUrl/car/driver/$licenseNumber",
+      "$baseUrl/car/driver/{license}?license_number=$licenseNumber&car_driver=$email",
       options: Options(
         headers: {
           'Authorization': 'Bearer $_token',
         },
       ),
-      data: email,
     );
 
     print(response);
