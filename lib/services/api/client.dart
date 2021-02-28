@@ -42,7 +42,8 @@ class APIServices {
       if (response.data['access_token'] == null) {
         return (response.data['message']);
       } else {
-        return response.data['access_token'];
+        setTokenAndId(response.data['access_token']);
+        return "PASS";
       }
     } catch (e) {
       print(e);
@@ -60,10 +61,12 @@ class APIServices {
           "phone": phone,
         },
       );
-      print("response");
-      setTokenAndId(response.data['access_token']);
-
-      print(response);
+      if (response.data['access_token'] == null) {
+        return (response.data['message']);
+      } else {
+        setTokenAndId(response.data['access_token']);
+        return "PASS";
+      }
     } catch (e) {
       print(e);
     }
@@ -241,8 +244,15 @@ class APIServices {
             "casualties": [],
             "activities": []
           });
-      setCarNumber(plate);
-      print(response);
+
+      if (response.data['data'] == null) {
+        return response.data['message'];
+      } else {
+        print(response);
+        print(response.data['data']['car_license']);
+        setCarNumber(response.data['data']['car_license']);
+        return "PASS";
+      }
     } catch (e) {
       print(e);
     }

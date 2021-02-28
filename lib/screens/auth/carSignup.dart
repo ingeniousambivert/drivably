@@ -85,15 +85,22 @@ class _CarSignupScreenState extends State<CarSignupScreen> {
         child: FloatingActionButton(
           onPressed: () async {
             if (_formKey.currentState.validate()) {
-              cars.add(licensePlate);
+              var plateNumber =
+                  licensePlate.replaceAll(new RegExp(r"\s+\b|\b\s"), "");
               setState(() {
                 setLicense = licensePlate;
               });
-              await services.addCarData(licensePlate, name);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CameraScreen()),
-              );
+
+              dynamic result = await services.addCarData(plateNumber, name);
+              if (result != "PASS") {
+                //TODO: Add tost
+                //message: result
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CameraScreen()),
+                );
+              }
             }
           },
           backgroundColor: Colors.white,

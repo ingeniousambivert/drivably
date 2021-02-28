@@ -162,13 +162,19 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
                     MaterialButton(
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
-                          await _services.signUpUser(signUpName, signUpEmail,
-                              signUpPassword, signUpPhoneNumber);
+                          dynamic result = await _services.signUpUser(
+                              signUpName,
+                              signUpEmail,
+                              signUpPassword,
+                              signUpPhoneNumber);
 
-                          pushToNext(
-                            context,
-                            CarSignupScreen(),
-                          );
+                          print(result);
+                          if (result != "PASS") {
+                            //TODO:Added Tost here
+                            //Message: {$result}
+                          } else {
+                            pushToNext(context, CarSignupScreen());
+                          }
                         }
                       },
                       child: Padding(

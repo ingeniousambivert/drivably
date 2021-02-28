@@ -1,7 +1,6 @@
 import 'package:drivably_app/routes/routing.dart';
 import 'package:drivably_app/screens/dashboard/dashboard.dart';
 import 'package:drivably_app/services/api/client.dart';
-import 'package:drivably_app/utils/storage/localStorage.dart';
 import 'package:flutter/material.dart';
 
 class UserSigninScreen extends StatefulWidget {
@@ -172,11 +171,10 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
                       dynamic result =
                           await _service.signInUser(email, password);
                       print(result);
-                      if (result == "Incorrect email or password") {
+                      if (result != "PASS") {
                         //TODO:Added Tost here
-                        //Message:"Incorrect email or password"
+                        //Message: {$result}
                       } else {
-                        setTokenAndId(result);
                         removeUntil(context, DashboardScreen());
                       }
                     }
