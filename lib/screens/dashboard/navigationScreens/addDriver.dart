@@ -14,6 +14,19 @@ class DriverScreen extends StatefulWidget {
 class _DriverScreenState extends State<DriverScreen> {
   APIServices _services = APIServices();
   @override
+  void initState() {
+    super.initState();
+    resetArray();
+    _services.getDrivers();
+  }
+
+  resetArray() {
+    setState(() {
+      tempDriverEmail = [];
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     APIServices _services = APIServices();
     return Scaffold(
@@ -28,7 +41,10 @@ class _DriverScreenState extends State<DriverScreen> {
             child: MaterialButton(
               color: Colors.blueGrey,
               onPressed: () {
-                _services.getDrivers();
+                print(tempDriverEmail);
+                _services.getUserData().then((value) {
+                  print(value);
+                });
               },
               child: Text(
                 "Get Data",
@@ -37,8 +53,8 @@ class _DriverScreenState extends State<DriverScreen> {
             ),
           ),
         ),
-        // child: FutureBuilder<List<DriverDataSec>>(
-        //   future: _services.getDrivers(),
+        // child: FutureBuilder<List<UserData>>(
+        //   future: _services.getUserData(),
         //   builder: (context, snapshot) {
         //     if (snapshot.hasError) print(snapshot.error);
 
@@ -53,7 +69,7 @@ class _DriverScreenState extends State<DriverScreen> {
         //                 child: Column(children: [
         //                   ListTile(
         //                     tileColor: Colors.white,
-        //                     title: Text(doc.driversEmail.toString()),
+        //                     title: Text(doc.email),
         //                   ),
         //                 ]),
         //               );

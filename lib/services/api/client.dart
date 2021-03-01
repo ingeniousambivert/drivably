@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:drivably_app/utils/classes/user.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
@@ -135,7 +133,6 @@ class APIServices {
     print(response);
   }
 
-  // // ignore: missing_return
   // Future<List<DriverDataSec>> getDrivers() async {
   //   String _token;
   //   await getToken().then((value) {
@@ -193,31 +190,39 @@ class APIServices {
           },
         ),
       );
-      print(response.data['data']);
+
+      for (var doc in response.data['data'][0]['drivers_email']) {
+        tempDriverEmail.add(doc);
+      }
     } catch (e) {
       print(e);
     }
   }
 
-  Future getUserData() async {
-    String _id, _token;
-    await getId().then((value) {
-      _id = value;
-    });
-    await getToken().then((value) {
-      _token = value;
-    });
-    try {
-      Response response = await dio.get("$baseUrl/user/$_id",
+  // ignore: missing_return
+  Future<List<UserData>> getUserData() async {
+    for (var doc in tempDriverEmail) {
+      String _token;
+      await getToken().then((value) {
+        _token = value;
+      });
+
+      try {
+        Response response = await dio.get(
+          "$baseUrl/user/$doc",
           options: Options(
             headers: {
               'Authorization': 'Bearer $_token',
             },
-          ));
-
-      UserData.fromJson(jsonDecode(response.data));
-    } catch (e) {
-      print(e);
+          ),
+        );
+        print(response.data['data']);
+        // return (response.data['data'] as List)
+        //     .map((p) => UserData.fromJson(p))
+        //     .toList();
+      } catch (e) {
+        print(e);
+      }
     }
   }
 
