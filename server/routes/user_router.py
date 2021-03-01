@@ -17,7 +17,7 @@ from fastapi import Body, APIRouter, File, UploadFile
 from server.utils.helpers import (
     save_upload_file, KNOWN_DATASET_PATH, remove_file)
 from intelligence.facial_recognition.helpers import detect_face
-from intelligence.drowsiness_detection.detect_live import detect_drowsiness
+from intelligence.drowsiness_detection.detect_live import DrowsinessDetector
 
 router = APIRouter()
 
@@ -143,12 +143,15 @@ async def get_user_car(email: str):
 
 
 # Drowsiness detection for a user
-@ router.post("/face/drowsy/start", response_description="Drowsiness monitoring for the user")
+@ router.get("/face/drowsy/start", response_description="Drowsiness monitoring for the user")
 async def start_drowsiness_detection(background_tasks: BackgroundTasks):
-    background_tasks.add_task(detect_drowsiness, True)
+    drowsy = DrowsinessDetector()
+    background_tasks.add_task(drowsy.start_monitoring())
     return("Drowsiness monitoring ON")
 
 
-@ router.post("/face/drowsy/stop", response_description="Drowsiness monitoring for the user")
-async def stop_drowsiness_detection():
+@ router.get("/face/drowsy/stop", response_description="Drowsiness monitoring for the user")
+async def stop_drowsiness_detection(background_tasks: BackgroundTasks):
+    drowsy = DrowsinessDetector()
+    background_tasks.add_task(drowsy.stop_monitoring())
     return("Drowsiness monitoring OFF")
