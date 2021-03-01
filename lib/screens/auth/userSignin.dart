@@ -2,6 +2,7 @@ import 'package:drivably_app/routes/routing.dart';
 import 'package:drivably_app/screens/dashboard/dashboard.dart';
 import 'package:drivably_app/services/api/client.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UserSigninScreen extends StatefulWidget {
   @override
@@ -172,8 +173,9 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
                           await _service.signInUser(email, password);
                       print(result);
                       if (result != "PASS") {
-                        //TODO:Added Tost here
-                        //Message: {$result}
+                        Get.snackbar("Error", "$result",
+                            backgroundColor: Colors.white,
+                            colorText: Colors.black);
                       } else {
                         removeUntil(context, DashboardScreen());
                       }

@@ -2,6 +2,7 @@ import 'package:drivably_app/screens/camera/camera.dart';
 import 'package:drivably_app/services/api/client.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CarSignupScreen extends StatefulWidget {
   @override
@@ -93,8 +94,7 @@ class _CarSignupScreenState extends State<CarSignupScreen> {
 
               dynamic result = await services.addCarData(plateNumber, name);
               if (result != "PASS") {
-                //TODO: Add tost
-                //message: result
+                Get.snackbar("Error", "$result",backgroundColor: Colors.white,colorText: Colors.black);
               } else {
                 Navigator.push(
                   context,

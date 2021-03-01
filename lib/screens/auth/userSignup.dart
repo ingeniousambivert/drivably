@@ -4,6 +4,7 @@ import 'package:drivably_app/services/api/client.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/route_manager.dart';
 
 class UserSignupScreen extends StatefulWidget {
   const UserSignupScreen({Key key}) : super(key: key);
@@ -170,8 +171,7 @@ class _UserSignupScreenState extends State<UserSignupScreen> {
 
                           print(result);
                           if (result != "PASS") {
-                            //TODO:Added Tost here
-                            //Message: {$result}
+                            Get.snackbar("Error", "$result",backgroundColor: Colors.white,colorText: Colors.black);
                           } else {
                             pushToNext(context, CarSignupScreen());
                           }
