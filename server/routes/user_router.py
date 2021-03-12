@@ -1,3 +1,4 @@
+import redis
 from fastapi import status, BackgroundTasks
 from server.services.users.model.user_model import (
     ErrorResponseModel,
@@ -17,9 +18,10 @@ from fastapi import Body, APIRouter, File, UploadFile
 from server.utils.helpers import (
     save_upload_file, KNOWN_DATASET_PATH, remove_file)
 from intelligence.facial_recognition.helpers import detect_face
-from intelligence.drowsiness_detection.detect_live import DrowsinessDetector
+from intelligence.drowsiness_detection.detect_live import drowsiness_detector
 
 router = APIRouter()
+client = redis.StrictRedis(host="localhost", port=6379, db=0)
 
 
 # GET all users
@@ -143,15 +145,21 @@ async def get_user_car(email: str):
 
 
 # Drowsiness detection for a user
+
+data = {"key": "user",
+        "value": "john"}
+
+
 @ router.get("/face/drowsy/start", response_description="Drowsiness monitoring for the user")
 async def start_drowsiness_detection(background_tasks: BackgroundTasks):
-    drowsy = DrowsinessDetector()
-    background_tasks.add_task(drowsy.start_monitoring())
+    client.set(data["key"], data["value"])
+    background_tasks.add_task(drowsiness_detector(data["key"]))
+
     return("Drowsiness monitoring ON")
 
 
 @ router.get("/face/drowsy/stop", response_description="Drowsiness monitoring for the user")
-async def stop_drowsiness_detection(background_tasks: BackgroundTasks):
-    drowsy = DrowsinessDetector()
-    background_tasks.add_task(drowsy.stop_monitoring())
+async def stop_drowsiness_detection():
+    client.delete(data["key"])
+
     return("Drowsiness monitoring OFF")
