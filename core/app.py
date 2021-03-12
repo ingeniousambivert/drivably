@@ -9,7 +9,7 @@ from server.utils.config import configured
 
 token_listener = JWTBearer()
 
-app = FastAPI(openapi_url=configured.openapi_url)
+app = FastAPI(openapi_url=configured.openapi_url, title='Drivably')
 
 ''' To disable the docs in the server set the OpenAPI Url env as an empty string : 
 OPENAPI_URL= python main.py '''
