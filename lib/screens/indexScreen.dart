@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:key_app/camera/camera.dart';
 import 'package:key_app/services/clint.dart';
 import 'package:key_app/utils/const.dart';
 
@@ -167,9 +168,18 @@ class _IndexScreenState extends State<IndexScreen> {
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            print(signInEmail + signInPassword);
-                            await _service.signInUser(
+                            dynamic result = await _service.signInUser(
                                 signInEmail, signInPassword);
+
+                            if (result != "PASS") {
+                              print(result);
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CameraScreen()),
+                              );
+                            }
                           }
                         },
                       ),
