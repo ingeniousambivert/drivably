@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 setTokenAndId(token) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString('accessToken', token);
-  print("Token set, ID set");
+  print("Token set");
 }
 
 setCarNumber(number) async {
@@ -12,15 +12,21 @@ setCarNumber(number) async {
   print("Number set");
 }
 
+setOwnerEmail(email) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('email', email);
+  print("owner's email set");
+}
+
 Future<String> getToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String stringValue = prefs.getString('accessToken');
   return stringValue;
 }
 
-Future<String> getId() async {
+Future<String> getEmail() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String stringValue = prefs.getString('userId');
+  String stringValue = prefs.getString('email');
   return stringValue;
 }
 

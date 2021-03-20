@@ -49,6 +49,7 @@ class DashboardScreenState extends State<DashboardScreen> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: false,
+        showSelectedLabels: false,
         currentIndex: _selectedIndex,
         onTap: (value) {
           setState(() {

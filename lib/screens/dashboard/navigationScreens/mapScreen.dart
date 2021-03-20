@@ -1,6 +1,12 @@
+import 'package:drivably_app/services/api/client.dart';
+import 'package:drivably_app/utils/classes/car.dart';
+import 'package:drivably_app/utils/storage/localStorage.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import '../../../utils/constants/consts.dart';
+import 'package:dio/dio.dart';
+import 'dart:async';
+import 'dart:convert';
 
 final LatLngBounds sydneyBounds = LatLngBounds(
   southwest: const LatLng(-34.022631, 150.620685),
@@ -15,12 +21,54 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  String licenseNumber = "12345";
+  Dio dio = new Dio();
+
+  String name = "", plateNumber = "xx00xx0000";
+
+  Future getData() async {
+    String _token, _email;
+    await getToken().then((value) {
+      _token = value;
+    });
+
+    Response response = await dio.get(
+      "$baseUrl/user/car/?email=zinzuvadiyameet98%40gmail.com",
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $_token',
+        },
+      ),
+    );
+
+    _email = response.data['data'][0]['owner_email'];
+
+    var response1 = await dio.get(
+      "$baseUrl/user/$_email",
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $_token',
+        },
+      ),
+    );
+
+    setState(() {
+      name = response1.data['data']['name'];
+      plateNumber = response.data['data'][0]['car_license'];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getData();
+  }
+
   static final CameraPosition _kInitialPosition = const CameraPosition(
     target: LatLng(23.0225, 72.5713),
     zoom: 11.0,
   );
   MapboxMapController mapController;
+
   // ignore: unused_field
   CameraPosition _position = _kInitialPosition;
   // ignore: unused_field
@@ -39,15 +87,6 @@ class _MapScreenState extends State<MapScreen> {
   // ignore: unused_field
   List<Object> _featureQueryFilter;
   // Fill _selectedFill;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // getCarNumber().then((value) {
-    //   licenseNumber = value;
-    // });
-  }
 
   void _onMapChanged() {
     setState(() {
@@ -93,40 +132,66 @@ class _MapScreenState extends State<MapScreen> {
       //       "new location: ${location.position}, alt.: ${location.altitude}, bearing: ${location.bearing}, speed: ${location.speed}, horiz. accuracy: ${location.horizontalAccuracy}, vert. accuracy: ${location.verticalAccuracy}");
       // },
     );
+
+    APIServices _services = APIServices();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("xx 00 xx 0000"),
+        title: Text(plateNumber),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Hi John !",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.black,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: CircleAvatar(
+                      radius: 30,
+                    ),
+                    flex: 1,
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Hello, ${name[0].toUpperCase()}${name.substring(1)}",
+                          style: TextStyle(
+                            fontSize: 19,
+                            color: Color(0xff000B22),
+                          ),
+                        ),
+                        Text(
+                          "Welcome back to your account",
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xffB0B3BA),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Text(
-              "Good Morning",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.black,
+              SizedBox(height: 20),
+              Container(
+                height: MediaQuery.of(context).size.height / 1.5,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: mapboxMap,
               ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              height: 350.0,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: mapboxMap,
-            ),
-          ],
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

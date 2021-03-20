@@ -167,7 +167,6 @@ class _UserSigninScreenState extends State<UserSigninScreen> {
                   ),
                   minWidth: MediaQuery.of(context).size.width,
                   onPressed: () async {
-                    print(email + password);
                     if (_formKey.currentState.validate()) {
                       dynamic result =
                           await _service.signInUser(email, password);

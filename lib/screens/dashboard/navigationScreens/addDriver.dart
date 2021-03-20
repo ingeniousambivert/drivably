@@ -1,8 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:drivably_app/routes/routing.dart';
 import 'package:drivably_app/screens/camera/camera.dart';
 import 'package:drivably_app/services/api/client.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
+import 'package:drivably_app/utils/storage/localStorage.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class DriverScreen extends StatefulWidget {
   const DriverScreen({Key key}) : super(key: key);
@@ -13,17 +16,35 @@ class DriverScreen extends StatefulWidget {
 
 class _DriverScreenState extends State<DriverScreen> {
   APIServices _services = APIServices();
+  List userData;
+
+  Dio dio = Dio();
+
+  Future getDriverData() async {
+    tempDriverEmail = [];
+    await _services.getDrivers();
+    String _token;
+    await getToken().then((value) {
+      _token = value;
+    });
+
+    for (var doc in tempDriverEmail) {
+      var response = await http.get(
+        Uri.encodeFull("$baseUrl/user/$doc"),
+        headers: {
+          'Authorization': 'Bearer $_token',
+        },
+      );
+
+      print("Updated");
+      print(response.body);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    resetArray();
-    _services.getDrivers();
-  }
-
-  resetArray() {
-    setState(() {
-      tempDriverEmail = [];
-    });
+    this.getDriverData();
   }
 
   @override
@@ -41,10 +62,8 @@ class _DriverScreenState extends State<DriverScreen> {
             child: MaterialButton(
               color: Colors.blueGrey,
               onPressed: () {
-                print(tempDriverEmail);
-                _services.getUserData().then((value) {
-                  print(value);
-                });
+                print(tempUserData);
+                _services.getUserData();
               },
               child: Text(
                 "Get Data",
@@ -53,6 +72,7 @@ class _DriverScreenState extends State<DriverScreen> {
             ),
           ),
         ),
+
         // child: FutureBuilder<List<UserData>>(
         //   future: _services.getUserData(),
         //   builder: (context, snapshot) {

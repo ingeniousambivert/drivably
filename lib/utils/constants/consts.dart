@@ -28,12 +28,45 @@ TextStyle signUpTextStyle() {
   );
 }
 
+Card makeDashboardItem(String title, IconData icon) {
+  return Card(
+      elevation: 1.0,
+      margin: new EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
+        child: new InkWell(
+          onTap: () {},
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            verticalDirection: VerticalDirection.down,
+            children: <Widget>[
+              SizedBox(height: 50.0),
+              Center(
+                  child: Icon(
+                icon,
+                size: 40.0,
+                color: Colors.black,
+              )),
+              SizedBox(height: 20.0),
+              new Center(
+                child: new Text(title,
+                    style: new TextStyle(fontSize: 18.0, color: Colors.black)),
+              )
+            ],
+          ),
+        ),
+      ));
+}
+
 showPassword(bool pswdState) {
   if (pswdState == true) {}
 }
 
 List<String> driverEmail = [];
 List<String> tempDriverEmail = [];
+List<String> tempUserData = [];
+List<String> carData = [];
 
 String signUpName,
     signUpEmail,
@@ -46,11 +79,12 @@ String accessToken;
 String setLicense;
 
 //  Meet Local
-// final baseUrl = 'http://192.168.43.180:8008';
+final baseUrl = 'http://192.168.16.114:8008';
 
 // Aditya Local
-final baseUrl = "http://192.168.1.9:8008";
+// final baseUrl = "http://192.168.1.9:8008";
 List<String> driversList;
+
 // MapBox Access Token
 // ignore: non_constant_identifier_names
 final String ACCESS_TOKEN =
