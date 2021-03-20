@@ -41,6 +41,7 @@ class APIServices {
         return (response.data['message']);
       } else {
         setTokenAndId(response.data['access_token']);
+        setOwnerEmail(email);
         return "PASS";
       }
     } catch (e) {
@@ -63,6 +64,7 @@ class APIServices {
         return (response.data['message']);
       } else {
         setTokenAndId(response.data['access_token']);
+        setOwnerEmail(email);
         return "PASS";
       }
     } catch (e) {
@@ -83,7 +85,6 @@ class APIServices {
       );
 
       setDriveInCarObject(email);
-
       print(response);
     } catch (e) {
       print(e);

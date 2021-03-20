@@ -23,7 +23,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   Dio dio = new Dio();
 
-  String name = "", plateNumber = "xx00xx0000";
+  String name = " ", plateNumber = "xx00xx0000";
 
   Future getData() async {
     String _token, _email;
@@ -31,8 +31,13 @@ class _MapScreenState extends State<MapScreen> {
       _token = value;
     });
 
+    await getEmail().then((value) {
+      _email = value;
+    });
+
+    String replaceEmail = _email.replaceAll('@', '%40');
     Response response = await dio.get(
-      "$baseUrl/user/car/?email=zinzuvadiyameet98%40gmail.com",
+      "$baseUrl/user/car/?email=$replaceEmail",
       options: Options(
         headers: {
           'Authorization': 'Bearer $_token',
