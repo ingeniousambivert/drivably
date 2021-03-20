@@ -12,15 +12,20 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   Dio dio = Dio();
-  String plateNumber, carName;
+  String plateNumber = "xx00xx0000", carName = "";
   Future getData() async {
     String _token, _email;
     await getToken().then((value) {
       _token = value;
     });
 
+    await getEmail().then((value) {
+      _email = value;
+    });
+
+    String replaceEmail = _email.replaceAll('@', '%40');
     Response response = await dio.get(
-      "$baseUrl/user/car/?email=zinzuvadiyameet98%40gmail.com",
+      "$baseUrl/user/car/?email=$replaceEmail",
       options: Options(
         headers: {
           'Authorization': 'Bearer $_token',
