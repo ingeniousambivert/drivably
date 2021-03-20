@@ -44,6 +44,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     // TODO: implement initState
     super.initState();
     this.getData();
+    // getCurrentLocation();
   }
 
   @override
@@ -100,6 +101,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ],
                 ),
               ),
+              // FlatButton(
+              //   color: Colors.white,
+              //   onPressed: (){
+              //     getCurrentLocation();
+              //   },
+              //    child: Text("Click")
+              //    ),
             ],
           ),
         ),

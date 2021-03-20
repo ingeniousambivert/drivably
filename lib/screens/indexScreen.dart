@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:key_app/camera/camera.dart';
 import 'package:key_app/services/clint.dart';
+import 'package:key_app/services/location_services.dart';
 import 'package:key_app/utils/const.dart';
 
 class IndexScreen extends StatefulWidget {
@@ -174,6 +176,7 @@ class _IndexScreenState extends State<IndexScreen> {
                             if (result != "PASS") {
                               print(result);
                             } else {
+                              getCurrentLocation();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

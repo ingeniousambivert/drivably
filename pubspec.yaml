@@ -23,19 +23,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # cupertino_icons: ^1.0.1
+  camera: ^0.5.8+2
   dio: ^3.0.10
-  shared_preferences: ^0.5.12+4
   path: ^1.6.4
   path_provider: ^1.6.11
-  camera: ^0.5.8+2
+  shared_preferences: ^0.5.12+4
+  geolocator: 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  # integration_test:
-  #   sdk: flutter
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
