@@ -5,7 +5,6 @@ import 'package:drivably_app/services/api/client.dart';
 import 'package:drivably_app/utils/constants/consts.dart';
 import 'package:drivably_app/utils/storage/localStorage.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class DriverScreen extends StatefulWidget {
   const DriverScreen({Key key}) : super(key: key);
@@ -16,9 +15,9 @@ class DriverScreen extends StatefulWidget {
 
 class _DriverScreenState extends State<DriverScreen> {
   APIServices _services = APIServices();
-  List userData;
-
+  var finalData = [];
   Dio dio = Dio();
+  var mapdata;
 
   Future getDriverData() async {
     tempDriverEmail = [];
@@ -29,22 +28,27 @@ class _DriverScreenState extends State<DriverScreen> {
     });
 
     for (var doc in tempDriverEmail) {
-      var response = await http.get(
-        Uri.encodeFull("$baseUrl/user/$doc"),
-        headers: {
-          'Authorization': 'Bearer $_token',
-        },
+      var response = await dio.get(
+        "$baseUrl/user/$doc",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $_token',
+          },
+        ),
       );
+      // print(response.data['data']);
+      var tempData = response.data['data'];
+      mapdata = tempData;
+      finalData.add(mapdata);
+      print(mapdata);
 
-      print("Updated");
-      print(response.body);
+      // userData.addAll(response.data['data']);
     }
   }
 
   @override
   void initState() {
     super.initState();
-    this.getDriverData();
   }
 
   @override
@@ -57,48 +61,49 @@ class _DriverScreenState extends State<DriverScreen> {
         backgroundColor: Colors.black,
       ),
       body: SafeArea(
-        child: Container(
-          child: Center(
-            child: MaterialButton(
-              color: Colors.blueGrey,
-              onPressed: () {
-                print(tempUserData);
-                _services.getUserData();
-              },
-              child: Text(
-                "Get Data",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
+        child: FutureBuilder(
+          future: this.getDriverData(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            return !snapshot.hasData
+                ? ListView.builder(
+                    itemCount: finalData.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(finalData[index]['name'].toString()),
+                        subtitle: Text(finalData[index]['email'].toString()),
+                      );
+                    },
+                  )
+                : Center(child: CircularProgressIndicator());
+          },
         ),
-
-        // child: FutureBuilder<List<UserData>>(
-        //   future: _services.getUserData(),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.hasError) print(snapshot.error);
-
-        //     return snapshot.hasData
-        //         ? ListView.builder(
-        //             itemCount: snapshot.data.length,
-        //             itemBuilder: (context, index) {
-        //               var doc = snapshot.data[index];
-
-        //               return Card(
-        //                 color: Colors.white,
-        //                 child: Column(children: [
-        //                   ListTile(
-        //                     tileColor: Colors.white,
-        //                     title: Text(doc.email),
-        //                   ),
-        //                 ]),
-        //               );
-        //             },
-        //           )
-        //         : Center(child: CircularProgressIndicator());
-        //   },
-        // ),
       ),
+
+      // child: FutureBuilder<List<UserData>>(
+      //   future: _services.getUserData(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasError) print(snapshot.error);
+
+      //     return snapshot.hasData
+      //         ? ListView.builder(
+      //             itemCount: snapshot.data.length,
+      //             itemBuilder: (context, index) {
+      //               var doc = snapshot.data[index];
+
+      //               return Card(
+      //                 color: Colors.white,
+      //                 child: Column(children: [
+      //                   ListTile(
+      //                     tileColor: Colors.white,
+      //                     title: Text(doc.email),
+      //                   ),
+      //                 ]),
+      //               );
+      //             },
+      //           )
+      //         : Center(child: CircularProgressIndicator());
+      //   },
+      // ),
       floatingActionButton: FloatingActionButton.extended(
         label: Text("Add driver"),
         icon: Icon(Icons.add),

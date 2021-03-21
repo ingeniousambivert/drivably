@@ -1,12 +1,11 @@
 import 'package:drivably_app/services/api/client.dart';
-import 'package:drivably_app/utils/classes/car.dart';
+
 import 'package:drivably_app/utils/storage/localStorage.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import '../../../utils/constants/consts.dart';
 import 'package:dio/dio.dart';
 import 'dart:async';
-import 'dart:convert';
 
 final LatLngBounds sydneyBounds = LatLngBounds(
   southwest: const LatLng(-34.022631, 150.620685),
@@ -44,6 +43,8 @@ class _MapScreenState extends State<MapScreen> {
         },
       ),
     );
+
+    print(response.data);
 
     _email = response.data['data'][0]['owner_email'];
 
