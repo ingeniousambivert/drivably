@@ -1,5 +1,5 @@
 import redis
-from fastapi import status, BackgroundTasks
+from fastapi import status
 from server.services.users.model.user_model import (
     ErrorResponseModel,
     ResponseModel,
@@ -146,20 +146,23 @@ async def get_user_car(email: str):
 
 # Drowsiness detection for a user
 
-data = {"key": "user",
-        "value": "john"}
-
 
 @ router.get("/face/drowsy/start", response_description="Drowsiness monitoring for the user")
-async def start_drowsiness_detection(background_tasks: BackgroundTasks):
+def start_drowsiness_detection(email: str):
+    data = {"key": "email",
+            "value": email}
+
     client.set(data["key"], data["value"])
-    background_tasks.add_task(drowsiness_detector(data["key"]))
+    drowsiness_detector(data["key"])
 
     return("Drowsiness monitoring ON")
 
 
 @ router.get("/face/drowsy/stop", response_description="Drowsiness monitoring for the user")
-async def stop_drowsiness_detection():
+def stop_drowsiness_detection(email: str):
+    data = {"key": "email",
+            "value": email}
+
     client.delete(data["key"])
 
     return("Drowsiness monitoring OFF")

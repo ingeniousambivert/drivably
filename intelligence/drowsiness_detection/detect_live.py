@@ -16,10 +16,8 @@ def eye_aspect_ratio(eye):
     return ear
 
 
-def drowsiness_detector(Key):
-
-    monitor = True if client.get(Key) else False
-    if monitor:
+def drowsiness_detector(key):
+    if client.get(key):
         print("Monitoring Started")
 
     thresh = 0.25
@@ -34,7 +32,7 @@ def drowsiness_detector(Key):
     cap = cv2.VideoCapture(0)
     flag = 0
 
-    while monitor:
+    while client.get(key):
         ret, frame = cap.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         subjects = detect(gray, 0)
