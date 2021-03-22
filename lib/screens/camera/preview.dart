@@ -47,9 +47,14 @@ class _PreviewScreenState extends State<PreviewScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _services.setDriver(widget.imgPath.toString());
+        onPressed: () async {
+          String result = await _services.setDriver(widget.imgPath.toString());
+          print(result);
           removeUntil(context, DashboardScreen());
+          // if(result == '200'){
+          // }
+          // else{
+          // }
         },
         child: Icon(
           Icons.arrow_right,

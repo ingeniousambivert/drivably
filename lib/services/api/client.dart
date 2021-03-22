@@ -91,31 +91,6 @@ class APIServices {
     }
   }
 
-  Future<List<CarData>> getCarData() async {
-    String _token, _email;
-    await getToken().then((value) {
-      _token = value;
-    });
-    await getEmail().then((value) {
-      _email = value;
-    });
-
-    Response response = await dio.get(
-      "$baseUrl/user/car/?email=zinzuvadiyameet98%40gmail.com",
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $_token',
-        },
-      ),
-    );
-
-    // print(response.data['data'][0]);
-
-    return (response.data['data'] as List)
-        .map((p) => CarData.fromJson(p))
-        .toList();
-  }
-
   Future setDriveInCarObject(email) async {
     String licenseNumber = "GJ33BL9898", _token;
     await getToken().then((value) {
@@ -156,7 +131,7 @@ class APIServices {
       ),
       data: formData,
     );
-    print(response);
+    return response.data['status'].toString();
   }
 
   Future getDrivers() async {
@@ -181,53 +156,6 @@ class APIServices {
     } catch (e) {
       print(e);
     }
-  }
-
-  // ignore: missing_return
-  Future<String> getUserData() async {
-    tempDriverEmail = [];
-    await getDrivers();
-    print(tempDriverEmail);
-    String _token;
-    await getToken().then((value) {
-      _token = value;
-    });
-
-    for (var doc in tempDriverEmail) {
-      Response response = await dio.get(
-        "$baseUrl/user/$doc",
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $_token',
-          },
-        ),
-      );
-      print(response.data['data']);
-    }
-    // print(response.data['data']);
-    // for (var doc in tempDriverEmail) {
-    //   String _token;
-    //   await getToken().then((value) {
-    //     _token = value;
-    //   });
-
-    //   try {
-    //     Response response = await dio.get(
-    //       "$baseUrl/user/$doc",
-    //       options: Options(
-    //         headers: {
-    //           'Authorization': 'Bearer $_token',
-    //         },
-    //       ),
-    //     );
-    //     // print(response.data['data']);
-    //     return (response.data['data'] as List)
-    //         .map((p) => UserData.fromJson(p))
-    //         .toList();
-    //   } catch (e) {
-    //     print(e);
-    //   }
-    // }
   }
 
   Future addCarData(plate, name) async {
