@@ -4,7 +4,7 @@ Software Development Project - TY BCA - GLS
 
 ## RasPi Client
 
->Raspberry Pi Clientfor Drivably
+>Raspberry Pi Client for Drivably
 
 ## Getting Started
 
@@ -41,4 +41,3 @@ Getting up and running is simple.
     ```bash
     python main.py
     ```
-
