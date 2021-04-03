@@ -1,40 +1,44 @@
 # Drivably - Car Safety Assistant with IoT
-Software Development Project - TY BCA - GLS 
 
-[Documentation](https://docs.google.com/document/d/1x1UO4qixu3agEuyd0DjvhxfHhT1m4Ka7UGL-Xs9vXtQ/edit?ts=5f9a4460#)
+Software Development Project - TY BCA - GLS
 
-Every **module** of the project has its own branch. 
+## RasPi Client
 
- **Main** branch is for documentation only.
- 
- **Server**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git 
-    git checkout server 
-```
+>Raspberry Pi Clientfor Drivably
 
- **Drowsiness Detection**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git 
-    git checkout drowsiness-detection 
-```
+## Getting Started
 
- **Facial Recognition**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git
-    git checkout facial-recognition 
-```
+Getting up and running is simple.
 
- **Admin App**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git 
-    git checkout admin-app 
-```
+1. Make sure you have [Python3](https://www.python.org/), [pip](https://pip.pypa.io/en/stable/) installed.
 
- **Key App**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git
-    git checkout key-app 
-```
+2. Create a vitual environment for the client.
 
+    ```bash
+    python -m venv drivablyEnv
+    source ./drivablyEnv/bin/activate
+    ```
+
+3. Install your dependencies.
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. Configuring the server with environment variables
+    - Create a `.env` file in the root
+    - Add the following lines to it (modify according to your environment/requirements)
+
+    ```env
+    # configure your auth details here
+    AUTH_USERNAME=username/email
+    AUTH_PASSWORD=password
+    BASE_URL=localhost/remote URL
+    ```
+
+5. Execute the client.
+
+    ```bash
+    python main.py
+    ```
 
