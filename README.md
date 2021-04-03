@@ -37,4 +37,10 @@ Every **module** of the project has its own branch.
     git checkout key-app 
 ```
 
+ **Raspberry Pi Client**
+ ```bash
+    git clone https://github.com/ingeniousambivert/drivably.git
+    git checkout raspi-client
+```
+
 
