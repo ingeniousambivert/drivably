@@ -1,4 +1,4 @@
-from utils.client import(httpClient, redisClient)
+from utils.client import(httpClient, httpError, redisClient)
 
 
 def authenticate_user(data):
@@ -7,8 +7,9 @@ def authenticate_user(data):
         token = response.json()["access_token"]
         auth_data = {"key": "access_token", "value": token}
         redisClient.set(auth_data["key"], auth_data["value"])
-    except:
-        print("An error occurred: authentication")
+        response.raise_for_status()
+    except httpError as exc:
+        print(f"HTTP Exception for {exc.request.url} - {exc}")
 
     finally:
         httpClient.close()
