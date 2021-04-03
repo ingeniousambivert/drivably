@@ -1,15 +1,16 @@
-import httpx
-from utils.config import (BASE_URL)
 
-client = httpx.Client()
+from utils.config import (BASE_URL)
+from utils.client import(httpClient, redisClient)
 
 
 def authenticate_user(data):
     try:
-        r = client.post(f"{BASE_URL}/owner/signin", json=data)
-        print(r.json())
+        response = httpClient.post(f"{BASE_URL}/owner/signin", json=data)
+        token = response.json()["access_token"]
+        auth_data = {"key": "access_token", "value": token}
+        redisClient.set(auth_data["key"], auth_data["value"])
     except:
-        print("An error occurred")
+        print("An error occurred: authentication")
 
     finally:
-        client.close()
+        httpClient.close()
