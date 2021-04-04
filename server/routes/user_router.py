@@ -1,4 +1,3 @@
-import redis
 from fastapi import status
 from server.services.users.model.user_model import (
     ErrorResponseModel,
@@ -17,11 +16,11 @@ from database.users.user_controller import (
 from fastapi import Body, APIRouter, File, UploadFile
 from server.utils.helpers import (
     save_upload_file, KNOWN_DATASET_PATH, remove_file)
+from server.utils.client import redisClient
 from intelligence.facial_recognition.helpers import detect_face
 from intelligence.drowsiness_detection.detect_live import drowsiness_detector
 
 router = APIRouter()
-client = redis.StrictRedis(host="localhost", port=6379, db=0)
 
 
 # GET all users
@@ -146,13 +145,12 @@ async def get_user_car(email: str):
 
 # Drowsiness detection for a user
 
-
 @ router.get("/face/drowsy/start", response_description="Drowsiness monitoring for the user")
 def start_drowsiness_detection(email: str):
     data = {"key": "email",
             "value": email}
 
-    client.set(data["key"], data["value"])
+    redisClient.set(data["key"], data["value"])
     drowsiness_detector(data["key"])
 
     return("Drowsiness monitoring ON")
@@ -163,6 +161,6 @@ def stop_drowsiness_detection(email: str):
     data = {"key": "email",
             "value": email}
 
-    client.delete(data["key"])
+    redisClient.delete(data["key"])
 
     return("Drowsiness monitoring OFF")

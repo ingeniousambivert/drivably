@@ -1,11 +1,9 @@
 import dlib
-import redis
 import cv2
 from scipy.spatial import distance
 from imutils import face_utils
+from server.utils.client import redisClient
 
-
-client = redis.StrictRedis(host="localhost", port=6379, db=0)
 
 
 def eye_aspect_ratio(eye):
@@ -17,7 +15,7 @@ def eye_aspect_ratio(eye):
 
 
 def drowsiness_detector(key):
-    if client.get(key):
+    if redisClient.get(key):
         print("Monitoring Started")
 
     thresh = 0.25
@@ -32,7 +30,7 @@ def drowsiness_detector(key):
     cap = cv2.VideoCapture(0)
     flag = 0
 
-    while client.get(key):
+    while redisClient.get(key):
         ret, frame = cap.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         subjects = detect(gray, 0)
