@@ -35,7 +35,7 @@ async def get_cars():
 
 
 # GET a car
-@router.get("/{license}", response_description="car data retrieved")
+@router.get("/{license_number}", response_description="car data retrieved")
 async def get_car_data(license_number: str):
     car = await retrieve_car(license_number)
     if car:
@@ -72,7 +72,7 @@ async def add_car_data(car: CarSchema = Body(...)):
 
 
 # UPDATE a car
-@router.put("/{license}", response_description="car data updated")
+@router.put("/{license_number}", response_description="car data updated")
 async def update_car_data(license_number: str, data: UpdateCarModel = Body(...)):
     data = {key: value for key, value in data.dict().items()
             if value is not None}
@@ -89,7 +89,7 @@ async def update_car_data(license_number: str, data: UpdateCarModel = Body(...))
 
 
 # Add a car's drivers
-@router.put("/driver/{license}", response_description="car driver added")
+@router.put("/driver/{license_number}", response_description="car driver added")
 async def add_car_driver_data(license_number: str, car_driver: str):
 
     updated_car = await add_car_driver(license_number, car_driver)
@@ -106,7 +106,7 @@ async def add_car_driver_data(license_number: str, car_driver: str):
 
 
 # UPDATE a car's attributes
-@router.put("/attribute/{license}", response_description="car attribute updated")
+@router.put("/attribute/{license_number}", response_description="car attribute updated")
 async def update_car_attributes(license_number: str, car_attribute: str, car_attribute_data: Dict = Body(...)):
     car_attribute_data = {key: value for key, value in car_attribute_data.items()
                           if value is not None}
@@ -124,7 +124,7 @@ async def update_car_attributes(license_number: str, car_attribute: str, car_att
 
 
 # Delete a car's drivers
-@router.delete("/driver/{license}", response_description="car driver deleted")
+@router.delete("/driver/{license_number}", response_description="car driver deleted")
 async def remove_car_driver_data(license_number: str, car_driver: str):
 
     updated_car = await remove_car_driver(license_number, car_driver)
@@ -141,7 +141,7 @@ async def remove_car_driver_data(license_number: str, car_driver: str):
 
 
 # DELETE a car
-@router.delete("/{license}", response_description="car data deleted from the database")
+@router.delete("/{license_number}", response_description="car data deleted from the database")
 async def delete_car_data(license_number: str):
     deleted_car = await delete_car(license_number)
     if deleted_car:
