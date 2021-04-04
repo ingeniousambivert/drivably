@@ -27,7 +27,7 @@ Getting up and running is simple.
 
 4. Configuring the server with environment variables
     - Create a `.env` file in the root
-    - Add the following lines to it (modify according to your environment/needs)
+    - Add the following lines to it (modify according to your environment/requirements)
 
     ```env
      # configure your email host details here
