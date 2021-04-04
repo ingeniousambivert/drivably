@@ -2,6 +2,7 @@
 drivablyEnv/
 __pycache__
 routes/__pycache__/
+utils/__pycache__/
 
 # MISC
 .env
