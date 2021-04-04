@@ -9,4 +9,4 @@ redisClient = redis.StrictRedis(
 
 
 access_token = redisClient.get("access_token")
-auth_headers = {f"Authorization": "Bearer {access_token}"}
+auth_headers = {"Authorization": f"Bearer {access_token}"}
