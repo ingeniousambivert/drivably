@@ -8,8 +8,7 @@ def authenticate_user(data):
             response = client.post("/driver/signin", json=data)
             token = response.json()["access_token"]
             redisClient.set("access_token", token)
-            print("authenticate_user : {}".format(
-                response.status_code))
+            print(f"authenticate_user : {response.status_code}")
             response.raise_for_status()
         except httpError as exc:
             print(f"An error occured for {exc.request.url} - {exc}")

@@ -6,7 +6,7 @@ def update_car_attributes(license, data):
     try:
         if access_token is not None:
             response = httpClient.post(
-                "/car/attribute/{}".format(license), headers=auth_headers, json=data)
+                f"/car/attribute/{license}", headers=auth_headers, json=data)
             response.raise_for_status()
         else:
             print("User access token not found or expired")
