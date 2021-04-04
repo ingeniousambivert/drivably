@@ -1,5 +1,6 @@
-from utils.client import(httpClient, httpError,
-                         redisClient, auth_headers, access_token)
+from utils.client.http import (httpClient, httpError)
+from utils.client.redis import redisClient
+from utils.helpers import (access_token, auth_headers, content_headers)
 
 
 def authenticate_user(data):
@@ -14,14 +15,15 @@ def authenticate_user(data):
             print(f"An error occured for {exc.request.url} - {exc}")
 
 
-def get_users():
+def get_user(email):
     with httpClient as client:
         try:
             if access_token is not None:
-                response = client.get("/user/", headers=auth_headers)
+                response = client.get(
+                    f"/user/{email}", headers={**auth_headers, **content_headers})
                 print(response.json())
                 response.raise_for_status()
             else:
-                print("User access token not found or expired")
+                print("User access token not found")
         except httpError as exc:
             print(f"An error occured for {exc.request.url} - {exc}")
