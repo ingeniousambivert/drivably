@@ -1,15 +1,26 @@
-from utils.client import(httpClient, httpError, redisClient)
+from utils.client import(httpClient, httpError,
+                         redisClient, auth_headers, access_token)
 
 
 def authenticate_user(data):
     try:
-        response = httpClient.post("/owner/signin", json=data)
+        response = httpClient.post("/driver/signin", json=data)
         token = response.json()["access_token"]
-        auth_data = {"key": "access_token", "value": token}
-        redisClient.set(auth_data["key"], auth_data["value"])
+        redisClient.set("access_token", token)
+        print("Successfully authenticated user, STATUS:{}".format(
+            response.status_code))
         response.raise_for_status()
     except httpError as exc:
-        print(f"HTTP Exception for {exc.request.url} - {exc}")
+        print(f"An error occured for {exc.request.url} - {exc}")
 
-    finally:
-        httpClient.close()
+
+def get_users():
+    try:
+        if access_token is not None:
+            response = httpClient.get("/user/", headers=auth_headers)
+            print(response.json())
+            response.raise_for_status()
+        else:
+            print("User access token not found or expired")
+    except httpError as exc:
+        print(f"An error occured for {exc.request.url} - {exc}")
