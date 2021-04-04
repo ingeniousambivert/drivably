@@ -9,7 +9,7 @@ def update_car_attributes(license, data):
                 f"/car/attribute/{license}", headers={**auth_headers, **content_headers}, json=data)
             response.raise_for_status()
         else:
-            print("User access token not found or expired")
+            print("User access token not found")
     except httpError as exc:
         print(f"An error occured for {exc.request.url} - {exc}")
 

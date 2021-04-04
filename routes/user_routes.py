@@ -6,7 +6,8 @@ from utils.helpers import (access_token, auth_headers, content_headers)
 def authenticate_user(data):
     with httpClient as client:
         try:
-            response = client.post("/driver/signin", json=data)
+            response = client.post(
+                "/driver/signin",  headers={content_headers}, json=data)
             token = response.json()["access_token"]
             redisClient.set("access_token", token)
             print(f"authenticate_user : {response.status_code}")
