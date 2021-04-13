@@ -29,6 +29,8 @@ def drowsiness_detector(key):
     (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_68_IDXS["right_eye"]
     cap = cv2.VideoCapture(0)
     flag = 0
+    status = {"key": "drowsy",
+            "value": "ALERT"}
 
     while redisClient.get(key):
         ret, frame = cap.read()
@@ -44,11 +46,16 @@ def drowsiness_detector(key):
             ear = (leftEAR + rightEAR) / 2.0
             if ear < thresh:
                 flag += 1
-                print("Detecting - {}".format(flag))
                 if flag >= frame_check:
-                    print("ALERT - Drowsy")
-
+                    # print("ALERT - Drowsy")
+                    redisClient.set(status["key"], status["value"])
+                    print(redisClient.get(status["key"]))
+                else:
+                    redisClient.delete(status["key"])
+                    print("Detecting - {}".format(flag))
+                
             else:
                 flag = 0
     cap.release()
+    
     print("Monitoring Stopped")
