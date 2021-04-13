@@ -2,7 +2,7 @@ import dlib
 import cv2
 from scipy.spatial import distance
 from imutils import face_utils
-from server.utils.client import redisClient
+from server.utils.client.redis import redisClient
 
 
 

@@ -16,7 +16,7 @@ from database.users.user_controller import (
 from fastapi import Body, APIRouter, File, UploadFile
 from server.utils.helpers import (
     save_upload_file, KNOWN_DATASET_PATH, remove_file)
-from server.utils.client import redisClient
+from server.utils.client.redis import redisClient
 from intelligence.facial_recognition.helpers import detect_face
 from intelligence.drowsiness_detection.detect_live import drowsiness_detector
 
