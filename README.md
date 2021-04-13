@@ -1,48 +1,35 @@
 # Drivably - Car Safety Assistant with IoT
-Software Development Project - TY BCA - GLS 
 
-Drivably is a car safety system, it will facilitate the supply of essential safety features and assistance for car drivers. A smart module that can sufficiently control and increase the safety of any car.
+Software Development Project - TY BCA - GLS
 
-[Documentation](https://docs.google.com/document/d/1x1UO4qixu3agEuyd0DjvhxfHhT1m4Ka7UGL-Xs9vXtQ/edit?ts=5f9a4460#)
+## RasPi Bridge
 
-Every **module** of the project has its own branch. 
+>Raspberry Pi bridge for Arduino Uno
 
- **Main** branch is for documentation only.
- 
- **Server**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git 
-    git checkout server 
-```
+## Getting Started
 
- **Drowsiness Detection**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git 
-    git checkout drowsiness-detection 
-```
+Getting up and running is simple.
 
- **Facial Recognition**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git
-    git checkout facial-recognition 
-```
+1. Make sure you have [Python3](https://www.python.org/), [pip](https://pip.pypa.io/en/stable/) installed.
 
- **Admin App**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git 
-    git checkout admin-app 
-```
+2. Create a vitual environment for the client.
 
- **Key App**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git
-    git checkout key-app 
-```
+    ```bash
+    python -m venv drivablyEnv
+    source ./drivablyEnv/bin/activate
+    ```
 
- **Raspberry Pi Client**
- ```bash
-    git clone https://github.com/ingeniousambivert/drivably.git
-    git checkout raspi-client
-```
+3. Install your dependencies.
 
+    ```bash
+    pip install -r requirements.txt
+    ```
 
+4. Execute the bridge.
+
+    ```bash
+    python main.py
+    ```
+
+Note:
+Upload the Standard Firmata code to Arduino prior to testing the bridge.
