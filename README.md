@@ -45,4 +45,16 @@ Every **module** of the project has its own branch.
     git checkout raspi-client
 ```
 
+ **Raspberry Pi Bridge**
+ ```bash
+    git clone https://github.com/ingeniousambivert/drivably.git
+    git checkout raspi-bridge
+```
+
+ **Raspberry Pi Setup**
+ ```bash
+    git clone https://github.com/ingeniousambivert/drivably.git
+    git checkout raspi-setup
+```
+
 
