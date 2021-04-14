@@ -1,13 +1,22 @@
 from pyfirmata import Arduino, util
 import time
+import redis
+
+redisClient = redis.StrictRedis(
+    host="localhost", port=6379, charset="utf-8", decode_responses=True)
+
+status = {"key": "drowsy",
+          "value": "ALERT"}
 
 
 def test_led(board):
-    while True:
-        board.digital[2].write(1)
+    while redisClient.get(status["key"]):
+        board.digital[4].write(1)
+        board.digital[3].write(1)
         print("HIGH")
         time.sleep(1)
-        board.digital[2].write(0)
+        board.digital[4].write(0)
+        board.digital[3].write(0)
         print("LOW")
         time.sleep(1)
 
@@ -33,10 +42,18 @@ def start_accelerometer(board):
 
 
 if __name__ == '__main__':
-    board = Arduino("/dev/tty.usbmodem14201")
-    print(board)
+    board = None
+
+    board_type = input("Choose Mac - M | Raspberry Pi - P \n")
+
+    if board_type == "M" or board_type == "m":
+        board = Arduino("/dev/tty.usbmodem14201")
+
+    elif board_type == "P" or board_type == "p":
+        board = Arduino("/dev/ttyACM0")
+
     if board is not None:
-        print("Communication Successfully started")
+        print("Communication with Arduino successfully started")
 
         test_led(board)
 
