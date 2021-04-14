@@ -85,9 +85,9 @@ async def update_user_facial_data(email: str, image: UploadFile = File(...)):
     facial_data = save_upload_file(
         image, safe_file_name, known_dataset_path)
 
-    if not detect_face(facial_data["file_location"]):
-        remove_file(facial_data["file_location"])
-        return ErrorResponseModel("Face Not Found", status.HTTP_400_BAD_REQUEST, "Could not find a face in the uploaded image")
+    # if not detect_face(facial_data["file_location"]):
+    #     remove_file(facial_data["file_location"])
+    #     return ErrorResponseModel("Face Not Found", status.HTTP_400_BAD_REQUEST, "Could not find a face in the uploaded image")
 
     if facial_data:
         user_data["facial_data"] = facial_data["dir_location"]

@@ -5,7 +5,6 @@ from imutils import face_utils
 from server.utils.client.redis import redisClient
 
 
-
 def eye_aspect_ratio(eye):
     A = distance.euclidean(eye[1], eye[5])
     B = distance.euclidean(eye[2], eye[4])
@@ -30,7 +29,7 @@ def drowsiness_detector(key):
     cap = cv2.VideoCapture(0)
     flag = 0
     status = {"key": "drowsy",
-            "value": "ALERT"}
+              "value": "ALERT"}
 
     while redisClient.get(key):
         ret, frame = cap.read()
@@ -47,15 +46,14 @@ def drowsiness_detector(key):
             if ear < thresh:
                 flag += 1
                 if flag >= frame_check:
-                    # print("ALERT - Drowsy")
                     redisClient.set(status["key"], status["value"])
                     print(redisClient.get(status["key"]))
                 else:
                     redisClient.delete(status["key"])
                     print("Detecting - {}".format(flag))
-                
+
             else:
                 flag = 0
     cap.release()
-    
+
     print("Monitoring Stopped")

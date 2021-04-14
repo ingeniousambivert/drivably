@@ -32,10 +32,10 @@ def recognize(user, temp_user):
             unknown_image = face_recognition.load_image_file(
                 f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png")
 
-            if not detect_face(f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png"):
-                os.remove(
-                    f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png")
-                return ErrorResponseModel("Face Not Found", status.HTTP_400_BAD_REQUEST, "Could not find a face in the uploaded image")
+            # if not detect_face(f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png"):
+            #     os.remove(
+            #         f"{unknown_dataset_path}{temp_user}/{temp_user}_Face.png")
+            #     return ErrorResponseModel("Face Not Found", status.HTTP_400_BAD_REQUEST, "Could not find a face in the uploaded image")
 
             known_face_encoding = face_recognition.face_encodings(known_image)[
                 0]
