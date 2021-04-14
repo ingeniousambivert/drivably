@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:drivably_app/routes/routing.dart';
-import 'package:drivably_app/screens/dashboard/dashboard.dart';
 import 'package:drivably_app/services/api/client.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +48,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
         onPressed: () async {
           String result = await _services.setDriver(widget.imgPath.toString());
           print(result);
-          removeUntil(context, DashboardScreen());
+          // removeUntil(context, DashboardScreen());
           // if(result == '200'){
           // }
           // else{

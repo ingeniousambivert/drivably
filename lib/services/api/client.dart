@@ -111,15 +111,17 @@ class APIServices {
 
   Future setDriver(String file) async {
     String _email, _token;
+
     await getEmail().then((value) {
-      _email = value;
+      _email = value.replaceAll('@', '%40');
     });
+
     await getToken().then((value) {
       _token = value;
     });
 
     FormData formData = FormData.fromMap({
-      "image": await MultipartFile.fromFile(file),
+      "image": await MultipartFile.fromFile(file, filename: 'demo.jpg'),
     });
 
     Response response = await dio.put(
@@ -131,7 +133,7 @@ class APIServices {
       ),
       data: formData,
     );
-    return response.data['status'].toString();
+    return response.data['message'].toString();
   }
 
   Future getDrivers() async {
