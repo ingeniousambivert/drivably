@@ -54,18 +54,8 @@ if __name__ == '__main__':
 
     if board is not None:
         print("Communication with Arduino successfully started")
-
+        # start bridge methods here
         test_led(board)
-
-        # start_accelerometer(board)
-
-    # ask_accelerometer = input("Do you want to monitor your car's axis ? [Y/N]")
-
-    # if ask_accelerometer == "Y" or ask_accelerometer == "y":
-    #     print("Started monitoring accelerometer")
-    #     start_accelerometer(board)
-    # else:
-    #     print("Stopped monitoring accelerometer")
 
     else:
         print("Communication failed. Check connection")
