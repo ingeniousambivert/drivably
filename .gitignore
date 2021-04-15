@@ -1,11 +1,12 @@
 # PYTHON 
-drivablyEnv/
+*Env/
 __pycache__
 
 # MISC
 .env
 
 ### VSCODE FILES
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
