@@ -5,6 +5,8 @@ __pycache__
 # MISC
 .env
 
+intelligence/facial_recognition/dataset/*
+
 ### VSCODE FILES
 .vscode
 .vscode/*
